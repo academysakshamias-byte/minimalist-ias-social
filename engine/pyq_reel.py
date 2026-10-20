@@ -10,6 +10,8 @@ scene, look at them), gate.json, meta.json (Instagram caption draft + YouTube ti
 Optional spec keys for the text: "topic" ("Geography · critical minerals"), "hashtags" (≤ 5), "yt_tags".
 "bonus": {"id": "pre-2021-045", "short": "≤ 16-word faithful paraphrase"}: a related real Prelims PYQ (same topic, has an
 explanation) for the caption and YouTube description; its answer is on its page, so it brings a second comment and a visit.
+"hook_style": "question" | "split" | "trap" — which hook style this reel tests (CLAUDE.md "Learn from watch time");
+recorded in meta.json, not shown.
 "reply_right" (≤ 12 words: why the key is right) and "reply_trap" (≤ 14 words: the trap the wrong picks fell for): the
 comment auto-reply task answers every a/b/c/d comment with these (they are on-screen-grade lines: the reviewer checks them).
 "dm_word": one easy keyword from the topic (≤ 12 letters, e.g. "CONGO"): the reel ends "Comment CONGO → we DM you
@@ -348,7 +350,9 @@ def meta(spec):
     return {'ig_caption': ig[:2200], 'yt_title': yt_title, 'yt_description': yt_desc[:4900], 'yt_tags': yt_tags[:15],
             # comment replies (the auto-reply task): right answers get reply_right, wrong ones reply_trap + the keyword nudge
             'answer': key, 'reply_right': spec.get('reply_right', ''), 'reply_trap': spec.get('reply_trap', ''),
-            'dm_word': word, 'bonus_id': b.get('id', '') if bm else ''}
+            'dm_word': word, 'bonus_id': b.get('id', '') if bm else '',
+            # watch-time feedback: which hook style this reel tested (see CLAUDE.md "Learn from watch time")
+            'hook_style': spec.get('hook_style', '')}
 
 def build(spec, out, fast=False):
     from playwright.sync_api import sync_playwright
