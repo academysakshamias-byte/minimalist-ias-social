@@ -3,13 +3,16 @@
 usage: pyq_reel.py spec.json out_dir [--fast]      (--fast: gate + stills only, no video)
 The spec is the same spec.json as pyq_post.py (q, hook, aarav, priya, answer_head, verdicts, source, remember,
 trap, trap_who, method, extra[0] optional). Optional reel-only keys:
-  "reel_extra": true/false   include spec.extra[0] as one scene (default: true when present)
+  "reel_extra": true/false   include spec.extra[0] as one scene (default false: completion rate beats depth here)
   "seed": int                music variation (default: date digits)
 Writes: reel.mp4, cover.jpg (hook frame, for cover_url), story.jpg (9:16 'new reel' story), stills/*.jpg (one per
-scene, look at them), gate.json. Prints the gate: every scene must have minFs ≥ 26, no text outside the safe box
+scene, look at them), gate.json, meta.json (Instagram caption draft + YouTube title/description/tags).
+Optional spec keys for the text: "topic" ("Geography · critical minerals"), "hashtags" (≤ 5), "yt_tags". Prints the gate: every scene must have minFs ≥ 26, no text outside the safe box
 (x 140–920, y 300–1300), no overlapping text, and ≤ 45 content words (the verbatim question is exempt).
-Arc: hook on faces → verbatim question (pause-to-read timer) → Aarav's and Priya's picks → comment a/b/c/d →
-answer + reactions → option by option → [in the news] → the trap → remember + method → free explanation CTA.
+Arc (built for Reels/Shorts ranking: completion, replays, sends, saves): frame 0 = the full hook on two faces with
+"answer in N s" → verbatim question (timer, 3-2-1) → Aarav's and Priya's picks → comment a/b/c/d → answer +
+reactions → option by option → [in the news] → the trap → remember + method ("save this") → "send this to the friend
+who'd pick (x)" → last 0.6 s fade back to the hook frame so the loop is seamless.
 """
 import json, os, re, sys, html, shutil, subprocess, tempfile
 HERE = os.path.dirname(os.path.abspath(__file__)); ROOT = os.path.dirname(HERE)
@@ -63,6 +66,7 @@ em{font-style:italic;color:var(--gold)}
 #cp{right:10px}#cp img{right:0}
 #dim{position:absolute;inset:0;background:rgba(10,9,7,.82);opacity:0;z-index:5}
 /* hook */
+.chip{position:absolute;left:140px;top:0;padding:12px 22px;border-radius:999px;border:2px solid var(--gold);font:600 28px/1 var(--mono);letter-spacing:.06em;color:var(--gold);z-index:6}
 .hook{position:absolute;left:140px;width:780px;top:380px;margin:0;font:500 88px/1.04 var(--serif);color:var(--ivory);letter-spacing:-.01em;z-index:6}
 /* question */
 .qc{position:absolute;left:140px;width:780px;top:380px;background:var(--ivory);color:#16130e;border-radius:22px;padding:34px 36px 30px;z-index:6;box-shadow:0 30px 80px rgba(0,0,0,.55)}
@@ -148,24 +152,30 @@ def timeline(spec, split):
     t = spec['q']['t']; S = []; at = 0.0
     def add(sid, dur, **kw):
         nonlocal at; S.append(dict(id=sid, t0=round(at, 2), t1=round(at + dur, 2), **kw)); at += dur
-    add('hook', 3.0)
+    # Pacing for completion rate (the main Reels/Shorts signal): ~32–40 s, every beat ≤ 4.5 s except the question,
+    # which gets reading time by length (the timer + countdown keep people watching through it).
+    add('hook', 2.4)
     if split:
         wa, wb = qwords(t, 'a'), qwords(t, 'b')
-        add('qa', min(13.0, max(6.0, 3 + wa / 6)), q=True)
-        add('qb', min(9.0, max(5.0, 3 + wb / 6)), q=True)
+        add('qa', min(12.0, max(6.0, 2.5 + wa / 6)), q=True)
+        add('qb', min(8.0, max(4.5, 2.5 + wb / 6)), q=True)
     else:
-        add('q', min(16.0, max(7.0, 4 + qwords(t) / 6)), q=True)
-    add('pick', 4.2); add('cm', 2.6); add('rev', 3.6)
-    add('vd', 3.6 + 0.5 * len(spec['verdicts'][:4]))
+        add('q', min(14.0, max(6.5, 3 + qwords(t) / 6)), q=True)
+    add('pick', 3.8); add('cm', 2.2); add('rev', 3.2)
+    add('vd', 3.0 + 0.45 * len(spec['verdicts'][:4]))
     ex = (spec.get('extra') or [None])[0]
-    if ex and spec.get('reel_extra', True): add('ex', 3.6 + 0.5 * len(ex['points'][:4]))
-    add('trap', 4.2); add('rem', 4.2); add('cta', 4.0)
+    if ex and spec.get('reel_extra', False): add('ex', 3.2 + 0.45 * len(ex['points'][:4]))
+    add('trap', 3.6); add('rem', 3.6); add('cta', 3.6)
+    add('loop', 0.6)   # the last frames match the first, so the replay is seamless (replays count as watch time / views)
     return S, round(at, 2)
 
 def page(spec, split, story=False):
     e = html.escape; q = spec['q']; t = q['t']; A = spec['aarav']; Pr = spec['priya']; key = q['a']
     S, dur = timeline(spec, split)
     a_ok, p_ok = A['pick'] == key, Pr['pick'] == key
+    ans_in = int(round(next(s['t0'] for s in S if s['id'] == 'rev')))
+    trap_pick = A['pick'] if not a_ok else (Pr['pick'] if not p_ok else '')
+    send_h = (f'Send this to the friend who\'d pick <em>({trap_pick})</em>' if trap_pick else 'Send this to <em>your study partner</em>')
     if a_ok and p_ok: rcap = 'Both got it.'
     elif p_ok: rcap = '<b>Priya</b> got it.'
     elif a_ok: rcap = '<b>Aarav</b> got it.'
@@ -188,7 +198,7 @@ def page(spec, split, story=False):
     body = f'''<div class="glow"></div><div class="grain"></div>
 <div class="kick chrome" id="kick">{kick}</div>
 <div class="ch" id="ca">{imgs['aarav']}</div><div class="ch" id="cp">{imgs['priya']}</div><div id="dim"></div>
-<div class="sc" id="s-hook"><h1 class="hook t">{spec['hook']}</h1></div>
+<div class="sc" id="s-hook"><h1 class="hook t" id="hookh">{spec['hook']}</h1><div class="chip t chrome" id="hchip">Prelims {q['y']} · answer in {ans_in} s</div></div>
 {qh}
 <div class="timer" id="timer"><i id="tbar"></i></div><div class="cd" id="cd3">3</div><div class="cd" id="cd2">2</div><div class="cd" id="cd1">1</div>
 <div class="bub t" id="ba"><span class="nm">Aarav <b>({A['pick']})</b></span>{e(A['line'])}</div>
@@ -199,12 +209,12 @@ def page(spec, split, story=False):
 {exh}
 <div class="sc" id="s-trap"><div class="blk t"><div class="lab">The trap</div><div class="big">{e(spec['trap'])}</div></div></div>
 <div class="sc" id="s-rem"><div class="blk t"><div class="lab">Remember</div><div class="rem">{spec['remember']}</div><div class="lab">Method</div><div class="meth">{e(spec['method'])}</div></div></div>
-<div class="sc" id="s-cta"><div class="cta t">{LOGO_D}<h2>Every option, <em>explained free</em></h2><div class="url">minimalistias.com/pyq-today</div><p>Or comment <b style="color:var(--gold)">PYQ</b> and we'll send it.</p></div></div>
+<div class="sc" id="s-cta"><div class="cta t">{LOGO_D}<h2>{send_h}</h2><div class="url">minimalistias.com/pyq-today</div><p>Every option explained, free</p></div></div>
 {{caps_html}}
 <div class="storybar">New PYQ reel · on our profile</div>'''
     caps = {'hook': 'Can you solve this?', 'q': 'Pause. <b>Pick your answer.</b>', 'qa': 'Pause. <b>Read carefully.</b>',
             'qb': 'Now <b>pick your answer.</b>', 'pick': "Who's <b>right?</b>", 'cm': '', 'rev': rcap, 'vd': '', 'ex': '',
-            'trap': "Don't <b>fall for this.</b>", 'rem': 'Save this <b>for revision.</b>', 'cta': 'New PYQ <b>every evening.</b>'}
+            'trap': "Don't <b>fall for this.</b>", 'rem': 'Save this <b>for revision.</b>', 'cta': 'Follow for <b>tomorrow\'s PYQ.</b>', 'loop': ''}
     for s in S: s['cap'] = caps.get(s['id'], '')
     body = body.replace('{caps_html}', ''.join(f'<div class="cap" id="cap-{s["id"]}"><span>{s["cap"]}</span></div>' for s in S if s['cap']))
     js_cfg = json.dumps({'S': S, 'dur': dur, 'tw': tw, 'other': other,
@@ -222,10 +232,10 @@ gsap.set('#timer',{opacity:0});
 function cap(at,id,d){if(!$('#cap-'+id))return;TL.fromTo('#cap-'+id,{opacity:0,y:16},{opacity:1,y:0,duration:.25,ease:'power2.out'},at+.05).to('#cap-'+id,{opacity:0,duration:.18},at+d-.2)}
 function pose(who,name,at,pop=true){const box=who=='aarav'?'#ca':'#cp';TL.set(box+' img',{opacity:0},at);
   if(!name)return;TL.set(box+` img[data-p="${name}"]`,{opacity:1},at);if(pop)TL.fromTo(box+` img[data-p="${name}"]`,{y:30,scale:.97,transformOrigin:'50% 100%'},{y:0,scale:1,duration:.4,ease:'back.out(1.6)'},at)}
-function chars(at,a,p){pose('aarav',a,at);pose('priya',p,at)}
+function chars(at,a,p,pop=true){pose('aarav',a,at,pop);pose('priya',p,at,pop)}
 for(const s of C.S){const d=s.t1-s.t0, t0=s.t0;
   if(s.id!=='pick')show('#s-'+s.id,t0);
-  if(s.id==='hook'){chars(t0,C.pose.think.aarav,C.pose.think.priya);TL.from('#s-hook .hook',{opacity:0,y:30,duration:.5,ease:'power3.out'},t0+.15);
+  if(s.id==='hook'){chars(t0,C.pose.think.aarav,C.pose.think.priya,false);TL.set('#hchip',{top:()=>$('#hookh').offsetTop+$('#hookh').offsetHeight+30},0);
      TL.fromTo('#ca,#cp',{scale:1},{scale:1.03,duration:d,ease:'none',transformOrigin:'50% 0%'},t0)}
   if(s.q){chars(t0,null,null);TL.from('#s-'+s.id+' .qc',{y:60,opacity:0,duration:.45,ease:'power3.out'},t0);
      TL.set('#timer',{opacity:1},t0).fromTo('#tbar',{scaleX:1},{scaleX:0,duration:d,ease:'none'},t0).set('#timer',{opacity:0},s.t1);
@@ -242,11 +252,13 @@ for(const s of C.S){const d=s.t1-s.t0, t0=s.t0;
      $$('#expts .pt').forEach((r,i)=>TL.to(r,{opacity:1,duration:.3},t0+.5+i*.5))}
   if(s.id==='trap'){chars(t0,C.tw=='aarav'?C.pose.wrong.aarav:null,C.tw=='priya'?C.pose.wrong.priya:null);TL.from('#s-trap .blk',{opacity:0,y:30,duration:.4},t0+.1)}
   if(s.id==='rem'){chars(t0,C.other=='aarav'?C.pose.explain.aarav:null,C.other=='priya'?C.pose.explain.priya:null);TL.from('#s-rem .rem',{opacity:0,scale:.9,transformOrigin:'0 50%',duration:.4,ease:'back.out(1.5)'},t0+.1).from('#s-rem .meth',{opacity:0,y:20,duration:.35},t0+.9)}
+  if(s.id==='loop'){show('#s-hook',t0);chars(t0,C.pose.think.aarav,C.pose.think.priya,false);TL.set('#kick',{opacity:1},t0);TL.set('#ca,#cp',{scale:1},t0)}   // a cut to the exact frame-0 layout: the end→start join is invisible
   if(s.id==='cta'){chars(t0,C.pose.wave.aarav,C.pose.wave.priya);TL.set('#kick',{opacity:0},t0);TL.from('#s-cta .cta > *',{opacity:0,y:24,duration:.35,stagger:.15},t0+.1)}
   cap(t0,s.id,(s===C.S.filter(x=>x.q).slice(-1)[0])?d-3:d);
   if(s.id!=='pick')hide('#s-'+s.id,s.t1);
 }
 TL.set({}, {}, C.dur);
+TL.progress(1).seek(0.001);   // zero-time sets only apply once the playhead is past 0, so every seek is +1 ms: frame 0 = full hook
 window.TL=TL;
 """
     return f'''<!doctype html><html><head><meta charset="utf-8"><style>{CSS.replace('url(F/', 'url(file://' + FONTS + '/')}</style></head>
@@ -277,6 +289,32 @@ GATE_JS = """(S) => { const out = {};
     r.unsafe = [...new Set(r.unsafe)]; r.overlaps = [...new Set(r.overlaps)]; out[s.id] = r }
   return out }"""
 
+def meta(spec):
+    """Search-first text for both platforms (Instagram search reads captions more than hashtags; YouTube classifies a
+    Short by its title/description). Drafts: the run may edit them, but keep the keyword-first first line."""
+    q = spec['q']; t = q['t']; hook = re.sub(r'\s+', ' ', strip(spec['hook'])).strip()
+    stem = ' '.join(t['stem']); items = [f'{k}. {v}' for k, v in t.get('items', [])]
+    opts = [f'({k}) {v}' for k, v in t['options'].items()]
+    qtext = '\n'.join([stem] + items + t.get('prompt', []) + opts)
+    A, Pr = spec['aarav'], spec['priya']
+    topic = spec.get('topic', '')            # e.g. "Geography · critical minerals"
+    tags = spec.get('hashtags') or ['#UPSC', '#UPSCPrelims', '#UPSCPYQ', '#IAS']
+    utm = 'https://www.minimalistias.com/pyq-today?utm_source={src}&utm_medium=social&utm_campaign=pyq-of-the-day'
+    ig = (f"{hook} UPSC Prelims {q['y']} PYQ{(' | ' + topic) if topic else ''}\n\n"
+          f"UPSC Prelims {q['y']}, Q{q['n']}:\n{qtext}\n\n"
+          f"Aarav says ({A['pick']}). Priya says ({Pr['pick']}). Who's right?\n\n"
+          "Pause the reel and pick yours. Comment a, b, c or d 👇\n"
+          "📤 Send this to the friend you study with.\n\n"
+          "Every option explained, free: minimalistias.com/pyq-today (link in bio)\n\n" + ' '.join(tags[:5]))
+    yt_title = f"{hook} | UPSC Prelims {q['y']} PYQ #Shorts"
+    if len(yt_title) > 100: yt_title = f"{hook[:100 - 26].rstrip()}… UPSC PYQ #Shorts"
+    yt_desc = (f"UPSC Prelims {q['y']}, Q{q['n']}: can you answer before the reveal?\n\n{qtext}\n\n"
+               f"Every option explained, free: {utm.format(src='youtube')}\n"
+               "A new UPSC PYQ every evening with Aarav & Priya. Subscribe for tomorrow's.\n\n"
+               "#UPSC #UPSCPrelims #UPSCPYQ #Shorts")
+    yt_tags = ['UPSC', 'UPSC Prelims', 'UPSC PYQ', f'UPSC Prelims {q["y"]}', 'IAS', 'Civil Services', 'Minimalist IAS'] + spec.get('yt_tags', [])
+    return {'ig_caption': ig[:2200], 'yt_title': yt_title, 'yt_description': yt_desc[:4900], 'yt_tags': yt_tags[:15]}
+
 def build(spec, out, fast=False):
     from playwright.sync_api import sync_playwright
     need_gsap(); out = os.path.abspath(out); os.makedirs(os.path.join(out, 'stills'), exist_ok=True)
@@ -294,16 +332,17 @@ def build(spec, out, fast=False):
         bad = {k: v for k, v in gate.items() if v['minFs'] < 26 or v['unsafe'] or v['overlaps'] or (v['cwords'] > 45)}
         for s in S:   # one still per scene, at the point where everything is on screen
             pg.evaluate(f'window.TL.seek({s["t1"] - 0.3}, false); 1'); pg.screenshot(path=os.path.join(out, 'stills', f'{s["t0"]:05.1f}-{s["id"]}.jpg'), type='jpeg', quality=85)
-        pg.evaluate('window.TL.seek(2.4, false); 1'); pg.screenshot(path=os.path.join(out, 'cover.jpg'), type='jpeg', quality=92)
+        pg.evaluate(f'window.TL.seek({S[0]["t1"] - 0.5}, false); 1'); pg.screenshot(path=os.path.join(out, 'cover.jpg'), type='jpeg', quality=92)
         report = {'dur': dur, 'split': split, 'fit': fit, 'scenes': S, 'gate': gate, 'fail': bad}
         json.dump(report, open(os.path.join(out, 'gate.json'), 'w'), indent=1)
+        json.dump(meta(spec), open(os.path.join(out, 'meta.json'), 'w'), indent=1, ensure_ascii=False)
         print(json.dumps({'dur': dur, 'split': split, 'fit': fit, 'fail': bad, 'cwords': {k: v['cwords'] for k, v in gate.items()},
                           'minFs': min(v['minFs'] for v in gate.values())}, ensure_ascii=False))
-        load(split, story=True); pg.evaluate('window.TL.seek(2.4, false); 1'); pg.screenshot(path=os.path.join(out, 'story.jpg'), type='jpeg', quality=92)
+        load(split, story=True); pg.evaluate(f'window.TL.seek({S[0]["t1"] - 0.5}, false); 1'); pg.screenshot(path=os.path.join(out, 'story.jpg'), type='jpeg', quality=92)
         if fast or bad: b.close(); return report
         load(split); frames = tempfile.mkdtemp(prefix='reel-frames-'); n = int(round(dur * FPS))
         for i in range(n):
-            pg.evaluate(f'window.TL.seek({i / FPS}, false); 1'); pg.screenshot(path=f'{frames}/f{i:05d}.jpg', type='jpeg', quality=95)
+            pg.evaluate(f'window.TL.seek({i / FPS + 0.001}, false); 1'); pg.screenshot(path=f'{frames}/f{i:05d}.jpg', type='jpeg', quality=95)
             if i % 150 == 0: print(f'  frame {i}/{n}', flush=True)
         b.close()
     cues = {'dur': dur, 'seed': seed, 'whoosh': [s['t0'] for s in S[1:]]}
