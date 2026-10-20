@@ -39,8 +39,29 @@ def core(site, N):
                     c = next((c for c in (b or {}).get('chapters', []) if c['n'] == ch), None)
                     nc.append({'code': code, 'book': f"NCERT Class {b['cls']} {b['title'][0]}" if b else code, 'chapter': ch, 'title': c['title'][0] if c else None})
                 return {'n': N, 'topic': topic, 'name': s['n'], 'anchor': f's--{topic}--{slug(s["n"])}', 'asked': len(qs), 'years': yrs,
-                        'questions': ques, 'ncert': nc, 'core_total': S['pre']['core'], 'core_q': S['pre']['q'], 'core_cov': S['pre']['coreCov']}
+                        'questions': ques, 'ncert': nc, 'core_total': S['pre']['core'], 'core_q': S['pre']['q'], 'core_cov': S['pre']['coreCov'],
+                        'xray_row': xray_row(site, f'pre|{topic}|{slug(s["n"])}'), 'price': price(site)}
     raise SystemExit(f'Core #{N} not found')
+
+def xray_row(site, key):
+    """The sub-topic's row exactly as the X-Ray prints it (planner/build-xray.mjs: readWhere, stars, weight, strip, P+M)."""
+    cat = json.load(open(os.path.join(site, 'planner/catalog.json')))
+    src = json.load(open(os.path.join(site, 'planner/sources.json')))
+    pre = next(p for p in cat if p['scope'] == 'pre'); subs = [x for g in pre['groups'] for x in g['subs']]
+    total = sum(x['q'] for x in subs); s = next(x for x in subs if x['k'] == key)
+    o = src.get(key); lst = (o if isinstance(o, list) else (o or {}).get('sources')) or s.get('src') or []
+    where = []
+    if s.get('nc'): where.append({'nc': True, 't': f"NCERT {s['nc']['cls']} {s['nc']['book']}, ch {s['nc']['ch']}"})
+    for x in lst[:3]: where.append({'ca': bool(re.match(r'current affairs:', x, re.I)), 't': x})
+    return {'name': s['n'], 'stars': s['stars'], 'q': s['q'], 'weight': round(s['q'] / total * 100, 1), 'pm': s.get('tag') == 'both' and s['q'] > 0,
+            'yrs': sorted(s['yrs']), 'where': where}
+
+def price(site):
+    t = open(os.path.join(site, 'src/lib/products.ts')).read()
+    g = lambda k: re.search(k + r':\s*([^,\n]+)', t).group(1).strip()
+    return {'launch': int(g('launchPaise')) // 100, 'regular': int(g('regularPaise')) // 100,
+            'launch_ends': re.search(r'launchEnds:\s*new Date\("([^"]+)"', t).group(1)[:10]}
+
 
 if __name__ == '__main__':
     d = core(sys.argv[1], int(sys.argv[2]))

@@ -19,7 +19,7 @@ CHECK = r"""
       const fs = parseFloat(cs.fontSize);
       minFs = Math.min(minFs, fs);
       words += t.split(/\s+/).length;
-      if (!el.closest('.hd,.ft,.prog,.yr,.stamp,.chrome')) cwords += t.split(/\s+/).length;  // content words (chrome excluded)
+      if (!el.closest('.hd,.ft,.prog,.yr,.stamp,.chrome,.verbatim')) cwords += t.split(/\s+/).length;  // content words (chrome excluded)
       const rg = document.createRange(); rg.selectNodeContents(n);
       for (const r of rg.getClientRects()) {
         const x0 = r.left - R.left, x1 = r.right - R.left, y0 = r.top - R.top, y1 = r.bottom - R.top;
