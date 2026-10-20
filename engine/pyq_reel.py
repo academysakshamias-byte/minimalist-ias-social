@@ -8,6 +8,10 @@ trap, trap_who, method, extra[0] optional). Optional reel-only keys:
 Writes: reel.mp4, cover.jpg (hook frame, for cover_url), story.jpg (9:16 'new reel' story), stills/*.jpg (one per
 scene, look at them), gate.json, meta.json (Instagram caption draft + YouTube title/description/tags).
 Optional spec keys for the text: "topic" ("Geography · critical minerals"), "hashtags" (≤ 5), "yt_tags".
+"bonus": {"id": "pre-2021-045", "short": "≤ 16-word faithful paraphrase"}: a related real Prelims PYQ (same topic, has an
+explanation) for the caption and YouTube description; its answer is on its page, so it brings a second comment and a visit.
+"reply_right" (≤ 12 words: why the key is right) and "reply_trap" (≤ 14 words: the trap the wrong picks fell for): the
+comment auto-reply task answers every a/b/c/d comment with these (they are on-screen-grade lines: the reviewer checks them).
 "dm_word": one easy keyword from the topic (≤ 12 letters, e.g. "CONGO"): the reel ends "Comment CONGO → we DM you
 today's 1-page revision sheet" (engine/sheet.py → sheet.jpg, also checked by the gate) and the caption asks the same. Prints the gate: every scene must have minFs ≥ 26, no text outside the safe box
 (x 140–920, y 300–1300), no overlapping text, and ≤ 45 content words (the verbatim question is exempt).
@@ -307,30 +311,42 @@ GATE_JS = """(S) => { const out = {};
 
 def meta(spec):
     """Search-first text for both platforms (Instagram search reads captions more than hashtags; YouTube classifies a
-    Short by its title/description). Drafts: the run may edit them, but keep the keyword-first first line."""
+    Short by its title/description), and the comment-reply lines. Drafts: the run may edit them, but keep the
+    keyword-first first line. Asks, in order: answer a/b/c/d (we reply to every answer) → the DM keyword → the bonus PYQ
+    (its answer is on our site) → tag/send a friend."""
     q = spec['q']; t = q['t']; hook = re.sub(r'\s+', ' ', strip(spec['hook'])).strip()
     stem = ' '.join(t['stem']); items = [f'{k}. {v}' for k, v in t.get('items', [])]
     opts = [f'({k}) {v}' for k, v in t['options'].items()]
     qtext = '\n'.join([stem] + items + t.get('prompt', []) + opts)
-    A, Pr = spec['aarav'], spec['priya']
+    A, Pr = spec['aarav'], spec['priya']; key = q['a']
+    trap_pick = A['pick'] if A['pick'] != key else (Pr['pick'] if Pr['pick'] != key else '')
     topic = spec.get('topic', '')            # e.g. "Geography · critical minerals"
     tags = spec.get('hashtags') or ['#UPSC', '#UPSCPrelims', '#UPSCPYQ', '#IAS']
-    utm = 'https://www.minimalistias.com/pyq-today?utm_source={src}&utm_medium=social&utm_campaign=pyq-of-the-day'
+    word = re.sub(r'[^A-Z0-9]', '', str(spec.get('dm_word', '')).upper())[:12]
+    b = spec.get('bonus') or {}
+    bm = re.match(r'^pre-(\d{4})-0*(\d{1,3})$', str(b.get('id', '')))
+    bonus_ig = (f"🎯 Bonus PYQ (UPSC {bm.group(1)}): {b['short']} Comment "bonus" + your answer (e.g. bonus b); it's explained on today's page (link in bio).\n" if bm and b.get('short') else "")
+    bonus_yt = (f"🎯 Bonus PYQ (UPSC {bm.group(1)}): {b['short']} (comment \"bonus\" + your answer)\nAnswer + explanation: https://www.minimalistias.com/pyqs/prelims/{bm.group(1)}/q{int(bm.group(2))}?utm_source=youtube&utm_medium=social&utm_campaign=bonus-pyq\n\n" if bm and b.get('short') else "")
     ig = (f"{hook} UPSC Prelims {q['y']} PYQ{(' | ' + topic) if topic else ''}\n\n"
           f"UPSC Prelims {q['y']}, Q{q['n']}:\n{qtext}\n\n"
           f"Aarav says ({A['pick']}). Priya says ({Pr['pick']}). Who's right?\n\n"
-          "Pause the reel and pick yours. Comment a, b, c or d 👇\n"
-          + (f"💬 Comment {re.sub(r'[^A-Z0-9]', '', str(spec.get('dm_word', '')).upper())[:12]} and we'll DM you today's 1-page revision sheet (free).\n" if spec.get('dm_word') else "")
-          + "📤 Send this to the friend you study with.\n\n"
-          "Every option explained, free: minimalistias.com/pyq-today (link in bio)\n\n" + ' '.join(tags[:5]))
+          "Pause the reel and pick yours. Comment a, b, c or d 👇 (we reply to every answer)\n"
+          + (f"💬 Comment {word} and we'll DM you today's 1-page revision sheet (free).\n" if word else "")
+          + bonus_ig
+          + (f"📤 Tag or send this to the friend who'd pick ({trap_pick}).\n\n" if trap_pick else "📤 Tag or send this to the friend you study with.\n\n")
+          + "Every option explained, free: minimalistias.com/pyq-today (link in bio)\n\n" + ' '.join(tags[:5]))
     yt_title = f"{hook} | UPSC Prelims {q['y']} PYQ #Shorts"
     if len(yt_title) > 100: yt_title = f"{hook[:100 - 26].rstrip()}… UPSC PYQ #Shorts"
-    yt_desc = (f"UPSC Prelims {q['y']}, Q{q['n']}: can you answer before the reveal?\n\n{qtext}\n\n"
-               f"Every option explained, free: https://www.minimalistias.com/pyqs/prelims/{q['y']}/q{q['n']}?utm_source=youtube&utm_medium=social&utm_campaign=pyq-of-the-day\n"
-               "A new UPSC PYQ every evening with Aarav & Priya. Subscribe for tomorrow's.\n\n"
+    yt_desc = (f"UPSC Prelims {q['y']}, Q{q['n']}: can you answer before the reveal? Comment a, b, c or d: we reply to every answer.\n\n{qtext}\n\n"
+               f"Every option explained + the 1-page revision sheet, free: https://www.minimalistias.com/pyqs/prelims/{q['y']}/q{q['n']}?utm_source=youtube&utm_medium=social&utm_campaign=pyq-of-the-day#revision-sheet\n\n"
+               + bonus_yt
+               + "A new UPSC PYQ every evening with Aarav & Priya. Subscribe for tomorrow's.\n\n"
                "#UPSC #UPSCPrelims #UPSCPYQ #Shorts")
     yt_tags = ['UPSC', 'UPSC Prelims', 'UPSC PYQ', f'UPSC Prelims {q["y"]}', 'IAS', 'Civil Services', 'Minimalist IAS'] + spec.get('yt_tags', [])
-    return {'ig_caption': ig[:2200], 'yt_title': yt_title, 'yt_description': yt_desc[:4900], 'yt_tags': yt_tags[:15]}
+    return {'ig_caption': ig[:2200], 'yt_title': yt_title, 'yt_description': yt_desc[:4900], 'yt_tags': yt_tags[:15],
+            # comment replies (the auto-reply task): right answers get reply_right, wrong ones reply_trap + the keyword nudge
+            'answer': key, 'reply_right': spec.get('reply_right', ''), 'reply_trap': spec.get('reply_trap', ''),
+            'dm_word': word, 'bonus_id': b.get('id', '') if bm else ''}
 
 def build(spec, out, fast=False):
     from playwright.sync_api import sync_playwright

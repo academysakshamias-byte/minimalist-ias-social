@@ -20,9 +20,9 @@ CSS = """
 @font-face{font-family:"IBM Plex Mono";font-weight:600;src:url(F/ibm-plex-mono-latin-600-normal.woff2)}
 *{box-sizing:border-box}html,body{margin:0}
 #sh{width:1080px;height:1920px;position:relative;overflow:hidden;background:#f3eee3;color:#16130e;font-family:"IBM Plex Sans",sans-serif;--s:1}
-.top{height:200px;background:#13110d;color:#f2b705;display:flex;align-items:center;gap:20px;padding:0 64px;font:600 28px/1 "IBM Plex Mono";letter-spacing:.14em;text-transform:uppercase}
+.top{height:170px;background:#13110d;color:#f2b705;display:flex;align-items:center;gap:20px;padding:0 64px;font:600 28px/1 "IBM Plex Mono";letter-spacing:.14em;text-transform:uppercase}
 .top svg{width:56px;height:56px}.top .r{margin-left:auto;color:#cfc6b3}
-#body{position:absolute;left:64px;right:64px;top:240px;bottom:200px;overflow:hidden}
+#body{position:absolute;left:64px;right:64px;top:205px;bottom:190px;overflow:hidden}
 #in{font-size:calc(34px*var(--s))}
 h1{margin:0 0 .5em;font:500 calc(60px*var(--s))/1.12 Newsreader,serif}h1 em{font-style:italic;color:#8a6200}
 .q{margin:0 0 .55em;font:400 1em/1.38 "IBM Plex Sans"}
@@ -51,8 +51,12 @@ def build_html(spec):
     also = ''
     if ex and ex.get('points'):
         also = '<div class="lab">Also know</div>' + ''.join(
-            f'<p class="pt">{"<b>" + e(p["h"]) + "</b> " + e(p["p"]) if isinstance(p, dict) else e(p)}</p>' for p in ex['points'][:4])
+            f'<p class="pt">{"<b>" + e(p["h"]) + "</b> " + e(p["p"]) if isinstance(p, dict) else e(p)}</p>' for p in ex['points'][:(3 if (spec.get('bonus') or {}).get('short') else 4)])
     link = f"minimalistias.com/pyqs/prelims/{q['y']}/q{q['n']}"
+    bm = re.match(r'^pre-(\d{4})-0*(\d{1,3})$', str((spec.get('bonus') or {}).get('id', '')))
+    if bm and spec['bonus'].get('short'):
+        also += (f'<div class="lab">Try this next · UPSC {bm.group(1)}</div><p class="pt">{e(spec["bonus"]["short"])} '
+                 f'<b>minimalistias.com/pyqs/prelims/{bm.group(1)}/q{int(bm.group(2))}</b></p>')
     srcs = e(spec['source'] + ((' · ' + ex['source']) if ex and ex.get('source') and ex['source'] not in spec['source'] else ''))
     body = f'''<div class="top">{LOGO_D}<span>PYQ revision sheet</span><span class="r">Prelims {q["y"]} · Q{q["n"]}</span></div>
 <div id="body"><div id="in">
