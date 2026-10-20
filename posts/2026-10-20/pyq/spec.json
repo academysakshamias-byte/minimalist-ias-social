@@ -1,0 +1,86 @@
+{
+ "no": 1,
+ "date": "20 Oct 2026",
+ "q": {
+  "id": "pre-2023-007",
+  "y": 2023,
+  "n": 7,
+  "a": "c",
+  "t": {
+   "stem": [
+    "About three-fourths of world's cobalt, a metal required for the manufacture of batteries for electric motor vehicles, is produced by"
+   ],
+   "items": [],
+   "prompt": [],
+   "options": {
+    "a": "Argentina",
+    "b": "Botswana",
+    "c": "the Democratic Republic of the Congo",
+    "d": "Kazakhstan"
+   }
+  },
+  "ex": {
+   "summary": "The DR Congo supplies roughly three-quarters of the world's mined cobalt, mostly from the copper-cobalt belt in its south-east. Argentina is known for lithium, Kazakhstan for uranium."
+  }
+ },
+ "hook": "Who mines <em>¾ of the world's</em> cobalt?",
+ "aarav": {
+  "pick": "a",
+  "line": "EV batteries? Lithium Triangle. Argentina, obviously.",
+  "pose": "aarav_confident"
+ },
+ "priya": {
+  "pick": "c",
+  "line": "Wait. Lithium isn't cobalt. I'd say Congo.",
+  "pose": "priya_wait"
+ },
+ "answer_head": "<em>DR Congo</em>: about ¾ of world cobalt.",
+ "verdicts": [
+  {
+   "ok": true,
+   "h": "DR Congo: 230,000 of 310,000 t",
+   "p": "USGS estimate, 2025 mine output (≈73%)."
+  },
+  {
+   "ok": false,
+   "h": "Argentina",
+   "p": "Lithium, not cobalt."
+  },
+  {
+   "ok": false,
+   "h": "Options b and d",
+   "p": "Botswana: diamonds. Kazakhstan: uranium."
+  }
+ ],
+ "source": "USGS MCS 2026 (Cobalt); UPSC 2023 key",
+ "extra": [
+  {
+   "lab": "In the news",
+   "h": "Why cobalt is <em>in the news</em>",
+   "points": [
+    {
+     "h": "Feb 2025:",
+     "p": "DR Congo paused cobalt exports to curb oversupply."
+    },
+    {
+     "h": "Oct 2025:",
+     "p": "Ban replaced by quotas, up to 96,600 t a year in 2026–27."
+    },
+    {
+     "h": "No. 2 miner:",
+     "p": "Indonesia (44,000 t in 2025)."
+    },
+    {
+     "h": "Top refiner:",
+     "p": "China."
+    }
+   ],
+   "source": "USGS MCS 2026"
+  }
+ ],
+ "remember": "Cobalt → <em>DR Congo</em> (about ¾).",
+ "trap_who": "aarav",
+ "trap": "“EV battery” made Aarav think lithium. Argentina mines lithium, not cobalt.",
+ "method": "Tag each option with its signature mineral. Wrong mineral? Cut it.",
+ "utm": "pyq-of-the-day"
+}
