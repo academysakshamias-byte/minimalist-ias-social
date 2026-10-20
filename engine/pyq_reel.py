@@ -309,7 +309,7 @@ def meta(spec):
     yt_title = f"{hook} | UPSC Prelims {q['y']} PYQ #Shorts"
     if len(yt_title) > 100: yt_title = f"{hook[:100 - 26].rstrip()}… UPSC PYQ #Shorts"
     yt_desc = (f"UPSC Prelims {q['y']}, Q{q['n']}: can you answer before the reveal?\n\n{qtext}\n\n"
-               f"Every option explained, free: {utm.format(src='youtube')}\n"
+               f"Every option explained, free: https://www.minimalistias.com/pyqs/prelims/{q['y']}/q{q['n']}?utm_source=youtube&utm_medium=social&utm_campaign=pyq-of-the-day\n"
                "A new UPSC PYQ every evening with Aarav & Priya. Subscribe for tomorrow's.\n\n"
                "#UPSC #UPSCPrelims #UPSCPYQ #Shorts")
     yt_tags = ['UPSC', 'UPSC Prelims', 'UPSC PYQ', f'UPSC Prelims {q["y"]}', 'IAS', 'Civil Services', 'Minimalist IAS'] + spec.get('yt_tags', [])
