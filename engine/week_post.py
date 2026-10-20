@@ -7,6 +7,8 @@ spec = {
  "facts":   ["one-line fact", ...],                                                          # 5
  "mcqs":    [{"s": "statement as UPSC might frame it", "a": "True|False", "why": "one line"}], # 2
  "nudge":   "optional extra line for the CTA slide",
+ "page":    true when the week's web page (minimalistias.com/week) is live — the CTA then points there,
+ (each story may also carry "pyq": true when UPSC has asked about its theme before — shown as "· PYQ" on the sheet)
  "extra":   [optional 0–2 deeper slides after the facts: {"lab":"Deeper","h":"html heading","points":["..." or {"h":"bold","p":"text"}],"source":"..."}]
 }
 Slides: 1 cover (Priya + clipboard) · 2 the week on one page (screenshot sheet) · 3 five facts · 4 two MCQ angles + save/brief CTA.
@@ -30,6 +32,7 @@ CSS = """
 .row{display:grid;grid-template-columns:132px 1fr;column-gap:20px;padding:15px 0;border-bottom:2px solid rgba(26,23,18,.10)}
 .row .g{font:600 26px/1.2 var(--mono);color:var(--p-lab);padding-top:4px}
 .row .t{font:500 32px/1.25 var(--sans);color:#1a1712}
+.row .t i .pq{color:#2f4f7a}
 .row .t i{display:block;font:600 26px/1.2 var(--mono);font-style:normal;color:#7a3518;margin-top:6px}
 .fx{position:absolute;left:96px;right:96px;top:190px}
 .fx .h{font-size:72px;margin-bottom:40px}
@@ -61,7 +64,7 @@ def build(spec, out):
  <img class="pose" src="{pose('priya_clipboard')}" style="right:-10px;top:300px;height:820px">
  <div class="fade" style="top:1000px;height:350px"></div>
  <div class="ask">Save it — a new sheet every Monday</div></div>''')
-    rows = ''.join(f'<div class="row"><div class="g">{"<br>".join(e(x) for x in s["gs"].split(" · "))}</div><div class="t">{e(s["t"])}<i>{e(s["k"])}</i></div></div>' for s in spec['stories'])
+    rows = ''.join(f'<div class="row"><div class="g">{"<br>".join(e(x) for x in s["gs"].split(" · "))}</div><div class="t">{e(s["t"])}<i>{e(s["k"])}{' <span class="pq">· PYQ</span>' if s.get("pyq") else ''}</i></div></div>' for s in spec['stories'])
     S.append(f'''<div class="s paper" id="n2">{chrome(2,T,"The week on one page","Screenshot this",f"Week {W} · {spec['range']}",True)}
  <div class="sheet"><div class="tt"><h2>Week <em>{W}</em></h2><span>{e(spec['range']).upper()}</span></div>{rows}</div></div>''')
     fx = ''.join(f'<div class="fi"><b>{i+1}</b><p>{e(f)}</p></div>' for i, f in enumerate(spec['facts']))
@@ -76,7 +79,7 @@ def build(spec, out):
     mq = ''.join(f'<div class="mc"><div class="st">“{e(m["s"])}”</div><div class="a">{e(m["a"])} — <span>{e(m["why"])}</span></div></div>' for m in spec['mcqs'])
     S.append(f'''<div class="s" id="n{kM}">{chrome(kM,T,"Likely MCQ angles",f"Week {W}","Follow for next Monday's sheet")}
  <div class="mq"><h2 class="h">How UPSC <em>could ask it</em></h2>{mq}</div>
- <div class="cta"><div class="p">Read any story in full: <b>the Daily Brief</b> — free, link in bio.{(' ' + e(spec['nudge'])) if spec.get('nudge') else ''}</div>
+ <div class="cta"><div class="p">{('Every story with its UPSC angle and past questions: <b>minimalistias.com/week</b> — free, link in bio.' if spec.get('page') else 'Read any story in full: <b>the Daily Brief</b> — free, link in bio.')}{(' ' + e(spec['nudge'])) if spec.get('nudge') else ''}</div>
   <div class="pill">Save this · Share with your study group</div></div></div>''')
     page = f'<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="file://{HERE}/brand.css"><style>{CSS}</style></head><body>{"".join(S)}</body></html>'
     p = os.path.join(out, 'post.html'); open(p, 'w').write(page)
