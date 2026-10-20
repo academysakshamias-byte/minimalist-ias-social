@@ -1,0 +1,58 @@
+{
+  "checkedAt": "2026-10-20 (IST), one-off unattended verification run",
+  "notes": "add_repo tool not available in this session; repo was already in scope and cloned, so it was pulled and pushed directly.",
+  "results": {
+    "1_youtube_status": {
+      "ok": true,
+      "channelTitle": "Minimalist IAS – UPSC Strategy & Mentorship",
+      "subscribers": "1740",
+      "videos": "72",
+      "views": "106349",
+      "connectedAt": "2026-10-20T16:14:15.965Z",
+      "uploadsTodayViaMcp": 1,
+      "dailyCap": 3
+    },
+    "2_youtube_add_to_playlists": {
+      "ok": false,
+      "args": {"video_id": "0s71_f1_Blg", "pyq_id": "pre-2023-007"},
+      "error": "YouTube 404: The playlist identified with the request's <code>playlistId</code> parameter cannot be found."
+    },
+    "3_youtube_playlists": {
+      "ok": true,
+      "playlists": [
+        {"playlistId": "PLRZppvnJ_ppI", "title": "UPSC PYQ of the Day · 35-second Shorts", "videos": 0, "privacy": "public", "url": "https://www.youtube.com/playlist?list=PLRZppvnJ_ppI"}
+      ],
+      "observation": "Only the daily playlist is listed, with 0 videos; no 'UPSC Prelims Geography PYQs · Shorts' playlist. The stored id 'PLRZppvnJ_ppI' is 13 chars (real YouTube playlist ids are usually 34 chars, 'PL' + 32), which may be why the insert returned 404."
+    },
+    "4_youtube_video_analytics": {
+      "ok": true,
+      "args": {"video_id": "0s71_f1_Blg", "start_date": "2026-10-20"},
+      "videoId": "0s71_f1_Blg",
+      "startDate": "2026-10-20",
+      "totals": null,
+      "curve": [],
+      "observation": "No data yet (YouTube Analytics lags ~2 days)."
+    },
+    "5_reel_performance": {
+      "ok": true,
+      "args": {"days": 3},
+      "since": "2026-10-17",
+      "today": "2026-10-20",
+      "minViews": 200,
+      "reels": [
+        {
+          "day": "2026-10-20",
+          "pyqId": "pre-2023-007",
+          "hook": "Who mines ¾ of the world's cobalt?",
+          "durationSec": 35,
+          "ageDays": 0,
+          "igPermalink": "https://www.instagram.com/reel/DeuCXnAFUQU/",
+          "ytUrl": "https://youtube.com/shorts/0s71_f1_Blg",
+          "instagram": {"views": 61, "reach": 44, "avgWatchSec": 7.7, "watchedPct": 22, "skipRate3s": 69.4, "saves": 2, "shares": 0, "comments": 2, "likes": 4, "follows": null, "enough": false},
+          "youtube": {"views": null, "avgViewedPct": null, "retention": null, "enough": false}
+        }
+      ],
+      "note": "Instagram can lag up to 48 h and YouTube Analytics ~2 days; newest 2 days incomplete. Learn only from enough=true reels; fewer than 5 such reels -> keep defaults."
+    }
+  }
+}
