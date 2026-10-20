@@ -27,9 +27,9 @@ CSS = """
 h1{margin:0 0 .5em;font:500 calc(60px*var(--s))/1.12 Newsreader,serif}h1 em{font-style:italic;color:#8a6200}
 .q{margin:0 0 .55em;font:400 1em/1.38 "IBM Plex Sans"}
 .op{display:flex;gap:.5em;align-items:flex-start;margin:0 0 .3em;font:400 1em/1.3 "IBM Plex Sans";padding:.18em .35em;border-radius:10px}
-.op i{flex:none;width:1.5em;height:1.5em;border-radius:50%;border:2px solid #16130e;font:600 .86em/1 "IBM Plex Mono";display:flex;align-items:center;justify-content:center;font-style:normal;margin-top:.02em}
+.op i{flex:none;width:1.5em;height:1.5em;border-radius:50%;border:2px solid #16130e;font:600 max(26px,.86em)/1 "IBM Plex Mono";display:flex;align-items:center;justify-content:center;font-style:normal;margin-top:.02em}
 .op.ok{background:#f2b705}.op.ok i{background:#16130e;color:#f2b705}
-.lab{margin:.95em 0 .35em;font:600 calc(29px*var(--s))/1 "IBM Plex Mono";letter-spacing:.14em;text-transform:uppercase;color:#7a5402}
+.lab{margin:.95em 0 .35em;font:600 max(26px,calc(29px*var(--s)))/1 "IBM Plex Mono";letter-spacing:.14em;text-transform:uppercase;color:#7a5402}
 .lab:first-child{margin-top:0}
 .v{margin:0 0 .35em;font:400 1em/1.34 "IBM Plex Sans"}.v b{font-weight:600}
 .box{border-radius:18px;padding:.55em .7em;margin:.2em 0 0;font:400 1em/1.36 "IBM Plex Sans"}
@@ -71,24 +71,41 @@ def build_html(spec):
 <div class="ft">Sources: {srcs}<span class="u">Every option explained: {link}</span></div>'''
     return f'<!doctype html><html><head><meta charset="utf-8"><style>{CSS.replace("url(F/", "url(file://" + FONTS + "/")}</style></head><body><div id="sh">{body}</div></body></html>'
 
+def lighter(spec):
+    """Same sheet with less optional content, for long questions: fewer "Also know" points first, then no bonus.
+    The question, verdicts, trap, method and remember are never cut."""
+    ex = (spec.get('extra') or [None])[0]
+    if ex and ex.get('points'):
+        return {**spec, 'extra': [{**ex, 'points': ex['points'][:len(ex['points'][:4]) - 1]}] + (spec.get('extra') or [])[1:]}
+    if (spec.get('bonus') or {}).get('short'):
+        return {**spec, 'bonus': {}}
+    return None
+
 def render(spec, out):
     from playwright.sync_api import sync_playwright
     td = tempfile.mkdtemp(prefix='sheet-'); hp = os.path.join(td, 's.html'); png = os.path.join(td, 's.png')
-    open(hp, 'w').write(build_html(spec))
     with sync_playwright() as p:
         b = p.chromium.launch(args=['--no-sandbox']); pg = b.new_page(viewport={'width': 1080, 'height': 1920})
-        pg.goto('file://' + hp); pg.evaluate('document.fonts.ready'); pg.wait_for_timeout(300)
-        rep = pg.evaluate("""() => { const sh = document.querySelector('#sh'), body = document.querySelector('#body'), inn = document.querySelector('#in');
-          let s = 1.12; sh.style.setProperty('--s', s);
-          while (inn.scrollHeight > body.clientHeight && s > 0.77) { s -= 0.01; sh.style.setProperty('--s', s.toFixed(2)); }
-          let m = 999; const tw = document.createTreeWalker(sh, NodeFilter.SHOW_TEXT);
-          while (tw.nextNode()) { if (tw.currentNode.textContent.trim()) m = Math.min(m, parseFloat(getComputedStyle(tw.currentNode.parentElement).fontSize)); }
-          return {scale: +s.toFixed(2), minFs: Math.round(m * 10) / 10, overflow: inn.scrollHeight > body.clientHeight}; }""")
+        while True:
+            open(hp, 'w').write(build_html(spec))
+            pg.goto('file://' + hp); pg.evaluate('document.fonts.ready'); pg.wait_for_timeout(300)
+            rep = pg.evaluate(MEASURE)
+            nxt = lighter(spec) if rep['overflow'] else None
+            if not nxt: break
+            spec = nxt
+        rep['trimmed'] = {'also': len(((spec.get('extra') or [{}])[0] or {}).get('points') or []), 'bonus': bool((spec.get('bonus') or {}).get('short'))}
         pg.query_selector('#sh').screenshot(path=png); b.close()
     from PIL import Image
     Image.open(png).convert('RGB').save(out, 'JPEG', quality=90)
     print(json.dumps({'sheet': out, **rep}))
     return rep
+
+MEASURE = """() => { const sh = document.querySelector('#sh'), body = document.querySelector('#body'), inn = document.querySelector('#in');
+          let s = 1.12; sh.style.setProperty('--s', s);
+          while (inn.scrollHeight > body.clientHeight && s > 0.77) { s -= 0.01; sh.style.setProperty('--s', s.toFixed(2)); }
+          let m = 999; const tw = document.createTreeWalker(sh, NodeFilter.SHOW_TEXT);
+          while (tw.nextNode()) { if (tw.currentNode.textContent.trim()) m = Math.min(m, parseFloat(getComputedStyle(tw.currentNode.parentElement).fontSize)); }
+          return {scale: +s.toFixed(2), minFs: Math.round(m * 10) / 10, overflow: inn.scrollHeight > body.clientHeight}; }"""
 
 if __name__ == '__main__':
     render(json.load(open(sys.argv[1])), sys.argv[2])

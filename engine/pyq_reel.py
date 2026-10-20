@@ -89,12 +89,12 @@ em{font-style:italic;color:var(--gold)}
 /* question */
 .qc{position:absolute;left:140px;width:780px;top:380px;background:var(--ivory);color:#16130e;border-radius:22px;padding:34px 36px 30px;z-index:6;box-shadow:0 30px 80px rgba(0,0,0,.55)}
 .qc .stem{font:500 calc(var(--fs)*1.12)/1.25 var(--serif);margin:0 0 .7em}
-.qc .hdr{font:600 calc(var(--fs)*.8)/1.3 var(--mono);color:#5c4002;margin:0 0 .4em;letter-spacing:.02em}
+.qc .hdr{font:600 max(26px,calc(var(--fs)*.8))/1.3 var(--mono);color:#5c4002;margin:0 0 .4em;letter-spacing:.02em}
 .qc .it{font:400 var(--fs)/1.36 var(--sans);margin:0 0 .45em;padding-left:.7em;border-left:5px solid #d9a441}
 .qc .pr{font:600 var(--fs)/1.3 var(--sans);margin:.6em 0 .7em}
 .qc .op{display:flex;gap:.55em;align-items:center;margin:0 0 .45em;font:400 var(--fs)/1.28 var(--sans)}
-.qc .op i{flex:none;width:1.6em;height:1.6em;border-radius:50%;border:2px solid #16130e;font:600 calc(var(--fs)*.8)/1 var(--mono);display:flex;align-items:center;justify-content:center;font-style:normal}
-.qc .more{font:600 calc(var(--fs)*.8)/1 var(--mono);color:#5c4002;letter-spacing:.08em;text-transform:uppercase;margin:0 0 .8em}
+.qc .op i{flex:none;width:1.6em;height:1.6em;border-radius:50%;border:2px solid #16130e;font:600 max(26px,calc(var(--fs)*.8))/1 var(--mono);display:flex;align-items:center;justify-content:center;font-style:normal}
+.qc .more{font:600 max(26px,calc(var(--fs)*.8))/1 var(--mono);color:#5c4002;letter-spacing:.08em;text-transform:uppercase;margin:0 0 .8em}
 .timer{position:absolute;left:140px;width:780px;height:12px;border-radius:6px;background:rgba(236,230,216,.14);overflow:hidden;z-index:6}
 .timer i{display:block;height:100%;width:100%;background:var(--gold);transform-origin:left center}
 .cd{position:absolute;left:475px;top:1170px;width:130px;height:130px;border-radius:50%;background:var(--gold);color:#13110d;display:flex;align-items:center;justify-content:center;font:600 72px/1 var(--serif);z-index:8;opacity:0}
@@ -146,6 +146,7 @@ em{font-style:italic;color:var(--gold)}
 .cap{position:absolute;left:160px;right:160px;top:1186px;text-align:center;font:600 46px/1.25 var(--sans);color:var(--ivory);z-index:30;opacity:0}
 .cap span{display:inline;background:rgba(10,9,7,.8);padding:8px 22px;border-radius:8px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
 .cap b{color:var(--gold);font-weight:600}
+.cap .pz{display:inline-block;width:26px;height:30px;margin:0 6px -3px 2px;border-left:9px solid var(--gold);border-right:9px solid var(--gold);box-sizing:border-box}
 .storybar{position:absolute;left:84px;right:84px;top:1560px;height:100px;border-radius:50px;background:var(--gold);color:#13110d;display:none;align-items:center;justify-content:center;font:700 36px/1 var(--sans);z-index:40}
 body.story .storybar{display:flex}body.story .cap{display:none}
 """
@@ -175,14 +176,17 @@ def timeline(spec, split):
     def add(sid, dur, **kw):
         nonlocal at; S.append(dict(id=sid, t0=round(at, 2), t1=round(at + dur, 2), **kw)); at += dur
     # Pacing for completion rate (the main Reels/Shorts signal): ~32–40 s, every beat ≤ 4.5 s except the question,
-    # which gets reading time by length (the timer + countdown keep people watching through it).
+    # which gets reading time by length (the timer + countdown keep people watching through it). Shivam, 20 Oct 2026:
+    # statement questions need time to be attempted, so ~5 words/s + 1.5 s per statement, capped at 16 s on one card
+    # and 22 s over two; long questions also tell the viewer to pause (captions) — a reel can't hold 30–60 s of solving.
     add('hook', 2.4)
+    n_st = len(t.get('items', []))
     if split:
         wa, wb = qwords(t, 'a'), qwords(t, 'b')
-        add('qa', min(12.0, max(6.0, 2.5 + wa / 6)), q=True)
-        add('qb', min(8.0, max(4.5, 2.5 + wb / 6)), q=True)
+        add('qa', min(13.0, max(6.0, 2.5 + wa / 5 + 1.5 * n_st)), q=True)
+        add('qb', min(9.0, max(4.5, 2.5 + wb / 5)), q=True)
     else:
-        add('q', min(14.0, max(6.5, 3 + qwords(t) / 6)), q=True)
+        add('q', min(16.0, max(6.5, 3 + qwords(t) / 5 + 1.5 * n_st)), q=True)
     add('pick', 3.8); add('cm', 2.2); add('rev', 3.2)
     add('vd', 3.0 + 0.45 * len(spec['verdicts'][:4]))
     ex = (spec.get('extra') or [None])[0]
@@ -244,7 +248,10 @@ def page(spec, split, story=False):
 {cta_html}
 {{caps_html}}
 <div class="storybar">New PYQ reel · on our profile</div>'''
-    caps = {'hook': '', 'q': 'Pause. <b>Pick your answer.</b>', 'qa': 'Pause. <b>Read carefully.</b>',
+    long_q = split or len(t.get('items', [])) >= 2 or qwords(t) > 60   # needs more than a glance: say how to take the time
+    pz = '<i class="pz"></i>'
+    caps = {'hook': '', 'q': (f'Pause here {pz} <b>solve it.</b>' if long_q else 'Pause. <b>Pick your answer.</b>'),
+            'qa': f'Pause here {pz} <b>read slowly.</b>',
             'qb': 'Now <b>pick your answer.</b>', 'pick': "Who's <b>right?</b>", 'cm': '', 'rev': rcap, 'vd': '', 'ex': '',
             'trap': "Don't <b>fall for this.</b>", 'rem': 'The line <b>to revise.</b>', 'cta': '' if dm else 'New PYQ <b>tomorrow, 7 PM.</b>', 'loop': ''}
     for s in S: s['cap'] = caps.get(s['id'], '')
@@ -384,7 +391,7 @@ def build(spec, out, fast=False):
             pg.goto('file://' + hp); pg.wait_for_function('window.TL !== undefined', timeout=20000); return S, dur
         S, dur = load(False)
         fit = pg.evaluate('window.FIT')
-        split = fit['qc']['h'] > 760
+        split = fit['qc']['h'] > 760 or fit['qc']['fs'] < 32
         if split: S, dur = load(True); fit = pg.evaluate('window.FIT')
         gate = pg.evaluate(GATE_JS, S)
         bad = {k: v for k, v in gate.items() if v['minFs'] < 26 or v['unsafe'] or v['overlaps'] or (v['cwords'] > 45)}
