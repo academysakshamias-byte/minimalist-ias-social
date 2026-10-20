@@ -8,7 +8,7 @@ CHECK = r"""
   const out = [];
   document.querySelectorAll(sel).forEach(sl => {
     const R = sl.getBoundingClientRect();
-    let minFs = 999, words = 0, offEdge = [], overlaps = [];
+    let minFs = 999, words = 0, cwords = 0, offEdge = [], overlaps = [];
     const boxes = [];
     const tw = document.createTreeWalker(sl, NodeFilter.SHOW_TEXT);
     while (tw.nextNode()) {
@@ -19,6 +19,7 @@ CHECK = r"""
       const fs = parseFloat(cs.fontSize);
       minFs = Math.min(minFs, fs);
       words += t.split(/\s+/).length;
+      if (!el.closest('.hd,.ft,.prog,.yr,.stamp,.chrome')) cwords += t.split(/\s+/).length;  // content words (chrome excluded)
       const rg = document.createRange(); rg.selectNodeContents(n);
       for (const r of rg.getClientRects()) {
         const x0 = r.left - R.left, x1 = r.right - R.left, y0 = r.top - R.top, y1 = r.bottom - R.top;
@@ -31,7 +32,7 @@ CHECK = r"""
       const ox = Math.min(a.x1, b.x1) - Math.max(a.x0, b.x0), oy = Math.min(a.y1, b.y1) - Math.max(a.y0, b.y0);
       if (ox > 4 && oy > 6 && a.t !== b.t) overlaps.push(a.t + ' / ' + b.t);
     }
-    out.push({id: sl.id, minFs, words, offEdge: [...new Set(offEdge)], overlaps: [...new Set(overlaps)].slice(0, 5)});
+    out.push({id: sl.id, minFs, words, cwords, offEdge: [...new Set(offEdge)], overlaps: [...new Set(overlaps)].slice(0, 5)});
   });
   return out;
 }"""

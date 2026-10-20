@@ -65,6 +65,22 @@ The full plan is in the claude.ai project doc "Instagram content system — fina
     - DRAFT mode: send the slides and caption to Shivam and wait.
     - On "publish": `instagram_publish_carousel` (Minimalist IAS Instagram connector) with the wixstatic URLs, then the "PYQ is live" story.
 
+## Core 60 (weekly: Wednesday 7:45 PM draft → Thursday 9 AM publish)
+One of the Syllabus X-Ray's 60 Prelims Core sub-topics per week, in rank order (#1 first). Ask: share. Product: the X-Ray Core poster on the last slide (the series' only product mention).
+1. **Which number:** query the Wix collection `instagramPosts` for tags starting `core-`; next N = highest + 1 (start at 1). Never repeat a number.
+2. **Data:** `python3 engine/core_data.py <site_repo> N /tmp/coreN.json` gives the name, year counts, every question with answer key and the site's audited explanation, the NCERT chapters, and the Core stats. Use these numbers as they are; never estimate.
+3. **Write the spec** for `engine/core_post.py` (see its docstring):
+   - name: short form of the sub-topic (≤ 2 lines at 84 px)
+   - Aarav asks / Priya explains (≤ 40 characters each, 2 lines max; Priya can be wrong only if the content shows it)
+   - pattern: sort ALL the questions into 2–4 kinds (counts must add up to `asked`) + a one-line takeaway
+   - 3 traps taken from real questions (cite the year)
+   - the latest 3 PYQs (short faithful paraphrase + answer key)
+   - read only this: the NCERT chapters from the data, plus one method line; skip line
+4. **Render:** `python3 engine/core_post.py spec.json /tmp/core`. Gate: minFs ≥ 26, no offEdge, no overlaps, `cwords` ≤ 45 on every slide. Look at every PNG.
+5. **Reviewer:** a fresh agent gets the spec, the PNGs and the full question file; it re-sorts the questions and checks every line (OK / FIX / RISKY with sources). Apply fixes, re-render.
+6. **Export:** `python3 engine/export.py /tmp/core posts/<thursday>/core`, push, upload via commit-SHA raw URLs, publish with tag `core-NN` (two digits).
+7. **Caption:** "Core #N of 60 · <name>", one line on the pattern, what's inside, "Send this to your study partner", the free link to all N questions (minimalistias.com/upsc-syllabus/prelims, link in bio), ≤ 5 hashtags, alt text per slide.
+
 ## Assets
 - **Poses (`poses/cut`):**
   - aarav_* (15)
