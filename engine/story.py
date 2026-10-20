@@ -23,8 +23,10 @@ body{{margin:0}}#st{{width:1080px;height:1920px;position:relative;overflow:hidde
 <div class="top">{LOGO_D}<span>{e(kicker)}</span></div>
 <div class="sl"><img src="file://{slide}"></div>
 <div class="ln">{e(line)}</div></div></body></html>'''
-    hp = out.rsplit('.', 1)[0] + '.html'; open(hp, 'w').write(page)
-    png = out.rsplit('.', 1)[0] + '.png'
+    import tempfile
+    td = tempfile.mkdtemp(prefix='story-')  # scratch files stay out of the repo
+    hp = os.path.join(td, 'story.html'); open(hp, 'w').write(page)
+    png = os.path.join(td, 'story.png')
     with sync_playwright() as p:
         b = p.chromium.launch(args=['--no-sandbox']); pg = b.new_page(viewport={'width': 1080, 'height': 1920})
         pg.goto('file://' + hp); pg.evaluate('document.fonts.ready'); pg.wait_for_timeout(400)
