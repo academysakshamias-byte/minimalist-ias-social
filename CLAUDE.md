@@ -38,6 +38,7 @@ The full plan is in the claude.ai project doc "Instagram content system — fina
 
   Never pad: each extra slide must teach something the others don't, and it obeys the same fact-check and phone gate.
 - **Limits:** never more than 6 Instagram posts a day. Media only from static.wixstatic.com.
+- **Stories are 9:16 (Shivam, 20 Oct: a 4:5 slide posted as a story spilled off the phone screen).** Never pass a feed slide straight to `instagram_publish_story`. Frame it first: `python3 engine/story.py <slide.jpg> posts/<date>/<kind>-story/story.jpg "<kicker>" "<line>"` → 1080×1920 with the top 250 px and bottom 260 px clear. Commit it, upload it through Wix like the slides, and post that wixstatic URL. Look at the JPEG first.
 
 ## PYQ of the Day (daily, 4 PM draft → 7 PM publish)
 1. **Get today's PYQ id:** `pyqOfTheDay` collection on the Wix site 9f199c19-1835-4ffe-b42d-d61dedf7766c (Wix connector, CallWixSiteAPI, wix-data query, sorted by day desc, day ≤ today IST). Fall back to `https://www.minimalistias.com/pyq-today?format=json` if reachable.
