@@ -111,6 +111,8 @@ def build(c):
     for j, m in enumerate([CH['I'][2], CH['I'][3], CH['I'][4], CH['I'][2] + 12]): put(mus, piano(m, 3.0, .7), cta + j * .4, .15, -.3 + .2 * j)
     put(mus, bell(CH['I'][2] + 24), cta + .2, .08)
 
+    if c.get('sting') is not None:   # the compass end card: a soft whoosh in and a high bell as the needle settles
+        st = c['sting']; put(sfx, whoosh(.6), max(0, st - .1), .12); put(mus, bell(CH['I'][4] + 24, 2.5), st + 1.1, .10)
     for at in c.get('pops', []): put(sfx, pop(), at, .15)
     for at in c.get('whoosh', []): put(sfx, whoosh(.45), max(0, at - .2), .10)
 

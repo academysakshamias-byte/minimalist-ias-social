@@ -34,6 +34,11 @@ from pyq_post import LOGO_D, TICK, CROSS
 FPS = 30
 POSES = os.path.join(ROOT, 'poses', 'cut')
 FONTS = os.path.join(ROOT, 'brand', 'fonts')
+# Brand (Shivam, 21 Oct 2026): the needle watermark top-right on every frame, and the 3D compass sting as an END card
+# (2.5 s, after the CTA, before the loop): at the start it would open on black and eat the first 3 seconds.
+WATERMARK = os.path.join(ROOT, 'brand', '3d-logo', 'watermark-needle-120.png')
+STING = os.path.join(ROOT, 'brand', '3d-logo', 'logo-3d-compass-settle-1080x1920.mp4')
+STING_S = 2.5
 GSAP = os.path.join(HERE, 'node_modules', 'gsap', 'dist', 'gsap.min.js')
 
 def need_gsap():
@@ -147,6 +152,7 @@ em{font-style:italic;color:var(--gold)}
 .cap span{display:inline;background:rgba(10,9,7,.8);padding:8px 22px;border-radius:8px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
 .cap b{color:var(--gold);font-weight:600}
 .cap .pz{display:inline-block;width:26px;height:30px;margin:0 6px -3px 2px;border-left:9px solid var(--gold);border-right:9px solid var(--gold);box-sizing:border-box}
+.wm{position:absolute;left:997px;top:236px;width:23px;height:120px;opacity:.92;z-index:50;filter:drop-shadow(0 2px 6px rgba(0,0,0,.6))}
 .storybar{position:absolute;left:84px;right:84px;top:1560px;height:100px;border-radius:50px;background:var(--gold);color:#13110d;display:none;align-items:center;justify-content:center;font:700 36px/1 var(--sans);z-index:40}
 body.story .storybar{display:flex}body.story .cap{display:none}
 """
@@ -247,7 +253,8 @@ def page(spec, split, story=False):
 <div class="sc" id="s-rem"><div class="blk t"><div class="lab">Remember</div><div class="rem">{spec['remember']}</div><div class="lab">Method</div><div class="meth">{e(spec['method'])}</div></div></div>
 {cta_html}
 {{caps_html}}
-<div class="storybar">New PYQ reel · on our profile</div>'''
+<div class="storybar">New PYQ reel · on our profile</div>
+{('<img class="wm" src="file://' + WATERMARK + '">') if os.path.exists(WATERMARK) else ''}'''
     long_q = split or len(t.get('items', [])) >= 2 or qwords(t) > 60   # needs more than a glance: say how to take the time
     pz = '<i class="pz"></i>'
     caps = {'hook': '', 'q': (f'Pause here {pz} <b>solve it.</b>' if long_q else 'Pause. <b>Pick your answer.</b>'),
@@ -407,11 +414,21 @@ def build(spec, out, fast=False):
         load(split, story=True); pg.evaluate(f'window.TL.seek({S[0]["t1"] - 0.5}, false); 1'); pg.screenshot(path=os.path.join(out, 'story.jpg'), type='jpeg', quality=92)
         if fast or bad: b.close(); return report
         load(split); frames = tempfile.mkdtemp(prefix='reel-frames-'); n = int(round(dur * FPS))
+        loop_t0 = next(s['t0'] for s in S if s['id'] == 'loop')
+        sting = STING_S if (spec.get('sting', True) and os.path.exists(STING)) else 0.0
+        n_main = int(round(loop_t0 * FPS)); n_sting = int(round(sting * FPS)); k = 0
         for i in range(n):
-            pg.evaluate(f'window.TL.seek({i / FPS + 0.001}, false); 1'); pg.screenshot(path=f'{frames}/f{i:05d}.jpg', type='jpeg', quality=95)
+            if i == n_main and n_sting:   # the end card: the compass sting's first 2.5 s, then the loop back to frame 0
+                subprocess.run(['ffmpeg', '-loglevel', 'error', '-y', '-i', STING, '-frames:v', str(n_sting), '-vf', f'fps={FPS},scale=1080:1920',
+                                '-q:v', '2', '-start_number', str(k), f'{frames}/f%05d.jpg'], check=True)
+                k += n_sting
+            pg.evaluate(f'window.TL.seek({i / FPS + 0.001}, false); 1'); pg.screenshot(path=f'{frames}/f{k:05d}.jpg', type='jpeg', quality=95); k += 1
             if i % 150 == 0: print(f'  frame {i}/{n}', flush=True)
         b.close()
-    cues = {'dur': dur, 'seed': seed, 'whoosh': [s['t0'] for s in S[1:]]}
+    total = round(dur + sting, 2)
+    sh = lambda t: t + sting if t >= loop_t0 - 1e-6 else t
+    cues = {'dur': total, 'seed': seed, 'whoosh': [sh(s['t0']) for s in S[1:]]}
+    if sting: cues['sting'] = loop_t0
     qs = [s for s in S if s.get('q')]; cues['q'] = [qs[0]['t0'], qs[-1]['t1']]
     g = {s['id']: s for s in S}
     cues.update(count=qs[-1]['t1'], pops=[g['hook']['t0'] + .35, g['hook']['t0'] + .85, g['pick']['t0'] + .3, g['pick']['t0'] + 1.9], comment=[g['cm']['t0'], g['cm']['t1']],
