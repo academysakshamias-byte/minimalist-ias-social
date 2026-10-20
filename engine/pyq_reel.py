@@ -18,7 +18,8 @@ comment auto-reply task answers every a/b/c/d comment with these (they are on-sc
 today's 1-page revision sheet" (engine/sheet.py → sheet.jpg, also checked by the gate) and the caption asks the same. Prints the gate: every scene must have minFs ≥ 26, no text outside the safe box
 (x 140–920, y 300–1300), no overlapping text, and ≤ 45 content words (the verbatim question is exempt).
 Arc (built for Reels/Shorts ranking: completion, replays, sends, saves): frame 0 = the full hook on two faces with
-"answer in N s" → verbatim question (timer, 3-2-1) → Aarav's and Priya's picks → comment a/b/c/d → answer +
+"answer in N s"; by 1.2 s the key phrase is underlined and "Aarav says (x) vs Priya says (y)" has popped in over the
+faces (the open loop: who's right?) → verbatim question (timer, 3-2-1) → Aarav's and Priya's picks → comment a/b/c/d → answer +
 reactions → option by option → [in the news] → the trap → remember + method → "Comment WORD → the sheet" (or, with no
 sheet, "every option explained" + the link) → last 0.6 s fade back to the hook frame so the loop is seamless.
 Asks (Instagram, Jun 2024: content that "explicitly asks for engagement through shares, comments, tags" to game the
@@ -79,6 +80,12 @@ em{font-style:italic;color:var(--gold)}
 /* hook */
 .chip{position:absolute;left:140px;top:0;padding:12px 22px;border-radius:999px;border:2px solid var(--gold);font:600 28px/1 var(--mono);letter-spacing:.06em;color:var(--gold);z-index:6}
 .hook{position:absolute;left:140px;width:780px;top:380px;margin:0;font:500 88px/1.04 var(--serif);color:var(--ivory);letter-spacing:-.01em;z-index:6}
+#hookh em{background:linear-gradient(var(--gold),var(--gold)) 0 100%/0% 6px no-repeat;padding-bottom:6px}
+/* first 3 s (20 Oct 2026: 69% of viewers left the first reel within 3 s): the disagreement pops in over the faces */
+.vs{position:absolute;left:140px;width:780px;top:1150px;display:flex;justify-content:space-between;align-items:center;z-index:30}
+.vs .tg{padding:18px 26px;border-radius:999px;background:var(--ivory);color:#16130e;font:600 38px/1 var(--sans);box-shadow:0 14px 34px rgba(0,0,0,.5);opacity:0}
+.vs .tg b{font:600 italic 46px/1 var(--serif);color:#7a5402;margin-left:8px}
+.vs .x{font:600 italic 46px/1 var(--serif);color:var(--gold);opacity:0}
 /* question */
 .qc{position:absolute;left:140px;width:780px;top:380px;background:var(--ivory);color:#16130e;border-radius:22px;padding:34px 36px 30px;z-index:6;box-shadow:0 30px 80px rgba(0,0,0,.55)}
 .qc .stem{font:500 calc(var(--fs)*1.12)/1.25 var(--serif);margin:0 0 .7em}
@@ -222,7 +229,8 @@ def page(spec, split, story=False):
     body = f'''<div class="glow"></div><div class="grain"></div>
 <div class="kick chrome" id="kick">{kick}</div>
 <div class="ch" id="ca">{imgs['aarav']}</div><div class="ch" id="cp">{imgs['priya']}</div><div id="dim"></div>
-<div class="sc" id="s-hook"><h1 class="hook t" id="hookh">{spec['hook']}</h1><div class="chip t chrome" id="hchip">Prelims {q['y']} · answer in {ans_in} s</div></div>
+<div class="sc" id="s-hook"><h1 class="hook t" id="hookh">{spec['hook']}</h1><div class="chip t chrome" id="hchip">Prelims {q['y']} · answer in {ans_in} s</div>
+ <div class="vs"><span class="tg t" id="tgA">Aarav says <b>({A['pick']})</b></span><span class="x" id="vsx">vs</span><span class="tg t" id="tgP">Priya says <b>({Pr['pick']})</b></span></div></div>
 {qh}
 <div class="timer" id="timer"><i id="tbar"></i></div><div class="cd" id="cd3">3</div><div class="cd" id="cd2">2</div><div class="cd" id="cd1">1</div>
 <div class="bub t" id="ba"><span class="nm">Aarav <b>({A['pick']})</b></span>{e(A['line'])}</div>
@@ -236,7 +244,7 @@ def page(spec, split, story=False):
 {cta_html}
 {{caps_html}}
 <div class="storybar">New PYQ reel · on our profile</div>'''
-    caps = {'hook': 'Can you solve this?', 'q': 'Pause. <b>Pick your answer.</b>', 'qa': 'Pause. <b>Read carefully.</b>',
+    caps = {'hook': '', 'q': 'Pause. <b>Pick your answer.</b>', 'qa': 'Pause. <b>Read carefully.</b>',
             'qb': 'Now <b>pick your answer.</b>', 'pick': "Who's <b>right?</b>", 'cm': '', 'rev': rcap, 'vd': '', 'ex': '',
             'trap': "Don't <b>fall for this.</b>", 'rem': 'The line <b>to revise.</b>', 'cta': '' if dm else 'New PYQ <b>tomorrow, 7 PM.</b>', 'loop': ''}
     for s in S: s['cap'] = caps.get(s['id'], '')
@@ -260,8 +268,16 @@ function chars(at,a,p,pop=true){pose('aarav',a,at,pop);pose('priya',p,at,pop)}
 for(const s of C.S){const d=s.t1-s.t0, t0=s.t0;
   if(s.id!=='pick')show('#s-'+s.id,t0);
   if(s.id==='hook'){chars(t0,C.pose.think.aarav,C.pose.think.priya,false);TL.set('#hchip',{top:()=>$('#hookh').offsetTop+$('#hookh').offsetHeight+30},0);
-     TL.fromTo('#ca,#cp',{scale:1},{scale:1.03,duration:d,ease:'none',transformOrigin:'50% 0%'},t0)}
-  if(s.q){chars(t0,null,null);TL.from('#s-'+s.id+' .qc',{y:60,opacity:0,duration:.45,ease:'power3.out'},t0);
+     TL.fromTo('#ca,#cp',{scale:1},{scale:1.03,duration:d,ease:'none',transformOrigin:'50% 0%'},t0);
+     // movement from the first frames: the key phrase is underlined, then each pick pops in with a nod (frame 0 stays the clean hook)
+     TL.fromTo('#hookh em',{backgroundSize:'0% 6px'},{backgroundSize:'100% 6px',duration:.35,ease:'power2.out'},t0+.12);
+     TL.fromTo('#tgA',{opacity:0,scale:.6,y:24},{opacity:1,scale:1,y:0,duration:.3,ease:'back.out(2.2)',transformOrigin:'30% 100%'},t0+.35);
+     TL.fromTo('#ca',{y:0},{y:-16,duration:.14,yoyo:true,repeat:1,ease:'sine.out'},t0+.35);
+     TL.fromTo('#vsx',{opacity:0,scale:.4},{opacity:1,scale:1,duration:.25,ease:'back.out(2)'},t0+.62);
+     TL.fromTo('#tgP',{opacity:0,scale:.6,y:24},{opacity:1,scale:1,y:0,duration:.3,ease:'back.out(2.2)',transformOrigin:'70% 100%'},t0+.85);
+     TL.fromTo('#cp',{y:0},{y:-16,duration:.14,yoyo:true,repeat:1,ease:'sine.out'},t0+.85)}
+  if(s.q){chars(t0,null,null);TL.from('#s-'+s.id+' .qc',{y:60,opacity:0,duration:.35,ease:'power3.out'},t0);
+     {const ls=$$('#s-'+s.id+' .qc > *');TL.from(ls,{opacity:0,y:14,duration:.22,stagger:Math.min(.07,.45/Math.max(1,ls.length)),ease:'power2.out'},t0+.08)}
      TL.set('#timer',{opacity:1},t0).fromTo('#tbar',{scaleX:1},{scaleX:0,duration:d,ease:'none'},t0).set('#timer',{opacity:0},s.t1);
      const last=C.S.filter(x=>x.q).slice(-1)[0];
      if(s===last){for(let k=0;k<3;k++){const at=s.t1-3+k, el='#cd'+(3-k);TL.set(el,{opacity:1},at).from(el,{scale:1.3,duration:.3,ease:'back.out(2)'},at).set(el,{opacity:0},at+1)}}}
@@ -276,7 +292,7 @@ for(const s of C.S){const d=s.t1-s.t0, t0=s.t0;
      $$('#expts .pt').forEach((r,i)=>TL.to(r,{opacity:1,duration:.3},t0+.5+i*.5))}
   if(s.id==='trap'){chars(t0,C.tw=='aarav'?C.pose.wrong.aarav:null,C.tw=='priya'?C.pose.wrong.priya:null);TL.from('#s-trap .blk',{opacity:0,y:30,duration:.4},t0+.1)}
   if(s.id==='rem'){chars(t0,C.other=='aarav'?C.pose.explain.aarav:null,C.other=='priya'?C.pose.explain.priya:null);TL.from('#s-rem .rem',{opacity:0,scale:.9,transformOrigin:'0 50%',duration:.4,ease:'back.out(1.5)'},t0+.1).from('#s-rem .meth',{opacity:0,y:20,duration:.35},t0+.9)}
-  if(s.id==='loop'){show('#s-hook',t0);chars(t0,C.pose.think.aarav,C.pose.think.priya,false);TL.set('#kick',{opacity:1},t0);TL.set('#ca,#cp',{scale:1},t0)}   // a cut to the exact frame-0 layout: the end→start join is invisible
+  if(s.id==='loop'){show('#s-hook',t0);chars(t0,C.pose.think.aarav,C.pose.think.priya,false);TL.set('#kick',{opacity:1},t0);TL.set('#ca,#cp',{scale:1,y:0},t0);TL.set('#tgA,#tgP,#vsx',{opacity:0},t0);TL.set('#hookh em',{backgroundSize:'0% 6px'},t0)}   // a cut to the exact frame-0 layout: the end→start join is invisible
   if(s.id==='cta'&&C.dm){chars(t0,null,null);TL.set('#kick',{opacity:0},t0);{const h=$('#s-cta .dmc h2');let f=92;while(h.scrollWidth>780&&f>56){f-=2;h.style.fontSize=f+'px'}}$('#thumb').style.top=($('#s-cta .dmc').offsetTop+$('#s-cta .dmc').offsetHeight+40)+'px';TL.from('#s-cta .dmc > *',{opacity:0,y:24,duration:.35,stagger:.15},t0+.05).from('#thumb',{y:260,rotation:8,opacity:0,duration:.6,ease:'power3.out'},t0+.35)}
   else if(s.id==='cta'){chars(t0,C.pose.wave.aarav,C.pose.wave.priya);TL.set('#kick',{opacity:0},t0);TL.from('#s-cta .cta > *',{opacity:0,y:24,duration:.35,stagger:.15},t0+.1)}
   cap(t0,s.id,(s===C.S.filter(x=>x.q).slice(-1)[0])?d-3:d);
@@ -391,7 +407,7 @@ def build(spec, out, fast=False):
     cues = {'dur': dur, 'seed': seed, 'whoosh': [s['t0'] for s in S[1:]]}
     qs = [s for s in S if s.get('q')]; cues['q'] = [qs[0]['t0'], qs[-1]['t1']]
     g = {s['id']: s for s in S}
-    cues.update(count=qs[-1]['t1'], pops=[g['pick']['t0'] + .3, g['pick']['t0'] + 1.9], comment=[g['cm']['t0'], g['cm']['t1']],
+    cues.update(count=qs[-1]['t1'], pops=[g['hook']['t0'] + .35, g['hook']['t0'] + .85, g['pick']['t0'] + .3, g['pick']['t0'] + 1.9], comment=[g['cm']['t0'], g['cm']['t1']],
                 reveal=g['rev']['t0'], cta=g['cta']['t0'])
     cj = os.path.join(frames, 'cues.json'); json.dump(cues, open(cj, 'w')); wav = os.path.join(frames, 'score.wav')
     subprocess.run([sys.executable, os.path.join(HERE, 'reel_score.py'), cj, wav], check=True, stdout=subprocess.DEVNULL)

@@ -44,7 +44,7 @@ The full plan is in the claude.ai project doc "Instagram content system — fina
 Shivam, 20 Oct 2026: "daily PYQs as a reel instead of a post", "same reel to be posted on YouTube as well", goal = reach
 millions on both. The reel is built for what both platforms rank on (researched 20 Oct 2026): completion rate and
 replays (watch time), sends per reach (strongest signal for non-followers on Instagram), saves, and a strong first
-second. So: frame 0 already shows the whole hook on two faces; ~32–40 s; every beat ≤ 4.5 s except the question; a
+second. So: frame 0 already shows the whole hook on two faces, and the first 1.2 s move (Shivam, 20 Oct 2026: 69% of the first reel's viewers left within 3 s): the key phrase is underlined and "Aarav says (x) vs Priya says (y)" pops in over the faces, then the question card fills in within ~0.4 s; ~32–40 s; every beat ≤ 4.5 s except the question; a
 3-2-1 countdown; the last 0.6 s fades back to the hook so the loop is seamless; original music, captions only, no
 watermark, no reposted clips.
 **Two asks only, both earnest: the quiz answer (a/b/c/d) and the sheet keyword.** Instagram (Creators, Jun 2024): content
