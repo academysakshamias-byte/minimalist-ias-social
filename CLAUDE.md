@@ -82,6 +82,16 @@ One of the Syllabus X-Ray's 60 Prelims Core sub-topics per week, in rank order (
 6. **Export:** `python3 engine/export.py /tmp/core posts/<thursday>/core`, push, upload via commit-SHA raw URLs, publish with tag `core-NN` (two digits).
 7. **Caption:** "Core #N of 60 · <name>", one line on the pattern, what's inside, "Send this to your study partner", the free link to all N questions (minimalistias.com/upsc-syllabus/prelims, link in bio), ≤ 5 hashtags, alt text per slide.
 
+## Test Yourself (weekly: Saturday 7:42 PM draft → Sunday 9 AM publish)
+5 MCQs from the week's Daily Brief bank (memory `/areas/upsc-brief-mcq-bank/mon.md` … `sat.md`; use only entries dated in this Mon–Sat week), Aarav's score to beat, the answer key, then "comment your score". Ask: comment your score. Free nudges: the readiness check (score below 3) and the free Weekly Quiz. On the last Sunday of each month set `"monthly": true`: Priya reassures and points to the free strategy call (the monthly mentorship touch). No other product.
+1. **Pick 5:** one per day where possible; at least two GS papers; mixed difficulty; prefer shorter questions (they read better on a phone); never pick a question that tests a proposal or a pending case. Copy question text, options and key **verbatim** from the bank.
+2. **Aarav:** pick his answers so he scores 2–4 of 5 (vary week to week). When he's wrong, his pick is the option that falls for the trap the bank's explanation names. The score is computed by the template, never typed.
+3. **why:** ≤ 6 words per question, naming the trap ("The General Assembly elects them").
+4. **Render:** `python3 engine/test_post.py spec.json /tmp/test` (8 slides). Gate as usual; the question slides are verbatim and exempt from the word count. Look at every PNG.
+5. **Reviewer:** a fresh agent re-checks each question's key against official sources (bare Acts, judgments, official sites) and checks that every `why` matches the explanation. A question that can't be confirmed is swapped for another from the bank.
+6. **Export:** `python3 engine/export.py /tmp/test posts/<sunday>/test`, story frame from slide 1 with `engine/story.py`, push, upload, publish with tag `test-<yyyy>-w<NN>`.
+7. **Caption:** "Aarav scored N/5 on this week's UPSC current affairs. Can you beat him? 🧠", "Answers on slide 7 · comment your score 👇", the free Weekly Quiz link (minimalistias.com/resources/weekly-quiz, link in bio), ≤ 5 hashtags, alt text per slide.
+
 ## Assets
 - **Poses (`poses/cut`):**
   - aarav_* (15)

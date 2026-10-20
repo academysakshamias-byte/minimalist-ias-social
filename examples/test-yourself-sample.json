@@ -1,0 +1,138 @@
+{
+ "week": 42,
+ "date": "18 Oct 2026",
+ "range": "12–18 Oct 2026",
+ "qs": [
+  {
+   "day": "Tue",
+   "gs": "GS3",
+   "q": "With reference to the Living Planet Index, consider the following statements:\n1. It is published by the WWF together with the Zoological Society of London.\n2. A 73% decline in the index means that 73% of the species monitored have gone extinct since 1970.\n3. In the 2026 edition, freshwater populations show the steepest average decline.\nWhich of the statements given above is/are correct?",
+   "options": [
+    [
+     "a",
+     "1 only"
+    ],
+    [
+     "b",
+     "1 and 3 only"
+    ],
+    [
+     "c",
+     "2 and 3 only"
+    ],
+    [
+     "d",
+     "1, 2 and 3"
+    ]
+   ],
+   "a": "b",
+   "aarav": "d",
+   "why": "An average decline, not extinctions"
+  },
+  {
+   "day": "Wed",
+   "gs": "GS2",
+   "q": "With reference to BIMSTEC, consider the following statements:\n1. It was established through the Bangkok Declaration of 1997.\n2. All its member countries are also members of SAARC.\n3. Its permanent Secretariat is located in Dhaka.\nWhich of the statements given above is/are correct?",
+   "options": [
+    [
+     "a",
+     "1 and 3 only"
+    ],
+    [
+     "b",
+     "2 only"
+    ],
+    [
+     "c",
+     "2 and 3 only"
+    ],
+    [
+     "d",
+     "1, 2 and 3"
+    ]
+   ],
+   "a": "a",
+   "aarav": "d",
+   "why": "Myanmar, Thailand: not in SAARC"
+  },
+  {
+   "day": "Thu",
+   "gs": "GS3",
+   "q": "With reference to quantum computing, consider the following statements:\n1. A qubit can exist in a superposition of the states 0 and 1.\n2. Topological qubits seek to reduce errors by storing information non-locally, across a pair of Majorana zero modes.\n3. A Majorana fermion is a particle that is distinct from its own antiparticle.\nWhich of the statements given above is/are correct?",
+   "options": [
+    [
+     "a",
+     "1 and 2 only"
+    ],
+    [
+     "b",
+     "2 only"
+    ],
+    [
+     "c",
+     "1 and 3 only"
+    ],
+    [
+     "d",
+     "1, 2 and 3"
+    ]
+   ],
+   "a": "a",
+   "aarav": "a",
+   "why": "Majorana is its own antiparticle"
+  },
+  {
+   "day": "Fri",
+   "gs": "GS2",
+   "q": "With reference to the election of non-permanent members of the UN Security Council, consider the following statements:\n1. Non-permanent members are elected by the Security Council itself for a term of two years.\n2. A retiring non-permanent member is eligible for immediate re-election.\n3. A candidate needs a two-thirds majority of the General Assembly members present and voting.\nWhich of the statements given above is/are correct?",
+   "options": [
+    [
+     "a",
+     "1 and 2 only"
+    ],
+    [
+     "b",
+     "2 and 3 only"
+    ],
+    [
+     "c",
+     "1 and 3 only"
+    ],
+    [
+     "d",
+     "3 only"
+    ]
+   ],
+   "a": "d",
+   "aarav": "d",
+   "why": "The General Assembly elects them"
+  },
+  {
+   "day": "Sat",
+   "gs": "GS3",
+   "q": "Consider the following statements:\n1. CERT-In derives its statutory authority from the Information Technology Act, 2000.\n2. The National Critical Information Infrastructure Protection Centre functions under the Ministry of Electronics and IT.\n3. Under CERT-In's 2022 directions, cyber incidents must be reported within 72 hours.\nWhich of the statements given above is/are correct?",
+   "options": [
+    [
+     "a",
+     "1 and 2 only"
+    ],
+    [
+     "b",
+     "1 only"
+    ],
+    [
+     "c",
+     "2 and 3 only"
+    ],
+    [
+     "d",
+     "1, 2 and 3"
+    ]
+   ],
+   "a": "b",
+   "aarav": "b",
+   "why": "Report within six hours, not 72"
+  }
+ ],
+ "monthly": false
+}
