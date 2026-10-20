@@ -69,7 +69,7 @@ def build(spec, out):
   <div class="chips"><span><b>{n}</b>stories that matter</span><span><b>5</b>facts to remember</span><span><b>2</b>likely MCQ angles</span></div></div>
  <img class="pose" src="{pose('priya_clipboard')}" style="right:-10px;top:300px;height:820px">
  <div class="fade" style="top:1000px;height:350px"></div>
- <div class="ask">Save it — a new sheet every Monday</div></div>''')
+ <div class="ask">A new sheet every Monday</div></div>''')
     rows = ''.join(f'<div class="row"><div class="g">{"<br>".join(e(SHORT.get(x, x)) for x in s["gs"].split(" · "))}</div><div class="t">{e(s["t"])}<i>{e(s["k"])}{' <span class="pq">· PYQ</span>' if s.get("pyq") else ''}</i></div></div>' for s in spec['stories'])
     S.append(f'''<div class="s paper" id="n2">{chrome(2,T,"The week on one page","Screenshot this",f"Week {W} · {spec['range']}",True)}
  <div class="sheet{' dense' if len(spec['stories']) > 8 else ''}"><div class="tt"><h2>Week <em>{W}</em></h2><span>{e(spec['range']).upper()}</span></div>{rows}</div></div>''')
@@ -83,10 +83,10 @@ def build(spec, out):
  <div class="xw"><h2 class="h">{x.get("h","")}</h2><div class="xl">{pts}</div>{f'<div class="src">Source: {e(x["source"])}</div>' if x.get("source") else ''}</div></div>''')
     kM = 4 + len(X)
     mq = ''.join(f'<div class="mc"><div class="st">“{e(m["s"])}”</div><div class="a">{e(m["a"])} — <span>{e(m["why"])}</span></div></div>' for m in spec['mcqs'])
-    S.append(f'''<div class="s" id="n{kM}">{chrome(kM,T,"Likely MCQ angles",f"Week {W}","Follow for next Monday's sheet")}
+    S.append(f'''<div class="s" id="n{kM}">{chrome(kM,T,"Likely MCQ angles",f"Week {W}",f"Priya's notes · Week {W}")}
  <div class="mq"><h2 class="h">How UPSC <em>could ask it</em></h2>{mq}</div>
  <div class="cta"><div class="p">{('Every story with its UPSC angle and past questions: <b>minimalistias.com/week</b> — free, link in bio.' if spec.get('page') else 'Read any story in full: <b>the Daily Brief</b> — free, link in bio.')}{(' ' + e(spec['nudge'])) if spec.get('nudge') else ''}</div>
-  <div class="pill">Save this · Share with your study group</div></div></div>''')
+  <div class="pill">A new sheet every Monday</div></div></div>''')
     page = f'<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="file://{HERE}/brand.css"><style>{CSS}</style></head><body>{"".join(S)}</body></html>'
     p = os.path.join(out, 'post.html'); open(p, 'w').write(page)
     r = subprocess.run([sys.executable, os.path.join(HERE, 'cards.py'), p, out, '.s'], capture_output=True, text=True)

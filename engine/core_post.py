@@ -14,7 +14,7 @@ spec = {
  "core_total": 60, "core_q": 1064, "core_cov": 51,         # from core_data.py
  "day": "2026-10-22", "prelims": "2027-05-23", "xray_row": {...}, "price": {...}   # xray_row and price straight from core_data.py
 }
-Slides: 1 cover (duo_explain + bubbles + year bars) · 2 the pattern · 3 three traps · 4 last 3 PYQs · 5 read this first · 6 this sub-topic's real X-Ray row + the one-a-week vs all-today gap + share.
+Slides: 1 cover (duo_explain + bubbles + year bars) · 2 the pattern · 3 three traps · 4 last 3 PYQs · 5 read this first · 6 this sub-topic's real X-Ray row + the one-a-week vs all-today gap + "a new Core every Thursday".
 Characters appear on the cover only. The X-Ray row is verbatim product content (exempt from the 45-word count, like a verbatim question).
 """
 import json, os, sys, html, subprocess
@@ -105,7 +105,7 @@ def build(spec, out):
     S.append(f'''<div class="s" id="n4">{chrome(4,T,"Last 3 PYQs",tag,"Asked in UPSC Prelims")}
  <div class="blk"><h2 class="h">The <em>latest</em> three</h2>{pq}</div></div>''')
     rd = ''.join(f'<div class="rd"><div class="ck"></div><div><h3>{e(r["h"])}</h3><p>{e(r["p"])}</p></div></div>' for r in spec['read'])
-    S.append(f'''<div class="s paper" id="n5">{chrome(5,T,"Read this first",tag,"Save for revision",True)}
+    S.append(f'''<div class="s paper" id="n5">{chrome(5,T,"Read this first",tag,"Before the books",True)}
  <div class="blk"><h2 class="h">Read <em>this first</em></h2>{rd}<div class="sk"><b>Skip:</b> {e(spec['skip'])}</div>
  <div class="fr">All {spec["asked"]} questions, explained, free:<br><b>minimalistias.com/upsc-syllabus/prelims</b></div></div></div>''')
     # 6 — this sub-topic's real X-Ray row (verbatim, from planner/catalog.json + sources.json via core_data.py),
@@ -131,7 +131,7 @@ def build(spec, out):
  <div class="xb"><h2 class="h">One a week here. <em>All 60 today.</em></h2>
   <p class="pt">At one a week, this series reaches Core #{reach} by Prelims ({exam.day} {months[exam.month-1]} {exam.year}). The X-Ray ranks all 928 sub-topics now.</p>
   <div class="url">{price} · <b>minimalistias.com/syllabus-x-ray</b></div></div></div>
- <div class="share">Send to a study partner ↗</div></div>''')
+ <div class="share">A new Core every Thursday</div></div>''')
     page = f'<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="file://{HERE}/brand.css"><style>{CSS}</style></head><body>{"".join(S)}</body></html>'
     p = os.path.join(out, 'post.html'); open(p, 'w').write(page)
     r = subprocess.run([sys.executable, os.path.join(HERE, 'cards.py'), p, out, '.s'], capture_output=True, text=True)

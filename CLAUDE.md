@@ -96,7 +96,7 @@ On each PYQ reel (Instagram) and Short (YouTube, found by `ytVideoId` on the day
 - No links inside replies, @username only when natural, at most 40 answer replies per platform per run, never the same comment twice (Instagram: `instagramReplies`; YouTube: `youtubeReplies`). Keep wording varied so it never reads as spam.
 
 ## Core 60 (weekly: Wednesday 7:45 PM draft → Thursday 9 AM publish)
-One of the Syllabus X-Ray's 60 Prelims Core sub-topics per week, in rank order (#1 first). Ask: share. Product: slide 6 shows that sub-topic's real X-Ray row (verbatim from `core_data.py`), the one-a-week vs all-today gap and the live price — the series' only product mention. One post a week (Shivam, 20 Oct: keep weekly, judge by student response before changing).
+One of the Syllabus X-Ray's 60 Prelims Core sub-topics per week, in rank order (#1 first). No share/save asks (sends come from the content). Product: slide 6 shows that sub-topic's real X-Ray row (verbatim from `core_data.py`), the one-a-week vs all-today gap and the live price — the series' only product mention. One post a week (Shivam, 20 Oct: keep weekly, judge by student response before changing).
 1. **Which number:** query the Wix collection `instagramPosts` for tags starting `core-`; next N = highest + 1 (start at 1). Never repeat a number.
 2. **Data:** `python3 engine/core_data.py <site_repo> N /tmp/coreN.json` gives the name, year counts, every question with answer key and the site's audited explanation, the NCERT chapters, and the Core stats. Use these numbers as they are; never estimate.
 3. **Write the spec** for `engine/core_post.py` (see its docstring):
@@ -109,7 +109,7 @@ One of the Syllabus X-Ray's 60 Prelims Core sub-topics per week, in rank order (
 4. **Render:** `python3 engine/core_post.py spec.json /tmp/core`. Gate: minFs ≥ 26, no offEdge, no overlaps, `cwords` ≤ 45 on every slide (the verbatim X-Ray row is exempt). Look at every PNG.
 5. **Reviewer:** a fresh agent gets the spec, the PNGs and the full question file; it re-sorts the questions and checks every line (OK / FIX / RISKY with sources). Apply fixes, re-render.
 6. **Export:** `python3 engine/export.py /tmp/core posts/<thursday>/core`, push, upload via commit-SHA raw URLs, publish with tag `core-NN` (two digits).
-7. **Caption:** "Core #N of 60 · <name>", one line on the pattern, what's inside, "Send this to your study partner", the free link to all N questions (minimalistias.com/upsc-syllabus/prelims, link in bio), ≤ 5 hashtags, alt text per slide.
+7. **Caption:** "Core #N of 60 · <name>", one line on the pattern, what's inside, "A new Core every Thursday", the free link to all N questions (minimalistias.com/upsc-syllabus/prelims, link in bio), ≤ 5 hashtags, alt text per slide.
 
 ## Test Yourself (weekly: Saturday 7:42 PM draft → Sunday 9 AM publish)
 5 MCQs from the week's Daily Brief bank (memory `/areas/upsc-brief-mcq-bank/mon.md` … `sat.md`; use only entries dated in this Mon–Sat week), Aarav's score to beat, the answer key, then "comment your score". Ask: comment your score. Free nudges: the readiness check (score below 3) and the free Weekly Quiz. On the last Sunday of each month set `"monthly": true`: Priya reassures and points to the free strategy call (the monthly mentorship touch). No other product.
