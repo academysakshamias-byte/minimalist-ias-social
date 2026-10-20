@@ -1,0 +1,83 @@
+{
+ "a": {
+  "mediaId": "18137347669644387",
+  "type": "FEED",
+  "mediaType": "CAROUSEL_ALBUM",
+  "timestamp": "2026-10-20T11:31:23+0000",
+  "permalink": "https://www.instagram.com/p/DetuzjvkSNy/",
+  "insights": {
+   "reach": 7,
+   "views": 25,
+   "likes": 4,
+   "comments": 1,
+   "saved": 3,
+   "shares": 0,
+   "total_interactions": 8,
+   "follows": 0,
+   "profile_visits": 1
+  },
+  "at": "2026-10-20T14:51:45.734Z"
+ },
+ "b": {
+  "mediaId": "18123623735312471",
+  "type": "REELS",
+  "mediaType": "VIDEO",
+  "timestamp": "2026-10-20T14:22:51+0000",
+  "permalink": "https://www.instagram.com/reel/DeuCXnAFUQU/",
+  "insights": {
+   "reach": 1,
+   "views": 9,
+   "likes": 2,
+   "comments": 0,
+   "saved": 1,
+   "shares": 0,
+   "total_interactions": 3
+  },
+  "at": "2026-10-20T14:51:48.621Z"
+ },
+ "c": {
+  "channelId": "UCAYrxWAKgph46IquJ9McBeQ",
+  "channelTitle": "Minimalist IAS – UPSC Strategy & Mentorship",
+  "subscribers": "1740",
+  "videos": "72",
+  "views": "106349",
+  "connectedAt": "2026-10-20T14:17:24.014Z",
+  "uploadsTodayViaMcp": 1,
+  "dailyCap": 3
+ },
+ "d": [
+  {
+   "videoId": "0s71_f1_Blg",
+   "title": "Who mines ¾ of the world's cobalt? | UPSC Prelims 2023 PYQ #Shorts",
+   "publishedAt": "2026-10-20T14:28:29Z",
+   "privacy": "public",
+   "duration": "PT36S",
+   "views": "2",
+   "likes": "1",
+   "comments": "0",
+   "url": "https://youtube.com/shorts/0s71_f1_Blg"
+  },
+  {
+   "videoId": "yVDZibkNIyQ",
+   "title": "Same 10 Months, Alag Result 💔 UPSC Prelims Syllabus Analysis | Prelims 2027 Strategy #Shorts",
+   "publishedAt": "2026-10-18T14:16:56Z",
+   "privacy": "public",
+   "duration": "PT44S",
+   "views": "4208",
+   "likes": "4",
+   "comments": "1",
+   "url": "https://youtube.com/shorts/yVDZibkNIyQ"
+  },
+  {
+   "videoId": "ERrlK6fhA5g",
+   "title": "Ek hi din shuru. Ek hi exam. Alag anjaam. | UPSC Syllabus X-Ray #Shorts #upsc #ias",
+   "publishedAt": "2026-10-17T16:54:34Z",
+   "privacy": "public",
+   "duration": "PT59S",
+   "views": "947",
+   "likes": "8",
+   "comments": "1",
+   "url": "https://youtube.com/shorts/ERrlK6fhA5g"
+  }
+ ]
+}
