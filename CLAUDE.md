@@ -93,8 +93,8 @@ One of the Syllabus X-Ray's 60 Prelims Core sub-topics per week, in rank order (
 7. **Caption:** "Aarav scored N/5 on this week's UPSC current affairs. Can you beat him? 🧠", "Answers on slide 7 · comment your score 👇", the free Weekly Quiz link (minimalistias.com/resources/weekly-quiz, link in bio), ≤ 5 hashtags, alt text per slide.
 
 ## Daily stories (10:13 AM, 1:13 PM, 3:13 PM: each runs whatever is due and not yet posted today)
-Native 9:16 stories from `engine/stories.py` (no draft step: every word comes from already-published, fact-checked material or real counts). Tags make each story post once a day: `story-brief-<date>`, `story-split-<date>`, `story-eval-<date>`.
-1. **Room check first:** count today's rows in `instagramPosts`. Keep 2 slots free for the 7 PM PYQ carousel + story (if not yet posted). Post a story only if `posts today + reserved + 1 ≤ 6`. Priority: Brief top 3 > answer split > Saturday evaluation.
+Native 9:16 stories from `engine/stories.py` (no draft step: every word comes from already-published, fact-checked material or real counts). Tags make each story post once a day: `story-brief-<date>`, `story-split-<date>` (`story-eval-<date>` when the Saturday story is restarted).
+1. **Room check first:** count today's rows in `instagramPosts`. Keep 2 slots free for the 7 PM PYQ carousel + story (if not yet posted). Post a story only if `posts today + reserved + 1 ≤ 6`. Priority: Brief top 3 > answer split.
 2. **Brief top 3** (`stories.py brief`): today's `dailyBriefs` row (briefDate = today IST). The Brief lands between ~8 AM and ~2:30 PM, so if it isn't there yet, do nothing; a later run will post it.
    - Pick 3 articles from different GS papers where possible (no GS4), the most exam-relevant first.
    - title = the Brief's title verbatim; gs like "GS2 · POLITY"; why = the Brief's own why line, trimmed to ≤ 90 characters without adding anything.
@@ -102,7 +102,7 @@ Native 9:16 stories from `engine/stories.py` (no draft step: every word comes fr
    - Count one vote per username: their first comment that is just an option letter ("c", "C", "(c)", "c)", "option c"). Exclude our own account.
    - Post only if there are ≥ 10 votes; real counts only, never rounded up or padded.
    - The answer and tag come from yesterday's `pyqOfTheDay` row → `prelims.json` (key and option text).
-4. **Saturday evaluation** (`stories.py evaluate {}`, Saturdays, first run).
+4. **Saturday evaluation: PAUSED** (Shivam, 20 Oct 2026: "pause this till I say to start"). Do not post it. The template (`stories.py evaluate`) stays ready for when he restarts it.
 5. **Publish:** save the JPEGs under `posts/<date>/stories/`, commit and push, upload them via the commit-SHA raw URLs, then post with `instagram_publish_story` and the tag. Look at each JPEG first; `unsafe` in the output must be empty.
 
 ## Assets
