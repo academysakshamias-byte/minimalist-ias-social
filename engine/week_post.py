@@ -3,7 +3,7 @@
 usage: week_post.py spec.json out_dir
 spec = {
  "week": 42, "range": "12–18 Oct 2026", "date": "20 Oct 2026",
- "stories": [{"gs": "GS2 · Polity", "t": "headline ≤ 8 words", "k": "Prelims angle, 1–3 words"}],   # 6–8
+ "stories": [{"gs": "GS2 · Polity", "t": "headline ≤ 8 words", "k": "Prelims angle, 1–3 words"}],   # 6–12, most important first
  "facts":   ["one-line fact", ...],                                                          # 5
  "mcqs":    [{"s": "statement as UPSC might frame it", "a": "True|False", "why": "one line"}], # 2
  "nudge":   "optional extra line for the CTA slide",
@@ -30,6 +30,8 @@ CSS = """
 .sheet .tt h2{margin:0;font:600 50px/1 var(--serif);color:#16130e}.sheet .tt h2 em{color:var(--p-acc)}
 .sheet .tt span{font:600 26px/1 var(--mono);color:var(--p-lab);letter-spacing:.08em}
 .row{display:grid;grid-template-columns:132px 1fr;column-gap:20px;padding:15px 0;border-bottom:2px solid rgba(26,23,18,.10)}
+.dense .row{padding:6px 0;grid-template-columns:118px 1fr}.dense .row .t{font-size:28px;line-height:1.2}.dense .row .t i{margin-top:2px;line-height:1.15}.dense .row .g{font-size:26px;line-height:1.15;padding-top:2px}
+.dense.sheet{top:150px;bottom:140px;padding-top:28px}.dense .tt{padding-bottom:12px}
 .row .g{font:600 26px/1.2 var(--mono);color:var(--p-lab);padding-top:4px}
 .row .t{font:500 32px/1.25 var(--sans);color:#1a1712}
 .row .t i .pq{color:#2f4f7a}
@@ -57,6 +59,7 @@ def build(spec, out):
     out = os.path.abspath(out); os.makedirs(out, exist_ok=True); e = html.escape
     X = spec.get('extra') or []; T = 4 + len(X); W = spec['week']; S = []
     n = len(spec['stories'])
+    assert 4 <= n <= 12, 'Week in One Page takes 4–12 stories'
     S.append(f'''<div class="s" id="n1">{chrome(1,T,"Priya's notes",f"Week {W}","Swipe for the sheet →")}
  <div class="cv"><div class="k">{e(spec['range'])}</div>
   <h1 class="h">Last week, <em>in one page.</em></h1>
@@ -66,7 +69,7 @@ def build(spec, out):
  <div class="ask">Save it — a new sheet every Monday</div></div>''')
     rows = ''.join(f'<div class="row"><div class="g">{"<br>".join(e(x) for x in s["gs"].split(" · "))}</div><div class="t">{e(s["t"])}<i>{e(s["k"])}{' <span class="pq">· PYQ</span>' if s.get("pyq") else ''}</i></div></div>' for s in spec['stories'])
     S.append(f'''<div class="s paper" id="n2">{chrome(2,T,"The week on one page","Screenshot this",f"Week {W} · {spec['range']}",True)}
- <div class="sheet"><div class="tt"><h2>Week <em>{W}</em></h2><span>{e(spec['range']).upper()}</span></div>{rows}</div></div>''')
+ <div class="sheet{' dense' if len(spec['stories']) > 8 else ''}"><div class="tt"><h2>Week <em>{W}</em></h2><span>{e(spec['range']).upper()}</span></div>{rows}</div></div>''')
     fx = ''.join(f'<div class="fi"><b>{i+1}</b><p>{e(f)}</p></div>' for i, f in enumerate(spec['facts']))
     S.append(f'''<div class="s" id="n3">{chrome(3,T,"5 facts to remember",f"Week {W}","Swipe for MCQ angles →")}
  <div class="fx"><h2 class="h">Facts that <em>stick.</em></h2>{fx}</div></div>''')
