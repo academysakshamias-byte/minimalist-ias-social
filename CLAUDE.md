@@ -71,12 +71,14 @@ so the loop is seamless; original music, captions only, no watermark, no reposte
 11. **Publish (7 PM):** check `instagram_recent_media` first (never twice).
     - Instagram: `instagram_publish_reel` (video_url = the 1080p wixstatic MP4, caption, cover_url, tag `pyq-<date>`); if it returns a creation_id, call `instagram_publish_container` (creation_id, kind "reel", the same tag and caption) once a minute for up to 5 minutes. Then `instagram_publish_story` with the story.jpg wixstatic URL (tag `pyq-<date>-story`).
     - YouTube: `youtube_upload_short` (same connector) with the same MP4 URL, `yt_title`, `yt_description`, `yt_tags`, privacy "public", tag `pyq-<date>`. If the result says YouTube kept it private (Google's app audit isn't done yet), tell Shivam: "Tap Visibility → Public in YouTube Studio" with the link. If YouTube isn't connected yet, say so once and carry on with Instagram.
+    - Record both on today's `pyqOfTheDay` row (wix-data PATCH, SET_FIELD): `ytVideoId`, `ytPublishedAt` (from youtube_recent), `ytTitle`, `ytDuration` (e.g. "PT35S"), `igPermalink`. The question's page on the website then shows "the 35-second version" (the Short + the sheet) with VideoObject/ImageObject structured data for search and answer engines.
     - Report both links.
 
 ## Comment-to-DM (runs inside the comment auto-reply task)
 For every comment on a PYQ reel that contains that day's `dmWord` (any case, as a word; `pyqOfTheDay` row of the reel's day, found via the reel's `instagramPosts` row → `day`):
 1. `instagram_private_reply` (comment_id, message). Meta allows ONE private message per comment, within 7 days. Message:
-   "Here's your 1-page revision sheet for today's PYQ 📘 <sheetUrl>\nEvery option explained: minimalistias.com/pyqs/prelims/<year>/q<n>\nA new PYQ every evening at 7. Follow @minimalistias so you don't miss it."
+   "Here's your 1-page revision sheet + the 35-second video for today's PYQ 📘\nhttps://www.minimalistias.com/pyqs/prelims/<year>/q<n>?utm_source=instagram&utm_medium=dm&utm_campaign=revision-sheet#revision-sheet\nA new PYQ every evening at 7. Follow @minimalistias so you don't miss it."
+   The link goes to the question's page on the website, not to the image: the page shows the sheet, the Short and every option explained, so each DM is a website visit (Shivam, 20 Oct 2026: reels, Shorts and DMs should all lead to the site).
 2. Then a short public reply under the comment: "Sent! Check your DMs 📩 (if you don't follow us yet, look in message requests)". Vary the wording slightly.
 3. The tool logs `dm:<commentId>` in `instagramReplies`, so a comment is never messaged twice. Skip our own account. At most 50 DMs a run. If Meta refuses (permission or policy error), stop DMs for the run, reply publicly with the sheet link instead, and tell Shivam the exact error once.
 
