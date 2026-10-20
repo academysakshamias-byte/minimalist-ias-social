@@ -17,6 +17,9 @@ import json, os, sys, html, subprocess
 HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE)
 from pyq_post import LOGO_D, LOGO_L, chrome, pose
 
+# subject labels longer than the sheet's label column are shortened on the image (the web page keeps the full word)
+SHORT = {"Geography": "Geog.", "Agriculture": "Agri.", "Governance": "Gov.", "Security": "Secur.", "Environment": "Env"}
+
 CSS = """
 .cv{position:absolute;left:96px;top:230px;width:560px}
 .cv .k{font:600 26px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
@@ -67,7 +70,7 @@ def build(spec, out):
  <img class="pose" src="{pose('priya_clipboard')}" style="right:-10px;top:300px;height:820px">
  <div class="fade" style="top:1000px;height:350px"></div>
  <div class="ask">Save it — a new sheet every Monday</div></div>''')
-    rows = ''.join(f'<div class="row"><div class="g">{"<br>".join(e(x) for x in s["gs"].split(" · "))}</div><div class="t">{e(s["t"])}<i>{e(s["k"])}{' <span class="pq">· PYQ</span>' if s.get("pyq") else ''}</i></div></div>' for s in spec['stories'])
+    rows = ''.join(f'<div class="row"><div class="g">{"<br>".join(e(SHORT.get(x, x)) for x in s["gs"].split(" · "))}</div><div class="t">{e(s["t"])}<i>{e(s["k"])}{' <span class="pq">· PYQ</span>' if s.get("pyq") else ''}</i></div></div>' for s in spec['stories'])
     S.append(f'''<div class="s paper" id="n2">{chrome(2,T,"The week on one page","Screenshot this",f"Week {W} · {spec['range']}",True)}
  <div class="sheet{' dense' if len(spec['stories']) > 8 else ''}"><div class="tt"><h2>Week <em>{W}</em></h2><span>{e(spec['range']).upper()}</span></div>{rows}</div></div>''')
     fx = ''.join(f'<div class="fi"><b>{i+1}</b><p>{e(f)}</p></div>' for i, f in enumerate(spec['facts']))
