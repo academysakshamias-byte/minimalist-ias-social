@@ -1,0 +1,66 @@
+{
+ "week": 42,
+ "range": "12–18 Oct 2026",
+ "date": "20 Oct 2026",
+ "stories": [
+  {
+   "gs": "GS1 · Society",
+   "t": "Women's labour force participation reaches 40%",
+   "k": "PLFS · FLFPR (15+)"
+  },
+  {
+   "gs": "GS2 · Polity",
+   "t": "SC: children have a right to internet access",
+   "k": "Art 21 + Art 19(1)(a)"
+  },
+  {
+   "gs": "GS2 · IR",
+   "t": "India vs Tajikistan for a 2028–29 UNSC seat",
+   "k": "Art 23 · Art 18(2)"
+  },
+  {
+   "gs": "GS2 · Health",
+   "t": "Trade margins capped on 137 cancer drugs",
+   "k": "NPPA · DPCO 2013 Para 19"
+  },
+  {
+   "gs": "GS3 · Economy",
+   "t": "Retail inflation at a 23-month high (5.54%)",
+   "k": "CPI · RBI Act S.45ZA"
+  },
+  {
+   "gs": "GS3 · Economy",
+   "t": "Govt clears IDBI Bank stake sale to Fairfax",
+   "k": "Strategic disinvestment"
+  },
+  {
+   "gs": "GS3 · Env",
+   "t": "Living Planet Index: 73% average decline",
+   "k": "WWF · ZSL · 1970–2022"
+  },
+  {
+   "gs": "GS3 · S&T",
+   "t": "Aditya-L1 and Proba-3 jointly study CMEs",
+   "k": "L1 point · coronagraph"
+  }
+ ],
+ "facts": [
+  "PLFS is run by the National Statistics Office (MoSPI); its first round covered 2017–18.",
+  "UNSC non-permanent members serve two-year terms and need two-thirds of GA members present and voting.",
+  "India's CPI target is 4% (band 2–6%), set by the Centre with RBI under Section 45ZA.",
+  "ESA's Proba-3 makes an artificial eclipse with two satellites flying about 150 m apart.",
+  "The Living Planet Index is compiled by the Zoological Society of London with WWF."
+ ],
+ "mcqs": [
+  {
+   "s": "Non-permanent members of the UN Security Council are elected for two years and are not eligible for immediate re-election.",
+   "a": "True",
+   "why": "UN Charter, Article 23(2)."
+  },
+  {
+   "s": "Aditya-L1 orbits the Sun–Earth L1 point, about 1.5 million km from Earth.",
+   "a": "True",
+   "why": "It sits in a halo orbit around L1, facing the Sun without eclipses."
+  }
+ ]
+}
