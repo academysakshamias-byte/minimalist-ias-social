@@ -17,8 +17,11 @@ today's 1-page revision sheet" (engine/sheet.py → sheet.jpg, also checked by t
 (x 140–920, y 300–1300), no overlapping text, and ≤ 45 content words (the verbatim question is exempt).
 Arc (built for Reels/Shorts ranking: completion, replays, sends, saves): frame 0 = the full hook on two faces with
 "answer in N s" → verbatim question (timer, 3-2-1) → Aarav's and Priya's picks → comment a/b/c/d → answer +
-reactions → option by option → [in the news] → the trap → remember + method ("save this") → "send this to the friend
-who'd pick (x)" → last 0.6 s fade back to the hook frame so the loop is seamless.
+reactions → option by option → [in the news] → the trap → remember + method → "Comment WORD → the sheet" (or, with no
+sheet, "every option explained" + the link) → last 0.6 s fade back to the hook frame so the loop is seamless.
+Asks (Instagram, Jun 2024: content that "explicitly asks for engagement through shares, comments, tags" to game the
+system isn't recommended; earnest lead-gen like comment-to-DM is fine): only two, both earnest: the quiz answer and the
+keyword for the sheet. No "tag a friend", no "send this", no "save this": sends and saves must come from the content.
 """
 import json, os, re, sys, html, shutil, subprocess, tempfile
 HERE = os.path.dirname(os.path.abspath(__file__)); ROOT = os.path.dirname(HERE)
@@ -185,7 +188,7 @@ def page(spec, split, story=False):
     a_ok, p_ok = A['pick'] == key, Pr['pick'] == key
     ans_in = int(round(next(s['t0'] for s in S if s['id'] == 'rev')))
     trap_pick = A['pick'] if not a_ok else (Pr['pick'] if not p_ok else '')
-    send_h = (f'Send this to the friend who\'d pick <em>({trap_pick})</em>' if trap_pick else 'Send this to <em>your study partner</em>')
+    send_h = 'Every option, <em>explained free</em>'
     dmw = re.sub(r'[^A-Z0-9]', '', str(spec.get('dm_word', '')).upper())[:12]
     dm = bool(dmw and spec.get('_sheet') and os.path.exists(spec['_sheet']))
     if dm:   # comments + DMs: the keyword ask (sends a free revision sheet) is the reel's last ask
@@ -194,7 +197,7 @@ def page(spec, split, story=False):
                     f'<img class="thumb t" id="thumb" src="file://{spec["_sheet"]}"></div>')
     else:
         cta_html = (f'<div class="sc" id="s-cta"><div class="cta t">{LOGO_D}<h2>{send_h}</h2><div class="url">minimalistias.com/pyq-today</div>'
-                    f'<p>Every option explained, free</p></div></div>')
+                    f'<p>Plus the 1-page revision sheet</p></div></div>')
     if a_ok and p_ok: rcap = 'Both got it.'
     elif p_ok: rcap = '<b>Priya</b> got it.'
     elif a_ok: rcap = '<b>Aarav</b> got it.'
@@ -233,7 +236,7 @@ def page(spec, split, story=False):
 <div class="storybar">New PYQ reel · on our profile</div>'''
     caps = {'hook': 'Can you solve this?', 'q': 'Pause. <b>Pick your answer.</b>', 'qa': 'Pause. <b>Read carefully.</b>',
             'qb': 'Now <b>pick your answer.</b>', 'pick': "Who's <b>right?</b>", 'cm': '', 'rev': rcap, 'vd': '', 'ex': '',
-            'trap': "Don't <b>fall for this.</b>", 'rem': 'Save this <b>for revision.</b>', 'cta': '' if dm else 'Follow for <b>tomorrow\'s PYQ.</b>', 'loop': ''}
+            'trap': "Don't <b>fall for this.</b>", 'rem': 'The line <b>to revise.</b>', 'cta': '' if dm else 'New PYQ <b>tomorrow, 7 PM.</b>', 'loop': ''}
     for s in S: s['cap'] = caps.get(s['id'], '')
     body = body.replace('{caps_html}', ''.join(f'<div class="cap" id="cap-{s["id"]}"><span>{s["cap"]}</span></div>' for s in S if s['cap']))
     js_cfg = json.dumps({'S': S, 'dur': dur, 'tw': tw, 'other': other, 'dm': dm,
@@ -312,8 +315,8 @@ GATE_JS = """(S) => { const out = {};
 def meta(spec):
     """Search-first text for both platforms (Instagram search reads captions more than hashtags; YouTube classifies a
     Short by its title/description), and the comment-reply lines. Drafts: the run may edit them, but keep the
-    keyword-first first line. Asks, in order: answer a/b/c/d (we reply to every answer) → the DM keyword → the bonus PYQ
-    (its answer is on our site) → tag/send a friend."""
+    keyword-first first line. Two earnest asks only (see the module docstring): answer a/b/c/d → the DM keyword. The
+    bonus PYQ is content with its answer on our site (a website visit), not a third comment ask; no tag/send/save asks."""
     q = spec['q']; t = q['t']; hook = re.sub(r'\s+', ' ', strip(spec['hook'])).strip()
     stem = ' '.join(t['stem']); items = [f'{k}. {v}' for k, v in t.get('items', [])]
     opts = [f'({k}) {v}' for k, v in t['options'].items()]
@@ -325,19 +328,18 @@ def meta(spec):
     word = re.sub(r'[^A-Z0-9]', '', str(spec.get('dm_word', '')).upper())[:12]
     b = spec.get('bonus') or {}
     bm = re.match(r'^pre-(\d{4})-0*(\d{1,3})$', str(b.get('id', '')))
-    bonus_ig = (f"🎯 Bonus PYQ (UPSC {bm.group(1)}): {b['short']} Comment "bonus" + your answer (e.g. bonus b); it's explained on today's page (link in bio).\n" if bm and b.get('short') else "")
-    bonus_yt = (f"🎯 Bonus PYQ (UPSC {bm.group(1)}): {b['short']} (comment \"bonus\" + your answer)\nAnswer + explanation: https://www.minimalistias.com/pyqs/prelims/{bm.group(1)}/q{int(bm.group(2))}?utm_source=youtube&utm_medium=social&utm_campaign=bonus-pyq\n\n" if bm and b.get('short') else "")
+    bonus_ig = (f"🎯 Bonus PYQ (UPSC {bm.group(1)}): {b['short']} Answer + explanation on today's page (link in bio).\n" if bm and b.get('short') else "")
+    bonus_yt = (f"🎯 Bonus PYQ (UPSC {bm.group(1)}): {b['short']}\nAnswer + explanation: https://www.minimalistias.com/pyqs/prelims/{bm.group(1)}/q{int(bm.group(2))}?utm_source=youtube&utm_medium=social&utm_campaign=bonus-pyq\n\n" if bm and b.get('short') else "")
     ig = (f"{hook} UPSC Prelims {q['y']} PYQ{(' | ' + topic) if topic else ''}\n\n"
           f"UPSC Prelims {q['y']}, Q{q['n']}:\n{qtext}\n\n"
           f"Aarav says ({A['pick']}). Priya says ({Pr['pick']}). Who's right?\n\n"
-          "Pause the reel and pick yours. Comment a, b, c or d 👇 (we reply to every answer)\n"
+          "Pause the reel and pick yours. Comment a, b, c or d 👇 and we'll reply\n"
           + (f"💬 Comment {word} and we'll DM you today's 1-page revision sheet (free).\n" if word else "")
-          + bonus_ig
-          + (f"📤 Tag or send this to the friend who'd pick ({trap_pick}).\n\n" if trap_pick else "📤 Tag or send this to the friend you study with.\n\n")
+          + bonus_ig + "\n"
           + "Every option explained, free: minimalistias.com/pyq-today (link in bio)\n\n" + ' '.join(tags[:5]))
     yt_title = f"{hook} | UPSC Prelims {q['y']} PYQ #Shorts"
     if len(yt_title) > 100: yt_title = f"{hook[:100 - 26].rstrip()}… UPSC PYQ #Shorts"
-    yt_desc = (f"UPSC Prelims {q['y']}, Q{q['n']}: can you answer before the reveal? Comment a, b, c or d: we reply to every answer.\n\n{qtext}\n\n"
+    yt_desc = (f"UPSC Prelims {q['y']}, Q{q['n']}: can you answer before the reveal? Comment a, b, c or d and we'll reply.\n\n{qtext}\n\n"
                f"Every option explained + the 1-page revision sheet, free: https://www.minimalistias.com/pyqs/prelims/{q['y']}/q{q['n']}?utm_source=youtube&utm_medium=social&utm_campaign=pyq-of-the-day#revision-sheet\n\n"
                + bonus_yt
                + "A new UPSC PYQ every evening with Aarav & Priya. Subscribe for tomorrow's.\n\n"

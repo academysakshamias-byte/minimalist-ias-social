@@ -45,8 +45,12 @@ Shivam, 20 Oct 2026: "daily PYQs as a reel instead of a post", "same reel to be 
 millions on both. The reel is built for what both platforms rank on (researched 20 Oct 2026): completion rate and
 replays (watch time), sends per reach (strongest signal for non-followers on Instagram), saves, and a strong first
 second. So: frame 0 already shows the whole hook on two faces; ~32–40 s; every beat ≤ 4.5 s except the question; a
-3-2-1 countdown; "save this" and "send this to the friend who'd pick (x)" asks; the last 0.6 s fades back to the hook
-so the loop is seamless; original music, captions only, no watermark, no reposted clips.
+3-2-1 countdown; the last 0.6 s fades back to the hook so the loop is seamless; original music, captions only, no
+watermark, no reposted clips.
+**Two asks only, both earnest: the quiz answer (a/b/c/d) and the sheet keyword.** Instagram (Creators, Jun 2024): content
+that "explicitly asks for engagement through shares, comments, tags" to game the system won't be recommended; earnest
+lead-gen (comment-to-DM) is fine. So never add "tag a friend", "send this", "save this", "follow for…" or a third
+comment format, in the reel or the caption: sends and saves must come from the content (the Aarav-vs-Priya split).
 1. **Get today's PYQ id:** `pyqOfTheDay` collection on the Wix site 9f199c19-1835-4ffe-b42d-d61dedf7766c (Wix connector, CallWixSiteAPI, wix-data query, sorted by day desc, day ≤ today IST). No row for today → choose an unused Prelims GS PYQ (2019+) and save it as today's pointer. Prefer questions ≤ 90 words (they read well in a reel); longer ones split into two cards automatically.
 2. **Get the question and explanation:** `src/data/pyq/prelims.json` in the private repo `academysakshamias-byte/minimalist-ias` (add_repo with read access, shallow clone).
 3. **Re-check the website explanation** for this one PYQ only. If something is wrong, tell Shivam with the source; don't edit the site.
@@ -56,7 +60,7 @@ so the loop is seamless; original music, captions only, no watermark, no reposte
    - answer_head, 2–3 verdicts, source, remember / trap (`trap_who`) / method.
    - `topic` ("Geography · critical minerals") and ≤ 5 `hashtags` for the caption; optional `yt_tags`.
    - `dm_word`: one easy keyword from the topic, ≤ 8 letters preferred, not a common word and never a, b, c, d or PYQ ("CONGO", "RAMSAR", "ART360"). The reel ends "Comment CONGO → we'll DM you today's 1-page revision sheet" (Shivam, 20 Oct 2026: comment-to-DM for comments, saves and leads).
-   - `bonus`: {"id": "pre-YYYY-NNN", "short": "≤ 16-word faithful paraphrase"}: a related real Prelims PYQ (same topic in prelims.json, has an explanation, not used before). It goes in the caption ("comment bonus + your answer"), the YouTube description (clickable link to its page) and the sheet ("Try this next"); its answer lives on its own page, so it is a second comment and a website visit.
+   - `bonus`: {"id": "pre-YYYY-NNN", "short": "≤ 16-word faithful paraphrase"}: a related real Prelims PYQ (same topic in prelims.json, has an explanation, not used before). It goes in the caption ("comment bonus + your answer"), the YouTube description (clickable link to its page) and the sheet ("Try this next"); its answer lives on its own page, so it is a website visit. It is content, not a comment ask: never ask people to "comment bonus …".
    - `reply_right` (≤ 12 words: why the key is right) and `reply_trap` (≤ 14 words: the trap the wrong picks fall for). The comment task replies to every a/b/c/d answer with these, so the reviewer checks them like on-screen lines.
    - `extra` is not shown in the reel by default (`reel_extra: false`): completion rate beats depth here; the website has the depth.
 5. **Render:** `python3 engine/pyq_reel.py spec.json /tmp/reel` (~5 min). It also renders `sheet.jpg`, the DM revision sheet (`engine/sheet.py`, built only from the spec; gate: minFs ≥ 26, no overflow). Gate per scene: minFs ≥ 26, no text outside x 140–920 / y 300–1300 (inside both the Reels and the Shorts UI), no overlaps, ≤ 45 content words. `"fail": {}` or fix the spec. Look at every file in `/tmp/reel/stills/`, plus `cover.jpg` and `story.jpg`.
@@ -67,7 +71,7 @@ so the loop is seamless; original music, captions only, no watermark, no reposte
    - save the comment data on today's pointer row: wix-data PATCH `https://www.wixapis.com/wix-data/v2/items/<today>` (collection `pyqOfTheDay`) with SET_FIELD `dmWord`, `sheetUrl` (the sheet's wixstatic URL), `answer` (the key letter), `replyRight`, `replyTrap`, `bonusId`, `bonusAnswer` (the bonus PYQ's key from prelims.json). The comment task reads them from there; the question page shows the bonus link.
    - video: `CallWixSiteAPI` POST `https://www.wixapis.com/site-media/v1/files/import` with `{url: <raw reel.mp4 URL>, mimeType: "video/mp4", displayName: "pyq-<date>.mp4", mediaType: "VIDEO", private: false}`; then GET `https://www.wixapis.com/site-media/v1/files/get-file-by-id?fileId=<id>` about once a minute until `operationStatus` is `READY`; use `media.video.resolutions[]` → the `1080p` mp4 URL (`https://video.wixstatic.com/video/<id>/1080p/mp4/file.mp4`).
 9. **Text** (start from `meta.json`; keep its keyword-first first lines):
-   - Instagram caption = `ig_caption`: hook + "UPSC Prelims <year> PYQ" first (Instagram search reads captions), the question in text, "Aarav says (x). Priya says (y). Who's right?", "Pause the reel and pick yours. Comment a, b, c or d 👇" (keep "Comment a, b, c or d" exactly: the answer-split story finds the post by it), the "Comment WORD and we'll DM you…" line, the send line, the free link, ≤ 5 hashtags.
+   - Instagram caption = `ig_caption`: hook + "UPSC Prelims <year> PYQ" first (Instagram search reads captions), the question in text, "Aarav says (x). Priya says (y). Who's right?", "Pause the reel and pick yours. Comment a, b, c or d 👇" (keep "Comment a, b, c or d" exactly: the answer-split story finds the post by it), the "Comment WORD and we'll DM you…" line, the bonus line, the free link, ≤ 5 hashtags. Add no other asks.
    - YouTube: `yt_title` (≤ 100 characters, ends "#Shorts"), `yt_description`, `yt_tags`.
 10. **Draft (4 PM):** send Shivam `reel.mp4`, the cover and both texts: "Publishing at 7:00 PM IST on Instagram and YouTube unless you reply with changes or 'hold'." Silence by 7 PM = approval.
 11. **Publish (7 PM):** check `instagram_recent_media` first (never twice).
@@ -88,7 +92,7 @@ For every comment on a PYQ reel that contains that day's `dmWord` (any case, as 
 On each PYQ reel (Instagram) and Short (YouTube, found by `ytVideoId` on the day's row), for each person's FIRST comment that is just an option letter ("c", "C", "(c)", "c)", "option c"), from the last 48 hours, not ours, not yet replied:
 - right (= `answer`): "✅ {replyRight}", varying the opener ("Spot on!", "Correct 👏", "Right answer.").
 - wrong: "That's the trap: {replyTrap}" + on Instagram "Comment {dmWord} for the 1-page sheet 📘", on YouTube "Full explanation + the 1-page sheet: link in the description."
-- "bonus x" comments: "✅ Right!" / "Not quite." + "The bonus is explained on today's page (link in bio)" (YouTube: "…linked in the description").
+- if someone answers the bonus anyway ("bonus b"): "✅ Right!" / "Not quite." + "The bonus is explained on today's page (link in bio)" (YouTube: "…linked in the description"). Don't count it as a main answer.
 - No links inside replies, @username only when natural, at most 40 answer replies per platform per run, never the same comment twice (Instagram: `instagramReplies`; YouTube: `youtubeReplies`). Keep wording varied so it never reads as spam.
 
 ## Core 60 (weekly: Wednesday 7:45 PM draft → Thursday 9 AM publish)
