@@ -26,7 +26,17 @@ The full plan is in the claude.ai project doc "Instagram content system — fina
   - no offEdge
   - no overlaps
   - content ≤ 45 words (the verbatim question is exempt)
-- **Approval:** until Shivam switches to auto (planned 2 weeks after the first draft, ~3 Nov 2026), every post is a DRAFT. Send him the slides plus the caption and wait for "publish" in the run.
+- **Approval (PYQ of the Day, set by Shivam on 20 Oct 2026):**
+  - Send the draft (slides plus caption) first.
+  - If he hasn't replied with changes or "hold" by 7:00 PM IST, silence = approval: publish at 7 PM.
+  - If no Telegram PYQ is set for today, choose an unused one yourself (Prelims GS, 2019 or later) and set it as today's `pyqOfTheDay` pointer.
+- **Slide count is flexible (Shivam, 20 Oct):** 5 slides by default. Add up to 3 "extra" slides (`spec.extra`, inserted after the answer) when the PYQ genuinely needs them, e.g.:
+  - statement-by-statement analysis
+  - a map or chart explanation
+  - a "who else / related facts" slide
+  - a current-affairs link
+
+  Never pad: each extra slide must teach something the others don't, and it obeys the same fact-check and phone gate.
 - **Limits:** never more than 6 Instagram posts a day. Media only from static.wixstatic.com.
 
 ## PYQ of the Day (daily, 4 PM draft → 7 PM publish)

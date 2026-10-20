@@ -9,6 +9,7 @@ spec = {
  "priya": {"pick":"c","line":"...","pose":"priya_thinking"},
  "answer_head": "html", "verdicts": [{"ok":true,"h":"...","p":"..."}], "source": "...",
  "remember": "html", "trap": "...", "method": "...", "why_now": "optional one line",
+ "extra": [optional deeper slides inserted after the answer, max 3: {"lab":"Deeper","h":"html heading","points":["..." or {"h":"bold","p":"text"}],"source":"..."}],
  "utm": "pyq-of-the-day"
 }"""
 import json, os, sys, html, subprocess
@@ -76,7 +77,10 @@ CSS = """
 .save{position:absolute;left:96px;right:96px;top:1118px;text-align:center;font:500 32px/1.3 var(--sans);color:var(--ink)}.save b{color:var(--gold);font-weight:600}
 /* cta */
 .cta-l{position:absolute;left:0;bottom:0;height:940px}
-#n5 .ft span:first-child,#n1 .ft span:first-child{visibility:hidden}
+#n1 .ft span:first-child{visibility:hidden}
+.cta .ft span:first-child{visibility:hidden}
+.xw{position:absolute;left:96px;right:96px;top:190px}.xw .h{font-size:64px;margin-bottom:44px}
+.xp{font:400 32px/1.42 var(--sans);color:var(--ink);padding:0 0 26px 34px;position:relative}.xp:before{content:'';position:absolute;left:0;top:16px;width:12px;height:12px;border-radius:50%;background:var(--gold)}.xp b{color:var(--ivory);font-weight:600}
 .cta-r{position:absolute;left:500px;right:70px;top:210px}
 .cta-r .h{font-size:64px}
 .cta-r .url{margin-top:30px;font:600 32px/1.3 var(--sans);color:var(--gold);white-space:nowrap}
@@ -89,7 +93,8 @@ CSS = """
 def build(spec, out):
     out = os.path.abspath(out); os.makedirs(out, exist_ok=True)
     q = spec['q']; t = q['t']; Y, N = q['y'], q['n']; tag = f'Prelims {Y} · Q{N}'
-    T = 5; A, P = spec['aarav'], spec['priya']
+    X = spec.get('extra') or []; T = 5 + len(X); A, P = spec['aarav'], spec['priya']
+    kR, kC = 4 + len(X), 5 + len(X)
     e = html.escape
     S = []
     # 1 cover
@@ -119,7 +124,12 @@ def build(spec, out):
     fell = spec.get('trap_who')  # 'aarav' | 'priya' | None
     who_pose = {'aarav': 'aarav_oops', 'priya': 'priya_surprised'}.get(fell)
     trap_lab = {'aarav': "Aarav's trap", 'priya': "Priya's slip"}.get(fell, 'The trap')
-    S.append(f'''<div class="s" id="n4">{chrome(4,T,"Revision card","Screenshot this",tag)}
+    for j, x in enumerate(X):
+        k = 4 + j
+        pts = ''.join(f'<div class="xp"><b>{e(p.get("h",""))}</b> {e(p.get("p",""))}</div>' if isinstance(p, dict) else f'<div class="xp">{e(p)}</div>' for p in x.get('points', []))
+        S.append(f'''<div class="s" id="n{k}">{chrome(k,T,e(x.get("lab","Go deeper")),tag,"Swipe →")}
+ <div class="xw"><h2 class="h">{x.get("h","")}</h2><div class="xl">{pts}</div>{f'<div class="src" style="position:static;margin-top:30px">Source: {e(x["source"])}</div>' if x.get("source") else ''}</div></div>''')
+    S.append(f'''<div class="s" id="n{kR}">{chrome(kR,T,"Revision card","Screenshot this",tag)}
  <div class="card"><div class="band"></div><div class="in">
   <div class="lab">Remember</div><p class="big">{spec['remember']}</p>
   <div class="ln"></div>
@@ -133,7 +143,7 @@ def build(spec, out):
     phone = os.path.join(out, 'phone.png'); phone_screen(spec, os.path.join(out, 'screen.png'))
     import props; props.compose('priya_phone', os.path.join(out, 'screen.png'), phone)
     now = f'<div class="now">{e(spec["why_now"])}</div>' if spec.get('why_now') else ''
-    S.append(f'''<div class="s" id="n5">{chrome(5,T,"Go deeper",spec['date'],"Follow for tomorrow's PYQ")}
+    S.append(f'''<div class="s cta" id="n{kC}">{chrome(kC,T,"Go deeper",spec['date'],"Follow for tomorrow's PYQ")}
  <img class="pose cta-l" src="file://{os.path.abspath(phone)}">
  <div class="cta-r"><h2 class="h">The full <em>explanation</em> is free.</h2>
   <div class="url">minimalistias.com/pyq-today</div>
