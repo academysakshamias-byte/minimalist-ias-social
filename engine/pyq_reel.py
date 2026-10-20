@@ -7,7 +7,9 @@ trap, trap_who, method, extra[0] optional). Optional reel-only keys:
   "seed": int                music variation (default: date digits)
 Writes: reel.mp4, cover.jpg (hook frame, for cover_url), story.jpg (9:16 'new reel' story), stills/*.jpg (one per
 scene, look at them), gate.json, meta.json (Instagram caption draft + YouTube title/description/tags).
-Optional spec keys for the text: "topic" ("Geography · critical minerals"), "hashtags" (≤ 5), "yt_tags". Prints the gate: every scene must have minFs ≥ 26, no text outside the safe box
+Optional spec keys for the text: "topic" ("Geography · critical minerals"), "hashtags" (≤ 5), "yt_tags".
+"dm_word": one easy keyword from the topic (≤ 12 letters, e.g. "CONGO"): the reel ends "Comment CONGO → we DM you
+today's 1-page revision sheet" (engine/sheet.py → sheet.jpg, also checked by the gate) and the caption asks the same. Prints the gate: every scene must have minFs ≥ 26, no text outside the safe box
 (x 140–920, y 300–1300), no overlapping text, and ≤ 45 content words (the verbatim question is exempt).
 Arc (built for Reels/Shorts ranking: completion, replays, sends, saves): frame 0 = the full hook on two faces with
 "answer in N s" → verbatim question (timer, 3-2-1) → Aarav's and Priya's picks → comment a/b/c/d → answer +
@@ -115,6 +117,10 @@ em{font-style:italic;color:var(--gold)}
 .blk .rem{font:500 76px/1.08 var(--serif);color:var(--ivory);margin-bottom:56px}
 .blk .meth{font:500 42px/1.32 var(--sans);color:var(--ink)}
 /* cta */
+.dmc{position:absolute;left:140px;width:780px;top:380px;text-align:center;z-index:6}
+.dmc h2{margin:0;font:500 92px/1.05 var(--serif);color:var(--ivory);white-space:nowrap}.dmc h2 em{letter-spacing:.02em}
+.dmc p{margin:20px auto 0;max-width:700px;font:600 38px/1.3 var(--sans);color:var(--ink)}
+.thumb{position:absolute;left:360px;top:690px;width:360px;height:640px;border-radius:22px;box-shadow:0 40px 100px rgba(0,0,0,.6),0 0 0 3px rgba(242,183,5,.6);z-index:5;transform:rotate(-4deg)}
 .cta{position:absolute;left:140px;width:780px;top:360px;text-align:center;z-index:6}
 .cta svg{width:110px;height:110px}
 .cta h2{margin:18px 0 26px;font:500 84px/1.04 var(--serif);color:var(--ivory)}
@@ -176,6 +182,15 @@ def page(spec, split, story=False):
     ans_in = int(round(next(s['t0'] for s in S if s['id'] == 'rev')))
     trap_pick = A['pick'] if not a_ok else (Pr['pick'] if not p_ok else '')
     send_h = (f'Send this to the friend who\'d pick <em>({trap_pick})</em>' if trap_pick else 'Send this to <em>your study partner</em>')
+    dmw = re.sub(r'[^A-Z0-9]', '', str(spec.get('dm_word', '')).upper())[:12]
+    dm = bool(dmw and spec.get('_sheet') and os.path.exists(spec['_sheet']))
+    if dm:   # comments + DMs: the keyword ask (sends a free revision sheet) is the reel's last ask
+        cta_html = (f'<div class="sc" id="s-cta"><div class="dmc t"><h2>Comment <em>{dmw}</em></h2>'
+                    f'<p>We\'ll DM you today\'s 1-page revision sheet, free.</p></div>'
+                    f'<img class="thumb t" id="thumb" src="file://{spec["_sheet"]}"></div>')
+    else:
+        cta_html = (f'<div class="sc" id="s-cta"><div class="cta t">{LOGO_D}<h2>{send_h}</h2><div class="url">minimalistias.com/pyq-today</div>'
+                    f'<p>Every option explained, free</p></div></div>')
     if a_ok and p_ok: rcap = 'Both got it.'
     elif p_ok: rcap = '<b>Priya</b> got it.'
     elif a_ok: rcap = '<b>Aarav</b> got it.'
@@ -209,15 +224,15 @@ def page(spec, split, story=False):
 {exh}
 <div class="sc" id="s-trap"><div class="blk t"><div class="lab">The trap</div><div class="big">{e(spec['trap'])}</div></div></div>
 <div class="sc" id="s-rem"><div class="blk t"><div class="lab">Remember</div><div class="rem">{spec['remember']}</div><div class="lab">Method</div><div class="meth">{e(spec['method'])}</div></div></div>
-<div class="sc" id="s-cta"><div class="cta t">{LOGO_D}<h2>{send_h}</h2><div class="url">minimalistias.com/pyq-today</div><p>Every option explained, free</p></div></div>
+{cta_html}
 {{caps_html}}
 <div class="storybar">New PYQ reel · on our profile</div>'''
     caps = {'hook': 'Can you solve this?', 'q': 'Pause. <b>Pick your answer.</b>', 'qa': 'Pause. <b>Read carefully.</b>',
             'qb': 'Now <b>pick your answer.</b>', 'pick': "Who's <b>right?</b>", 'cm': '', 'rev': rcap, 'vd': '', 'ex': '',
-            'trap': "Don't <b>fall for this.</b>", 'rem': 'Save this <b>for revision.</b>', 'cta': 'Follow for <b>tomorrow\'s PYQ.</b>', 'loop': ''}
+            'trap': "Don't <b>fall for this.</b>", 'rem': 'Save this <b>for revision.</b>', 'cta': '' if dm else 'Follow for <b>tomorrow\'s PYQ.</b>', 'loop': ''}
     for s in S: s['cap'] = caps.get(s['id'], '')
     body = body.replace('{caps_html}', ''.join(f'<div class="cap" id="cap-{s["id"]}"><span>{s["cap"]}</span></div>' for s in S if s['cap']))
-    js_cfg = json.dumps({'S': S, 'dur': dur, 'tw': tw, 'other': other,
+    js_cfg = json.dumps({'S': S, 'dur': dur, 'tw': tw, 'other': other, 'dm': dm,
                          'pose': {'think': THINK, 'pick': {'aarav': A['pose'], 'priya': Pr['pose']},
                                   'react': {'aarav': RIGHT['aarav'] if a_ok else WRONG['aarav'], 'priya': RIGHT['priya'] if p_ok else WRONG['priya']},
                                   'wrong': WRONG, 'explain': EXPLAIN, 'wave': WAVE}})
@@ -253,7 +268,8 @@ for(const s of C.S){const d=s.t1-s.t0, t0=s.t0;
   if(s.id==='trap'){chars(t0,C.tw=='aarav'?C.pose.wrong.aarav:null,C.tw=='priya'?C.pose.wrong.priya:null);TL.from('#s-trap .blk',{opacity:0,y:30,duration:.4},t0+.1)}
   if(s.id==='rem'){chars(t0,C.other=='aarav'?C.pose.explain.aarav:null,C.other=='priya'?C.pose.explain.priya:null);TL.from('#s-rem .rem',{opacity:0,scale:.9,transformOrigin:'0 50%',duration:.4,ease:'back.out(1.5)'},t0+.1).from('#s-rem .meth',{opacity:0,y:20,duration:.35},t0+.9)}
   if(s.id==='loop'){show('#s-hook',t0);chars(t0,C.pose.think.aarav,C.pose.think.priya,false);TL.set('#kick',{opacity:1},t0);TL.set('#ca,#cp',{scale:1},t0)}   // a cut to the exact frame-0 layout: the end→start join is invisible
-  if(s.id==='cta'){chars(t0,C.pose.wave.aarav,C.pose.wave.priya);TL.set('#kick',{opacity:0},t0);TL.from('#s-cta .cta > *',{opacity:0,y:24,duration:.35,stagger:.15},t0+.1)}
+  if(s.id==='cta'&&C.dm){chars(t0,null,null);TL.set('#kick',{opacity:0},t0);{const h=$('#s-cta .dmc h2');let f=92;while(h.scrollWidth>780&&f>56){f-=2;h.style.fontSize=f+'px'}}$('#thumb').style.top=($('#s-cta .dmc').offsetTop+$('#s-cta .dmc').offsetHeight+40)+'px';TL.from('#s-cta .dmc > *',{opacity:0,y:24,duration:.35,stagger:.15},t0+.05).from('#thumb',{y:260,rotation:8,opacity:0,duration:.6,ease:'power3.out'},t0+.35)}
+  else if(s.id==='cta'){chars(t0,C.pose.wave.aarav,C.pose.wave.priya);TL.set('#kick',{opacity:0},t0);TL.from('#s-cta .cta > *',{opacity:0,y:24,duration:.35,stagger:.15},t0+.1)}
   cap(t0,s.id,(s===C.S.filter(x=>x.q).slice(-1)[0])?d-3:d);
   if(s.id!=='pick')hide('#s-'+s.id,s.t1);
 }
@@ -304,7 +320,8 @@ def meta(spec):
           f"UPSC Prelims {q['y']}, Q{q['n']}:\n{qtext}\n\n"
           f"Aarav says ({A['pick']}). Priya says ({Pr['pick']}). Who's right?\n\n"
           "Pause the reel and pick yours. Comment a, b, c or d 👇\n"
-          "📤 Send this to the friend you study with.\n\n"
+          + (f"💬 Comment {re.sub(r'[^A-Z0-9]', '', str(spec.get('dm_word', '')).upper())[:12]} and we'll DM you today's 1-page revision sheet (free).\n" if spec.get('dm_word') else "")
+          + "📤 Send this to the friend you study with.\n\n"
           "Every option explained, free: minimalistias.com/pyq-today (link in bio)\n\n" + ' '.join(tags[:5]))
     yt_title = f"{hook} | UPSC Prelims {q['y']} PYQ #Shorts"
     if len(yt_title) > 100: yt_title = f"{hook[:100 - 26].rstrip()}… UPSC PYQ #Shorts"
@@ -319,6 +336,9 @@ def build(spec, out, fast=False):
     from playwright.sync_api import sync_playwright
     need_gsap(); out = os.path.abspath(out); os.makedirs(os.path.join(out, 'stills'), exist_ok=True)
     seed = spec.get('seed') or int(re.sub(r'\D', '', spec.get('date', '1'))[:8] or 1)
+    import sheet as SH
+    sheet_rep = SH.render(spec, os.path.join(out, 'sheet.jpg'))
+    spec = {**spec, '_sheet': os.path.join(out, 'sheet.jpg')}
     with sync_playwright() as p:
         b = p.chromium.launch(args=['--no-sandbox']); pg = b.new_page(viewport={'width': 1080, 'height': 1920})
         def load(split, story=False):
@@ -330,6 +350,7 @@ def build(spec, out, fast=False):
         if split: S, dur = load(True); fit = pg.evaluate('window.FIT')
         gate = pg.evaluate(GATE_JS, S)
         bad = {k: v for k, v in gate.items() if v['minFs'] < 26 or v['unsafe'] or v['overlaps'] or (v['cwords'] > 45)}
+        if sheet_rep['minFs'] < 26 or sheet_rep['overflow']: bad['sheet'] = sheet_rep
         for s in S:   # one still per scene, at the point where everything is on screen
             pg.evaluate(f'window.TL.seek({s["t1"] - 0.3}, false); 1'); pg.screenshot(path=os.path.join(out, 'stills', f'{s["t0"]:05.1f}-{s["id"]}.jpg'), type='jpeg', quality=85)
         pg.evaluate(f'window.TL.seek({S[0]["t1"] - 0.5}, false); 1'); pg.screenshot(path=os.path.join(out, 'cover.jpg'), type='jpeg', quality=92)
