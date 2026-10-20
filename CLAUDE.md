@@ -100,6 +100,8 @@ On each PYQ reel (Instagram) and Short (YouTube, found by `ytVideoId` on the day
 - right (= `answer`): "✅ {replyRight}", varying the opener ("Spot on!", "Correct 👏", "Right answer.").
 - wrong: "That's the trap: {replyTrap}" + on Instagram "Comment {dmWord} for the 1-page sheet 📘", on YouTube "Full explanation + the 1-page sheet: link in the description."
 - if someone answers the bonus anyway ("bonus b"): "✅ Right!" / "Not quite." + "The bonus is explained on today's page (link in bio)" (YouTube: "…linked in the description"). Don't count it as a main answer.
+- YouTube has no DMs, but the Short shows the same "Comment WORD" end card, so a YouTube comment containing `dmWord` gets a public reply instead: "Here's your 1-page revision sheet + every option explained 📘 Tap the link in the description." (varied; no link in the reply). A YouTube comment asking for the link/explanation/PYQ gets the same pointer to the description.
+- Meta returns Instagram comments without a username (Standard Access): treat each comment id as one person and a missing username as not ours.
 - No links inside replies, @username only when natural, at most 40 answer replies per platform per run, never the same comment twice (Instagram: `instagramReplies`; YouTube: `youtubeReplies`). Keep wording varied so it never reads as spam.
 
 ## Core 60 (weekly: Wednesday 7:45 PM draft → Thursday 9 AM publish)
