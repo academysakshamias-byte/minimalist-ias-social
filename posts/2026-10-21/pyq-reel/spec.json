@@ -1,0 +1,126 @@
+{
+ "no": 3,
+ "date": "21 Oct 2026",
+ "q": {
+  "id": "pre-2024-042",
+  "y": 2024,
+  "n": 42,
+  "a": "c",
+  "t": {
+   "stem": [
+    "Consider the following statements:"
+   ],
+   "items": [
+    [
+     "1",
+     "In India, Non-Banking Financial Companies can access the Liquidity Adjustment Facility window of the Reserve Bank of India."
+    ],
+    [
+     "2",
+     "In India, Foreign Institutional Investors can hold the Government Securities (G-Secs)."
+    ],
+    [
+     "3",
+     "In India, Stock Exchanges can offer separate trading platforms for debts."
+    ]
+   ],
+   "prompt": [
+    "Which of the statements given above is/are correct?"
+   ],
+   "options": {
+    "a": "1 and 2 only",
+    "b": "3 only",
+    "c": "1, 2 and 3",
+    "d": "2 and 3 only"
+   }
+  },
+  "ex": {
+   "summary": "All three statements hold. RBI's repo and reverse repo auctions (the LAF window) are open to scheduled commercial banks and Primary Dealers, and Standalone Primary Dealers are NBFCs registered with RBI. Foreign portfolio investors may hold G-Secs within RBI's limits, and stock exchanges run separate debt-market platforms."
+  }
+ },
+ "hook_style": "split",
+ "hook": "Aarav: NBFCs can't use <em>RBI's LAF window</em>. Priya disagrees.",
+ "aarav": {
+  "pick": "d",
+  "line": "LAF is a banks-only window. Cut 1. (d).",
+  "pose": "aarav_confident"
+ },
+ "priya": {
+  "pick": "c",
+  "line": "Wait. Standalone Primary Dealers are NBFCs. All three.",
+  "pose": "priya_wait"
+ },
+ "answer_head": "<em>All three</em> are correct: (c).",
+ "verdicts": [
+  {
+   "ok": true,
+   "h": "1: Standalone PDs are NBFCs",
+   "p": "LAF is open to banks and Primary Dealers."
+  },
+  {
+   "ok": true,
+   "h": "2: FIIs (now FPIs) hold G-Secs",
+   "p": "FAR-route G-Secs have no cap."
+  },
+  {
+   "ok": true,
+   "h": "3: Exchanges run debt platforms",
+   "p": "e.g. order-matching for corporate bonds."
+  }
+ ],
+ "source": "RBI PD & FAR rules; RBI LAF framework 2025; SEBI; UPSC key",
+ "extra": [
+  {
+   "lab": "Also know",
+   "h": "What UPSC <em>asks next</em>",
+   "points": [
+    {
+     "h": "LAF corridor:",
+     "p": "SDF is the floor, MSF the ceiling, around the repo rate."
+    },
+    {
+     "h": "RBI Retail Direct:",
+     "p": "individuals can open a gilt account with RBI for G-Secs."
+    },
+    {
+     "h": "NDS-OM:",
+     "p": "RBI's anonymous screen-based platform for trading G-Secs."
+    }
+   ],
+   "source": "RBI"
+  }
+ ],
+ "remember": "LAF = banks + <em>standalone PDs</em> (they're NBFCs).",
+ "trap_who": "aarav",
+ "trap": "Aarav cut 1: “LAF is for banks.” But standalone Primary Dealers are NBFCs.",
+ "method": "“Can” means possible, not always: one genuine route makes it true.",
+ "topic": "Economy · money market & G-Secs",
+ "hashtags": [
+  "#UPSC",
+  "#UPSCPrelims",
+  "#UPSCPYQ",
+  "#IndianEconomy",
+  "#RBI"
+ ],
+ "yt_tags": [
+  "UPSC",
+  "UPSC Prelims",
+  "UPSC PYQ",
+  "UPSC Prelims 2024",
+  "LAF",
+  "Liquidity Adjustment Facility",
+  "G-Secs",
+  "NBFC",
+  "Primary Dealers",
+  "IAS",
+  "Minimalist IAS"
+ ],
+ "dm_word": "LAF",
+ "bonus": {
+  "id": "pre-2024-043",
+  "short": "Which of insurers, pension funds and retail investors can trade corporate bonds and G-Secs in India?"
+ },
+ "reply_right": "All three hold: standalone Primary Dealers are NBFCs with LAF access.",
+ "reply_trap": "cutting any one. SPDs (NBFCs) use LAF, FPIs hold G-Secs, exchanges trade bonds.",
+ "utm": "pyq-of-the-day"
+}
