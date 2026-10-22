@@ -1,0 +1,230 @@
+{
+ "n": 1,
+ "date": "25 Oct 2026",
+ "name": "Animals in the news",
+ "subject": "Environment · Biodiversity",
+ "asked": 25,
+ "years": {
+  "2016": 5,
+  "2017": 0,
+  "2018": 0,
+  "2019": 3,
+  "2020": 3,
+  "2021": 2,
+  "2022": 2,
+  "2023": 4,
+  "2024": 4,
+  "2025": 1,
+  "2026": 1
+ },
+ "aarav": "So I memorise every animal in the news?",
+ "priya": "Look closer. Most ask how and where they live.",
+ "pattern_h": "The news picks it. <em>UPSC tests how it lives.</em>",
+ "pattern": [
+  {
+   "label": "How it lives, behaves",
+   "n": 11,
+   "eg": "Waggle dance, tool use"
+  },
+  {
+   "label": "Where it lives",
+   "n": 8,
+   "eg": "Musk deer, hornbill"
+  },
+  {
+   "label": "What it is",
+   "n": 3,
+   "eg": "Not a bird?"
+  },
+  {
+   "label": "Other",
+   "n": 3,
+   "eg": "Amur falcons"
+  }
+ ],
+ "traps": [
+  {
+   "h": "\"Only\" is easy to break",
+   "p": "One-horned rhinos also live in Nepal; only the Asiatic lion is India‑only (2019).",
+   "walk": {
+    "qid": "pre-2019-022",
+    "y": 2019,
+    "n": 22,
+    "key": "a",
+    "q": {
+     "stem": "Consider the following statements:",
+     "items": [
+      "Asiatic lion is naturally found in India only.",
+      "Double-humped camel is naturally found in India only.",
+      "One-horned rhinoceros is naturally found in India only."
+     ],
+     "prompt": "Which of the statements given above is/are correct?",
+     "options": {
+      "a": "1 only",
+      "b": "2 only",
+      "c": "1 and 3 only",
+      "d": "1, 2 and 3"
+     }
+    },
+    "pick": "c",
+    "aarav": "Rhinos? Only Assam. So 1 and 3.",
+    "tell": "India only",
+    "priya": "Rhinos also live in Nepal's Terai. One exception breaks \"only\"."
+   }
+  },
+  {
+   "h": "\"Some\" is easy to satisfy",
+   "p": "Some turtles, fish and sea mammals are herbivores: true (2019).",
+   "walk": {
+    "qid": "pre-2019-028",
+    "y": 2019,
+    "n": 28,
+    "key": "d",
+    "q": {
+     "stem": "Consider the following statements:",
+     "items": [
+      "Some species of turtles are herbivores.",
+      "Some species of fish are herbivores.",
+      "Some species of marine mammals are herbivores.",
+      "Some species of snakes are viviparous."
+     ],
+     "prompt": "Which of the statements given above are correct?",
+     "options": {
+      "a": "1 and 3 only",
+      "b": "2, 3 and 4 only",
+      "c": "2 and 4 only",
+      "d": "1, 2, 3 and 4"
+     }
+    },
+    "pick": "b",
+    "aarav": "Turtles eat fish. Not herbivores.",
+    "tell": "Some species",
+    "priya": "\"Some\" needs just one example: the green turtle eats seagrass."
+   }
+  },
+  {
+   "h": "Names mislead",
+   "p": "Froghopper: insect. Golden Mahseer: fish.",
+   "walk": {
+    "qid": "pre-2022-047",
+    "y": 2022,
+    "n": 47,
+    "key": "a",
+    "q": {
+     "stem": "Which of the following is not a bird?",
+     "items": [],
+     "prompt": "",
+     "options": {
+      "a": "Golden Mahseer",
+      "b": "Indian Nightjar",
+      "c": "Spoonbill",
+      "d": "White Ibis"
+     }
+    },
+    "pick": "b",
+    "aarav": "Nightjar? Sounds like a jar, not a bird.",
+    "tell": "not a bird",
+    "priya": "Golden Mahseer is a fish of Himalayan rivers. The other three are birds."
+   }
+  }
+ ],
+ "pyqs": [
+  {
+   "y": 2026,
+   "q": 27,
+   "gist": "What does the Amur falcons' stop at Doyang show?",
+   "a": "a",
+   "ans": "Local conservation works (provisional)"
+  },
+  {
+   "y": 2025,
+   "q": 37,
+   "gist": "Gooty tarantula: crustacean? forest-limited? tree-dwelling?",
+   "a": "d",
+   "ans": "Last two only"
+  },
+  {
+   "y": 2024,
+   "q": 29,
+   "gist": "Which have toxic species: butterflies, fish, frogs?",
+   "a": "c",
+   "ans": "All three"
+  }
+ ],
+ "read": [
+  {
+   "h": "NCERT Class 12 Biology",
+   "p": "Ch 11, Organisms and Populations; Ch 13, Biodiversity and Conservation"
+  },
+  {
+   "h": "NCERT Class 10 Geography",
+   "p": "Ch 2, Forest and Wildlife Resources"
+  }
+ ],
+ "skip": "species lists without habitats.",
+ "core_total": 60,
+ "core_q": 1064,
+ "core_cov": 51,
+ "pattern_note": "Learn how and where each lives; 3 are plants.",
+ "day": "2026-10-25",
+ "prelims": "2027-05-23",
+ "xray_row": {
+  "name": "Animals in the news: species & habitats",
+  "stars": 5,
+  "q": 25,
+  "weight": 2.3,
+  "pm": true,
+  "yrs": [
+   2016,
+   2019,
+   2020,
+   2021,
+   2022,
+   2023,
+   2024,
+   2025,
+   2026
+  ],
+  "where": [
+   {
+    "nc": true,
+    "t": "NCERT 12 Biology, ch 11"
+   },
+   {
+    "ca": true,
+    "t": "Current affairs: species in news — habitat, range, IUCN, behaviour"
+   },
+   {
+    "ca": false,
+    "t": "Shankar IAS, Environment, ch 'Animal Diversity of India'"
+   },
+   {
+    "ca": false,
+    "t": "NCERT Class 11 Biology, ch 'Animal Kingdom'"
+   }
+  ]
+ },
+ "price": {
+  "launch": 199,
+  "regular": 249,
+  "launch_ends": "2026-11-30"
+ },
+ "reel": {
+  "hook": "<em>Species in the news</em>: 25 PYQs since 2016.",
+  "dm_word": "HABITAT",
+  "anchor": "s--biodiversity-species--animals-in-the-news-species-habitats",
+  "hashtags": [
+   "#UPSC",
+   "#UPSCPrelims",
+   "#UPSCEnvironment",
+   "#Biodiversity",
+   "#MinimalistIAS"
+  ],
+  "yt_tags": [
+   "species in news UPSC",
+   "biodiversity UPSC",
+   "environment PYQ"
+  ],
+  "sheet_url": "https://static.wixstatic.com/media/27272b_ca7927465a9b43949b71ad7c3d99c563~mv2.jpg"
+ }
+}
