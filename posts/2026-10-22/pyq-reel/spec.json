@@ -1,0 +1,128 @@
+{
+ "no": 4,
+ "date": "22 Oct 2026",
+ "q": {
+  "id": "pre-2022-015",
+  "y": 2022,
+  "n": 15,
+  "a": "b",
+  "t": {
+   "stem": [
+    "Which of the following is/are the exclusive power(s) of Lok Sabha?"
+   ],
+   "items": [
+    [
+     "1",
+     "To ratify the declaration of Emergency"
+    ],
+    [
+     "2",
+     "To pass a motion of no-confidence against the Council of Ministers"
+    ],
+    [
+     "3",
+     "To impeach the President of India"
+    ]
+   ],
+   "prompt": [
+    "Select the correct answer using the code given below:"
+   ],
+   "options": {
+    "a": "1 and 2",
+    "b": "2 only",
+    "c": "1 and 3",
+    "d": "3 only"
+   }
+  },
+  "ex": {
+   "summary": "Only the no-confidence motion is the Lok Sabha's alone: the Council of Ministers is collectively responsible to the Lok Sabha (Article 75(3)). Approving an Emergency needs resolutions of both Houses (Article 352(4)), and the impeachment charge against the President may be preferred by either House (Article 61)."
+  }
+ },
+ "hook_style": "trap",
+ "hook": "The <em>Lok Sabha-only power</em> trap UPSC set in 2022",
+ "aarav": {
+  "pick": "b",
+  "line": "Emergency needs both Houses. So only 2. (b).",
+  "pose": "aarav_thinking"
+ },
+ "priya": {
+  "pick": "a",
+  "line": "Lok Sabha controls Emergency too. 1 and 2.",
+  "pose": "priya_armscrossed"
+ },
+ "answer_head": "<em>Only no-confidence</em>: (b) 2 only.",
+ "verdicts": [
+  {
+   "ok": false,
+   "h": "1: Emergency: both Houses",
+   "p": "Art 352(4): each House approves."
+  },
+  {
+   "ok": true,
+   "h": "2: No-confidence: Lok Sabha only",
+   "p": "Art 75(3): ministers collectively responsible to it."
+  },
+  {
+   "ok": false,
+   "h": "3: Impeachment: both Houses",
+   "p": "Art 61: one charges, one investigates."
+  }
+ ],
+ "source": "Constitution: Arts 352, 75, 61; UPSC key 2022",
+ "extra": [
+  {
+   "lab": "Also know",
+   "h": "What UPSC <em>asks next</em>",
+   "points": [
+    {
+     "h": "Ending an Emergency:",
+     "p": "Lok Sabha alone can disapprove it (Art 352(7))."
+    },
+    {
+     "h": "Money Bills:",
+     "p": "introduced only in Lok Sabha (Art 109)."
+    },
+    {
+     "h": "Rajya Sabha only:",
+     "p": "can authorise new All India Services (Art 312)."
+    }
+   ],
+   "source": "Constitution of India"
+  }
+ ],
+ "remember": "Lok Sabha alone: <em>no-confidence</em>. Emergency: both Houses.",
+ "trap_who": "priya",
+ "trap": "Priya ticked 1: Lok Sabha alone can force an Emergency's end, but approving it needs both Houses.",
+ "method": "Other House has any role? Then it's not exclusive.",
+ "topic": "Polity · Parliament",
+ "hashtags": [
+  "#UPSC",
+  "#UPSCPrelims",
+  "#UPSCPYQ",
+  "#IndianPolity",
+  "#LokSabha"
+ ],
+ "yt_tags": [
+  "UPSC",
+  "UPSC Prelims",
+  "UPSC PYQ",
+  "UPSC Prelims 2022",
+  "Lok Sabha",
+  "Rajya Sabha",
+  "No-confidence motion",
+  "National Emergency",
+  "Article 352",
+  "Indian Polity",
+  "Parliament",
+  "IAS",
+  "Minimalist IAS"
+ ],
+ "dm_word": "LOKSABHA",
+ "bonus": {
+  "id": "pre-2020-002",
+  "short": "In which matter does the Rajya Sabha have equal powers with the Lok Sabha?"
+ },
+ "reply_right": "Only no-confidence: ministers are collectively responsible to Lok Sabha (Art 75(3)).",
+ "reply_trap": "Emergency approval and impeachment both involve the Rajya Sabha too.",
+ "utm": "pyq-of-the-day"
+}
