@@ -1,0 +1,133 @@
+{
+ "no": 5,
+ "date": "23 Oct 2026",
+ "q": {
+  "id": "pre-2025-093",
+  "y": 2025,
+  "n": 93,
+  "a": "c",
+  "t": {
+   "stem": [
+    "Who amongst the following are members of the Jury to select the recipient of 'Gandhi Peace Prize'?"
+   ],
+   "items": [
+    [
+     "I",
+     "The President of India"
+    ],
+    [
+     "II",
+     "The Prime Minister of India"
+    ],
+    [
+     "III",
+     "The Chief Justice of India"
+    ],
+    [
+     "IV",
+     "The Leader of Opposition in the Lok Sabha"
+    ]
+   ],
+   "prompt": [
+    "Select the correct answer using the code given below."
+   ],
+   "options": {
+    "a": "II and IV only",
+    "b": "I, II and III",
+    "c": "II, III and IV",
+    "d": "I and III only"
+   }
+  },
+  "ex": {
+   "summary": "The Gandhi Peace Prize jury is chaired by the Prime Minister; the Chief Justice of India and the Leader of Opposition in the Lok Sabha (or the leader of the single largest opposition party) sit ex officio, with two eminent persons. The President is not a member, so I is wrong and II, III and IV are correct."
+  }
+ },
+ "hook_style": "question",
+ "hook": "Who picks the <em>Gandhi Peace Prize</em> winner?",
+ "aarav": {
+  "pick": "b",
+  "line": "A national prize? Surely the President sits on it.",
+  "pose": "aarav_confident"
+ },
+ "priya": {
+  "pick": "c",
+  "line": "PM chairs it. CJI and Opposition leader sit in.",
+  "pose": "priya_thinking"
+ },
+ "answer_head": "<em>No President</em>: (c) II, III and IV.",
+ "verdicts": [
+  {
+   "ok": false,
+   "h": "I: President: not on the jury",
+   "p": "The Code of Procedure doesn't name him."
+  },
+  {
+   "ok": true,
+   "h": "II: Prime Minister: chairs it",
+   "p": "The PM heads the jury."
+  },
+  {
+   "ok": true,
+   "h": "III, IV: CJI and Lok Sabha LoP",
+   "p": "Both ex officio, plus two eminent persons."
+  }
+ ],
+ "source": "Prize Code of Procedure; PMO 2021; UPSC key 2025",
+ "extra": [
+  {
+   "lab": "Also know",
+   "h": "What UPSC <em>asks next</em>",
+   "points": [
+    {
+     "h": "Instituted:",
+     "p": "1995, Gandhi's 125th birth anniversary."
+    },
+    {
+     "h": "Prize:",
+     "p": "₹1 crore, a citation, a plaque and a handicraft/handloom item."
+    },
+    {
+     "h": "Open to all:",
+     "p": "regardless of nationality, race, language, caste, creed or sex."
+    },
+    {
+     "h": "No LoP?",
+     "p": "the leader of the single largest opposition party in Lok Sabha sits instead."
+    }
+   ],
+   "source": "PMO 2021"
+  }
+ ],
+ "remember": "Jury: <em>PM + CJI + Lok Sabha LoP</em> + two eminent persons.",
+ "trap_who": "aarav",
+ "trap": "Aarav added the President: a national prize feels like his job, but he isn't on this jury.",
+ "method": "List the chair and ex officio seats. Anyone else is out.",
+ "topic": "Awards · Gandhi Peace Prize",
+ "hashtags": [
+  "#UPSC",
+  "#UPSCPrelims",
+  "#UPSCPYQ",
+  "#GandhiPeacePrize",
+  "#CurrentAffairs"
+ ],
+ "yt_tags": [
+  "UPSC",
+  "UPSC Prelims",
+  "UPSC PYQ",
+  "UPSC Prelims 2025",
+  "Gandhi Peace Prize",
+  "Gandhi Peace Prize jury",
+  "Awards and honours",
+  "UPSC current affairs",
+  "IAS",
+  "Minimalist IAS"
+ ],
+ "dm_word": "GANDHI",
+ "bonus": {
+  "id": "pre-2026-081",
+  "short": "Which UK-born 2025 Nobel laureate was a professor at a US university?"
+ },
+ "reply_right": "PM chairs; CJI and Lok Sabha LoP sit ex officio. President isn't.",
+ "reply_trap": "The President isn't on this jury, though it's a national award.",
+ "utm": "pyq-of-the-day"
+}
