@@ -102,7 +102,7 @@ def build(spec, out):
   <p class="pt">25 more questions every Sunday, free:<span class="url">minimalistias.com/resources/weekly-quiz</span></p></div>
  <img class="pose cpose" src="{pose(cp)}">
  <div class="fade" style="top:1010px;height:340px"></div>
- <div class="share">Challenge a study partner ↗</div></div>''')
+ <div class="share">Post your score in the comments</div></div>''')
     page = f'<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="file://{HERE}/brand.css"><style>{CSS}</style></head><body>{"".join(S)}</body></html>'
     p = os.path.join(out, 'post.html'); open(p, 'w').write(page)
     r = subprocess.run([sys.executable, os.path.join(HERE, 'cards.py'), p, out, '.s'], capture_output=True, text=True)

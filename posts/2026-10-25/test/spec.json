@@ -1,0 +1,138 @@
+{
+ "week": 43,
+ "date": "25 Oct 2026",
+ "range": "19–25 Oct 2026",
+ "qs": [
+  {
+   "day": "Mon",
+   "gs": "GS2",
+   "q": "Consider the following statements about the business of Parliament:\n1. In the Lok Sabha, the first hour of every sitting is ordinarily Question Hour.\n2. Zero Hour is a procedure laid down in the Rules of Procedure of the Lok Sabha.\n3. Under Article 85, six months shall not intervene between the last sitting in one session and the first sitting of the next.\nWhich of the statements given above is/are correct?",
+   "options": [
+    [
+     "a",
+     "1 and 3 only"
+    ],
+    [
+     "b",
+     "2 only"
+    ],
+    [
+     "c",
+     "2 and 3 only"
+    ],
+    [
+     "d",
+     "1, 2 and 3"
+    ]
+   ],
+   "a": "a",
+   "aarav": "d",
+   "why": "Zero Hour isn't in the Rules"
+  },
+  {
+   "day": "Wed",
+   "gs": "GS3",
+   "q": "With reference to the Coalition for Disaster Resilient Infrastructure (CDRI), consider the following statements:\n1. It was launched by India at the UN Climate Action Summit in 2019.\n2. Its secretariat is located in Geneva.\n3. Its 'Infrastructure for Resilient Island States' initiative was launched at COP26.\nWhich of the statements given above is/are correct?",
+   "options": [
+    [
+     "a",
+     "1 only"
+    ],
+    [
+     "b",
+     "2 and 3 only"
+    ],
+    [
+     "c",
+     "1 and 3 only"
+    ],
+    [
+     "d",
+     "1, 2 and 3"
+    ]
+   ],
+   "a": "c",
+   "aarav": "c",
+   "why": "CDRI secretariat is in New Delhi"
+  },
+  {
+   "day": "Thu",
+   "gs": "GS2",
+   "q": "Consider the following pairs:\nStrait — Water bodies it connects\n1. Bab-el-Mandeb — Red Sea and Gulf of Aden\n2. Hormuz — Persian Gulf and Red Sea\n3. Tiran — Red Sea and Gulf of Aqaba\nHow many of the pairs given above are correctly matched?",
+   "options": [
+    [
+     "a",
+     "Only one"
+    ],
+    [
+     "b",
+     "Only two"
+    ],
+    [
+     "c",
+     "All three"
+    ],
+    [
+     "d",
+     "None"
+    ]
+   ],
+   "a": "b",
+   "aarav": "b",
+   "why": "Hormuz opens to Gulf of Oman"
+  },
+  {
+   "day": "Fri",
+   "gs": "GS3",
+   "q": "With reference to the Convention on Biological Diversity (CBD), consider the following statements:\n1. The United States is a Party to the CBD.\n2. The '30x30' target of the Kunming-Montreal Framework requires every country to conserve 30% of its own land area by 2030.\n3. The Nagoya Protocol under the CBD deals with access to genetic resources and the fair sharing of benefits from their use.\nWhich of the statements given above is/are correct?",
+   "options": [
+    [
+     "a",
+     "1 only"
+    ],
+    [
+     "b",
+     "2 and 3 only"
+    ],
+    [
+     "c",
+     "1 and 3 only"
+    ],
+    [
+     "d",
+     "3 only"
+    ]
+   ],
+   "a": "d",
+   "aarav": "b",
+   "why": "30x30 is a global target"
+  },
+  {
+   "day": "Sat",
+   "gs": "GS2",
+   "q": "Consider the following statements:\n1. Azerbaijan is a littoral State of the Caspian Sea.\n2. Nakhchivan, an exclave of Azerbaijan, shares a border with Iran.\n3. Armenia has a coastline on the Black Sea.\nWhich of the statements given above is/are correct?",
+   "options": [
+    [
+     "a",
+     "1 and 2 only"
+    ],
+    [
+     "b",
+     "2 only"
+    ],
+    [
+     "c",
+     "1 and 3 only"
+    ],
+    [
+     "d",
+     "1, 2 and 3"
+    ]
+   ],
+   "a": "a",
+   "aarav": "a",
+   "why": "Armenia is landlocked"
+  }
+ ],
+ "monthly": true
+}
