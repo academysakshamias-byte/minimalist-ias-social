@@ -1,0 +1,106 @@
+{
+ "no": 6,
+ "date": "24 Oct 2026",
+ "q": {
+  "id": "pre-2023-062",
+  "y": 2023,
+  "n": 62,
+  "a": "c",
+  "t": {
+   "stem": [
+    "With reference to the Earth's atmosphere, which one of the following statements is correct?"
+   ],
+   "items": [],
+   "prompt": [],
+   "options": {
+    "a": "The total amount of insolation received at the equator is roughly about 10 times of that received at the poles.",
+    "b": "Infrared rays constitute roughly two-thirds of insolation.",
+    "c": "Infrared waves are largely absorbed by water vapour that is concentrated in the lower atmosphere.",
+    "d": "Infrared waves are a part of visible spectrum of electromagnetic waves of solar radiation."
+   }
+  },
+  "ex": {
+   "summary": "Statement (c) is correct: water vapour, ozone and other gases in the lower atmosphere (the troposphere) absorb much of the near-infrared radiation passing through. The other options misstate insolation values or the nature of infrared light."
+  }
+ },
+ "hook_style": "split",
+ "hook": "Priya: <em>infrared</em> is two-thirds of sunlight. Aarav disagrees.",
+ "aarav": {
+  "pick": "c",
+  "line": "Water vapour sits low and soaks up infrared.",
+  "pose": "aarav_thinking"
+ },
+ "priya": {
+  "pick": "b",
+  "line": "Sunlight is mostly heat. Infrared is two-thirds of it.",
+  "pose": "priya_armscrossed"
+ },
+ "answer_head": "<em>Water vapour</em>: (c) is correct.",
+ "verdicts": [
+  {
+   "ok": true,
+   "h": "(c) Water vapour absorbs infrared",
+   "p": "Much of it, in the troposphere."
+  },
+  {
+   "ok": false,
+   "h": "(b) Two-thirds? No, about half",
+   "p": "Infrared is roughly half of sunlight's energy."
+  },
+  {
+   "ok": false,
+   "h": "(a) 10 times? (d) Visible? Both false",
+   "p": "Surface: tropics ~320, poles ~70 W/m². Infrared lies beyond visible light."
+  }
+ ],
+ "source": "NCERT XI Geography Ch 8; NASA; UPSC key 2023",
+ "extra": [
+  {
+   "lab": "Also know",
+   "h": "What UPSC <em>asks next</em>",
+   "points": [
+    {
+     "h": "Short in, long out:",
+     "p": "sunlight (incl. near-infrared) is short-wave; Earth radiates long waves."
+    },
+    {
+     "h": "Most insolation:",
+     "p": "over the subtropical deserts, where cloudiness is least."
+    }
+   ],
+   "source": "NCERT XI Geography Ch 8"
+  }
+ ],
+ "remember": "Infrared ≈ <em>half</em> of sunlight; water vapour absorbs much of it.",
+ "trap_who": "priya",
+ "trap": "Priya assumed sunlight is mostly infrared: it's about half, not two-thirds.",
+ "method": "Strike the inflated numbers first.",
+ "topic": "Geography · insolation & infrared",
+ "hashtags": [
+  "#UPSC",
+  "#UPSCPrelims",
+  "#UPSCPYQ",
+  "#Geography",
+  "#Climatology"
+ ],
+ "yt_tags": [
+  "UPSC",
+  "UPSC Prelims",
+  "UPSC PYQ",
+  "UPSC Prelims 2023",
+  "infrared radiation",
+  "insolation",
+  "water vapour",
+  "Earth's atmosphere",
+  "UPSC geography",
+  "Minimalist IAS"
+ ],
+ "dm_word": "INFRARED",
+ "bonus": {
+  "id": "pre-2024-001",
+  "short": "Atmosphere heated more by sunlight than Earth's radiation? Do greenhouse gases absorb long waves?"
+ },
+ "reply_right": "Water vapour in the lower atmosphere absorbs much of the infrared.",
+ "reply_trap": "Not 10× at the equator, not two-thirds, and infrared isn't visible light.",
+ "utm": "pyq-of-the-day"
+}
