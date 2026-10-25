@@ -24,5 +24,9 @@
  "reply_trap": "Blockchain isn't crypto-only, and public chains let anyone build without permission.",
  "dm_word": "LEDGER",
  "bonus_id": "pre-2026-086",
- "hook_style": "trap"
+ "hook_style": "trap",
+ "video_url": "https://video.wixstatic.com/video/27272b_9cebf808c21c47ec8f6c1f869bb69388/1080p/mp4/file.mp4",
+ "cover_url": "https://static.wixstatic.com/media/27272b_6f13b554cf5742ea904896d9fc41e7b7~mv2.jpg",
+ "story_url": "https://static.wixstatic.com/media/27272b_bb7203241a7b4c2da45b0189637eb107~mv2.jpg",
+ "sheet_url": "https://static.wixstatic.com/media/27272b_d7e74466ab1a4f43b26d9b0ebea314f9~mv2.jpg"
 }
