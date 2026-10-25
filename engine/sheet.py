@@ -101,6 +101,7 @@ def render(spec, out):
     return rep
 
 MEASURE = """() => { const sh = document.querySelector('#sh'), body = document.querySelector('#body'), inn = document.querySelector('#in');
+          const ft = document.querySelector('.ft'); body.style.bottom = Math.max(190, sh.clientHeight - ft.offsetTop + 24) + 'px';  // a 2-line source/link footer must not cover the body
           let s = 1.12; sh.style.setProperty('--s', s);
           while (inn.scrollHeight > body.clientHeight && s > 0.77) { s -= 0.01; sh.style.setProperty('--s', s.toFixed(2)); }
           let m = 999; const tw = document.createTreeWalker(sh, NodeFilter.SHOW_TEXT);

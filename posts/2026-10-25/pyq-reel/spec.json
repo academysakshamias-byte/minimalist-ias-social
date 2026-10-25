@@ -1,0 +1,125 @@
+{
+ "no": 7,
+ "date": "25 Oct 2026",
+ "q": {
+  "id": "pre-2020-040",
+  "y": 2020,
+  "n": 40,
+  "a": "d",
+  "t": {
+   "stem": [
+    "With reference to \"Blockchain Technology\", consider the following statements:"
+   ],
+   "items": [
+    [
+     "1",
+     "It is a public ledger that everyone can inspect, but which no single user controls."
+    ],
+    [
+     "2",
+     "The structure and design of blockchain is such that all the data in it are about cryptocurrency only."
+    ],
+    [
+     "3",
+     "Applications that depend on basic features of blockchain can be developed without anybody's permission."
+    ]
+   ],
+   "prompt": [
+    "Which of the statements given above is/are correct?"
+   ],
+   "options": {
+    "a": "1 only",
+    "b": "1 and 2 only",
+    "c": "2 only",
+    "d": "1 and 3 only"
+   }
+  },
+  "ex": {
+   "summary": "A blockchain is a shared, tamper-resistant record spread over many computers, so no single person owns or controls it, and on an open (public) blockchain anyone can read it and build on it. It is not limited to cryptocurrency: it can hold any kind of record."
+  }
+ },
+ "hook_style": "trap",
+ "hook": "The <em>'without permission'</em> blockchain trap UPSC set in 2020",
+ "aarav": {
+  "pick": "a",
+  "line": "'Without anybody's permission'? Too absolute. Only 1.",
+  "pose": "aarav_thinking"
+ },
+ "priya": {
+  "pick": "d",
+  "line": "Public chains have no gatekeeper. 1 and 3.",
+  "pose": "priya_armscrossed"
+ },
+ "answer_head": "<em>1 and 3</em>: (d) is correct.",
+ "verdicts": [
+  {
+   "ok": true,
+   "h": "1. Public ledger, no single controller",
+   "p": "Copies on many computers; anyone can read a public chain."
+  },
+  {
+   "ok": false,
+   "h": "2. Crypto only? No",
+   "p": "Land records, certificates, supply chains: far beyond crypto."
+  },
+  {
+   "ok": true,
+   "h": "3. Build without permission",
+   "p": "Public chains have no gatekeeper; permissioned ones restrict access."
+  }
+ ],
+ "source": "NITI Aayog, Blockchain strategy (2020); UPSC key 2020",
+ "extra": [
+  {
+   "lab": "Also know",
+   "h": "What UPSC <em>asks next</em>",
+   "points": [
+    {
+     "h": "Four types:",
+     "p": "public, private, consortium (run jointly by several organisations), hybrid (public + private)."
+    },
+    {
+     "h": "Permissioned chains:",
+     "p": "only authorised, known participants can write and commit records."
+    },
+    {
+     "h": "First big use:",
+     "p": "Bitcoin; the same ledger design now tracks land records and certificates."
+    }
+   ],
+   "source": "PIB note (Oct 2025)"
+  }
+ ],
+ "remember": "Public blockchain = shared ledger, <em>no single controller</em>; not only crypto.",
+ "trap_who": "aarav",
+ "trap": "Aarav struck 'without permission' as too absolute. On public chains, it's simply true.",
+ "method": "Don't strike an absolute word on instinct: test the default case.",
+ "topic": "Science & Tech · blockchain",
+ "hashtags": [
+  "#UPSC",
+  "#UPSCPrelims",
+  "#UPSCPYQ",
+  "#Blockchain",
+  "#ScienceAndTech"
+ ],
+ "yt_tags": [
+  "UPSC",
+  "UPSC Prelims",
+  "UPSC PYQ",
+  "UPSC Prelims 2020",
+  "blockchain",
+  "blockchain technology",
+  "public ledger",
+  "permissionless blockchain",
+  "UPSC science and technology",
+  "Minimalist IAS"
+ ],
+ "dm_word": "LEDGER",
+ "bonus": {
+  "id": "pre-2026-086",
+  "short": "Blockchain features: stakeholder-visible records, copies on many computers, consortium = public-private blend, unchangeable data?"
+ },
+ "reply_right": "Public ledger, no single controller; open chains need no permission to build.",
+ "reply_trap": "Blockchain isn't crypto-only, and public chains let anyone build without permission.",
+ "utm": "pyq-of-the-day"
+}
