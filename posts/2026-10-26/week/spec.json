@@ -1,0 +1,87 @@
+{
+ "week": 43,
+ "range": "19–25 Oct 2026",
+ "date": "26 Oct 2026",
+ "page": true,
+ "stories": [
+  {
+   "gs": "GS2 · Polity",
+   "t": "SC: citizens can prosecute false affidavits",
+   "k": "RP Act S.125A",
+   "pyq": true
+  },
+  {
+   "gs": "GS2 · Polity",
+   "t": "CEC removal: the Article 324(5) route",
+   "k": "Art 324(5) · Art 124(4)",
+   "pyq": true
+  },
+  {
+   "gs": "GS3 · Env",
+   "t": "UNEP: 1.5°C without overshoot now out",
+   "k": "Emissions Gap Report",
+   "pyq": true
+  },
+  {
+   "gs": "GS3 · Env",
+   "t": "CBD COP17 runs first global KMGBF review",
+   "k": "KMGBF · 23 targets",
+   "pyq": true
+  },
+  {
+   "gs": "GS2 · Polity",
+   "t": "SC: bail when pre-trial detention drags",
+   "k": "Art 21 · BNSS S.479",
+   "pyq": true
+  },
+  {
+   "gs": "GS2 · IR",
+   "t": "India–New Zealand FTA comes into force",
+   "k": "FTAs after RCEP",
+   "pyq": true
+  },
+  {
+   "gs": "GS1 · Geography",
+   "t": "Cyclone watch on the Andhra coast",
+   "k": "Post-monsoon cyclones",
+   "pyq": true
+  },
+  {
+   "gs": "GS2 · Polity",
+   "t": "Ladakh: hill councils recast, new districts",
+   "k": "Art 240 · LAHDC",
+   "pyq": true
+  },
+  {
+   "gs": "GS3 · Economy",
+   "t": "Ethanol tender shifts feedstock to grain",
+   "k": "EBP · E20",
+   "pyq": true
+  },
+  {
+   "gs": "GS3 · S&T",
+   "t": "DPDP breach-report rule not in force yet",
+   "k": "DPDP Act S.8(6)",
+   "pyq": true
+  }
+ ],
+ "facts": [
+  "The CEC can be removed only like a Supreme Court judge; other Election Commissioners only on the CEC's recommendation.",
+  "RP Act S.125A: false information in a nomination affidavit can mean up to 6 months' jail, a fine, or both.",
+  "The Kunming-Montreal framework (CBD COP15, 2022) has 23 targets for 2030, including '30x30'.",
+  "BNSS S.479: an undertrial who has served half the maximum sentence must get bail; a first-time offender after one-third.",
+  "UNEP's Emissions Gap Report compares countries' pledges with the cuts needed for the Paris goals."
+ ],
+ "mcqs": [
+  {
+   "s": "The Chief Election Commissioner can be removed by the President on the advice of the Union Council of Ministers.",
+   "a": "False",
+   "why": "Only like an SC judge: an address by each House by special majority (Art 324(5), 124(4))."
+  },
+  {
+   "s": "Under India's National Policy on Biofuels, damaged food grains unfit for human consumption can be used to make ethanol.",
+   "a": "True",
+   "why": "The 2018 policy widened feedstocks to include them."
+  }
+ ]
+}
