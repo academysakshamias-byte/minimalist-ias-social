@@ -1,0 +1,103 @@
+{
+ "no": 8,
+ "date": "26 Oct 2026",
+ "q": {
+  "id": "pre-2019-008",
+  "y": 2019,
+  "n": 8,
+  "a": "a",
+  "t": {
+   "stem": [
+    "In which of the following relief sculpture inscriptions is 'Ranyo Ashoka' (King Ashoka) mentioned along with the stone portrait of Ashoka?"
+   ],
+   "items": [],
+   "prompt": [],
+   "options": {
+    "a": "Kanganahalli",
+    "b": "Sanchi",
+    "c": "Shahbazgarhi",
+    "d": "Sohgaura"
+   }
+  },
+  "ex": {
+   "summary": "The ruined stupa at Kanaganahalli, part of the Sannati complex on the Bhima in Kalaburagi (Gulbarga) district of Karnataka, yielded a relief of Ashoka with his queens that carries an inscription naming him. That is the site the question describes."
+  }
+ },
+ "hook_style": "question",
+ "hook": "Where is <em>Ashoka's portrait</em> carved with his name?",
+ "aarav": {
+  "pick": "b",
+  "line": "Ashoka's stupa, famous reliefs. Sanchi, obviously.",
+  "pose": "aarav_confident"
+ },
+ "priya": {
+  "pick": "a",
+  "line": "Wait. The named portrait is at Kanaganahalli.",
+  "pose": "priya_wait"
+ },
+ "answer_head": "<em>Kanganahalli</em>: (a) is correct.",
+ "verdicts": [
+  {
+   "ok": true,
+   "h": "(a) Kanaganahalli, Karnataka",
+   "p": "Stupa relief: Ashoka's portrait, his name inscribed."
+  },
+  {
+   "ok": false,
+   "h": "(b) Sanchi: Ashokan stupa",
+   "p": "Ashoka began the stupa; no portrait labelled with his name."
+  },
+  {
+   "ok": false,
+   "h": "(c), (d): no portrait",
+   "p": "Shahbazgarhi: rock edicts. Sohgaura: a copper plate."
+  }
+ ],
+ "source": "ASI excavations, Kanaganahalli; UPSC key 2019",
+ "extra": [
+  {
+   "lab": "Also know",
+   "h": "What UPSC <em>asks next</em>",
+   "points": [
+    {
+     "h": "Kanaganahalli:",
+     "p": "near Sannati, on the Bhima, Kalaburagi district."
+    },
+    {
+     "h": "Shahbazgarhi:",
+     "p": "Major Rock Edicts in Kharosthi script (now Pakistan)."
+    }
+   ],
+   "source": "Kalaburagi district, Govt of Karnataka"
+  }
+ ],
+ "remember": "Ashoka's portrait <em>with his name</em>: Kanaganahalli, Karnataka.",
+ "trap_who": "aarav",
+ "trap": "Aarav saw 'Ashoka' and 'relief' and jumped to Sanchi. Ashokan stupa, yes; named portrait, no.",
+ "method": "Match every clue: portrait plus name rules out edict-only sites.",
+ "topic": "History · Ashoka in inscriptions & Buddhist art",
+ "hashtags": [
+  "#UPSC",
+  "#UPSCPrelims",
+  "#UPSCPYQ",
+  "#Ashoka",
+  "#IndianHistory"
+ ],
+ "yt_tags": [
+  "Ashoka",
+  "Kanaganahalli",
+  "Sannati",
+  "Ashoka portrait",
+  "Mauryan inscriptions",
+  "UPSC ancient history",
+  "UPSC art and culture"
+ ],
+ "dm_word": "ASHOKA",
+ "bonus": {
+  "id": "pre-2020-030",
+  "short": "Which ruler's inscription warned that praising your own sect while blaming others injures your own?"
+ },
+ "reply_right": "Kanaganahalli's stupa relief shows Ashoka's portrait with his name inscribed.",
+ "reply_trap": "Sanchi's stupa is Ashokan, but the portrait carrying his name is at Kanaganahalli.",
+ "utm": "pyq-of-the-day"
+}
