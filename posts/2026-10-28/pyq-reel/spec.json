@@ -1,0 +1,121 @@
+{
+ "no": 9,
+ "date": "28 Oct 2026",
+ "q": {
+  "id": "pre-2025-089",
+  "y": 2025,
+  "n": 89,
+  "a": "d",
+  "t": {
+   "stem": [
+    "Consider the following statements:"
+   ],
+   "items": [
+    [
+     "Statement-I",
+     "In India, State Governments have no power for making rules for grant of concessions in respect of extraction of minor minerals even though such minerals are located in their territories."
+    ],
+    [
+     "Statement-II",
+     "In India, the Central Government has the power to notify minor minerals under the relevant law."
+    ]
+   ],
+   "prompt": [
+    "Which one of the following is correct in respect of the above statements?"
+   ],
+   "options": {
+    "a": "Both Statement I and Statement II are correct and Statement II explains Statement I",
+    "b": "Both Statement I and Statement II are correct but Statement II does not explain Statement I",
+    "c": "Statement I is correct but Statement II is not correct",
+    "d": "Statement I is not correct but Statement II is correct"
+   }
+  },
+  "ex": {
+   "summary": "Statement I is wrong. Mines and minerals are a State subject, subject to Union control, and under the Mines and Minerals (Development and Regulation) Act, 1957 the State Governments frame the rules for concessions in minor minerals. Statement II is right: under the same Act the Central Government can notify further minerals as minor minerals."
+  }
+ },
+ "hook_style": "split",
+ "hook": "Aarav: States make <em>minor mineral</em> rules. Priya disagrees.",
+ "aarav": {
+  "pick": "d",
+  "line": "But States write minor mineral rules. I'd say (d).",
+  "pose": "aarav_thinking"
+ },
+ "priya": {
+  "pick": "a",
+  "line": "Centre notifies minor minerals, so States have no power.",
+  "pose": "priya_armscrossed"
+ },
+ "answer_head": "<em>Statement I is wrong</em>: (d) is correct.",
+ "verdicts": [
+  {
+   "ok": false,
+   "h": "Statement I: false",
+   "p": "MMDR Act, s.15: States make minor mineral concession rules."
+  },
+  {
+   "ok": true,
+   "h": "Statement II: true",
+   "p": "s.3(e): the Centre can notify other minerals as minor."
+  },
+  {
+   "ok": false,
+   "h": "(a), (b), (c) need I true",
+   "p": "Statement I is false, so only (d) fits."
+  }
+ ],
+ "source": "MMDR Act, 1957, ss. 3(e), 15; UPSC key 2025",
+ "extra": [
+  {
+   "lab": "Also know",
+   "h": "What UPSC <em>asks next</em>",
+   "points": [
+    {
+     "h": "State List, Entry 23:",
+     "p": "mines and mineral development, subject to Union control (Union List, Entry 54)."
+    },
+    {
+     "h": "Minor minerals:",
+     "p": "building stone, gravel, ordinary clay, ordinary sand, plus any mineral the Centre notifies."
+    },
+    {
+     "h": "2023 amendment:",
+     "p": "the Centre alone auctions leases for listed critical minerals; States keep the revenue."
+    }
+   ],
+   "source": "Constitution, Seventh Schedule; MMDR Act; PIB (2023)"
+  }
+ ],
+ "remember": "Minor minerals: <em>States make the rules</em>, Centre notifies.",
+ "trap_who": "priya",
+ "trap": "Priya read 'Centre notifies' as 'Centre controls'. Deciding what is minor isn't writing the rules.",
+ "method": "Judge each alone, then 'explains'.",
+ "topic": "Economy · minerals & mining law",
+ "hashtags": [
+  "#UPSC",
+  "#UPSCPrelims",
+  "#UPSCPYQ",
+  "#MinorMinerals",
+  "#IndianPolity"
+ ],
+ "yt_tags": [
+  "UPSC",
+  "UPSC Prelims",
+  "UPSC PYQ",
+  "UPSC Prelims 2025",
+  "minor minerals",
+  "MMDR Act 1957",
+  "mining law India",
+  "State List Entry 23",
+  "critical minerals",
+  "Minimalist IAS"
+ ],
+ "dm_word": "MINERAL",
+ "bonus": {
+  "id": "pre-2025-006",
+  "short": "Minerals Security Partnership, India's 30 critical minerals, the 2023 MMDR amendment: which statements are correct?"
+ },
+ "reply_right": "States frame minor mineral rules (s.15); the Centre notifies minor minerals.",
+ "reply_trap": "Centre notifying minor minerals doesn't stop States making their concession rules.",
+ "utm": "pyq-of-the-day"
+}
