@@ -232,5 +232,16 @@
    "Speaker Lok Sabha",
    "prorogation dissolution"
   ]
+ },
+ "wix": {
+  "slides": [
+   "https://static.wixstatic.com/media/27272b_3a491b8d09754eafb82f4a599b05d618~mv2.jpg",
+   "https://static.wixstatic.com/media/27272b_3ed546c0e9f44f74893ba75a83cffed4~mv2.jpg",
+   "https://static.wixstatic.com/media/27272b_49baede3d6354429aa3a5ddc64078d93~mv2.jpg",
+   "https://static.wixstatic.com/media/27272b_e84505f0c76449a79340981ce8e261e7~mv2.jpg",
+   "https://static.wixstatic.com/media/27272b_fcc4f706e3fa402998ac22a996a1472d~mv2.jpg",
+   "https://static.wixstatic.com/media/27272b_7385cdca09d14e9a8d2d5f01f231d594~mv2.jpg"
+  ],
+  "story": "https://static.wixstatic.com/media/27272b_a6b8038ba1614de8bfdb68ef525041e5~mv2.jpg"
  }
 }
