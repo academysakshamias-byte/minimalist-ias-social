@@ -236,7 +236,7 @@ def meta(spec, deep=False):
     rl = spec.get('reel') or {}; hook = re.sub(r'\s+', ' ', strip(hook_of(spec))).strip()
     y0, y1 = min(spec['years']), max(spec['years']); word = dmw_of(spec)
     anchor = rl.get('anchor', ''); link = 'https://www.minimalistias.com/upsc-syllabus/prelims'
-    rr = [f"{r['n']} others" if r['label'].strip().lower() == 'other' else f"{r['n']} on {r['label'][0].lower() + r['label'][1:]}" for r in spec['pattern']]
+    rr = [f"{r['n']} others" if r['label'].strip().lower() == 'other' else f"{r['n']} on {r['label'] if r.get('keep_case') else r['label'][0].lower() + r['label'][1:]}" for r in spec['pattern']]
     rows = '; '.join(rr[:-1]) + ('; and ' if len(rr) > 1 else '') + rr[-1]
     pat = re.sub(r'\s+', ' ', strip(spec['pattern_h'])).strip()
     tags = (rl.get('hashtags') or ['#UPSC', '#UPSCPrelims', '#UPSCPYQ', '#MinimalistIAS'])[:5]

@@ -1,0 +1,236 @@
+{
+ "n": 2,
+ "date": "1 Nov 2026",
+ "day": "2026-11-01",
+ "prelims": "2027-05-23",
+ "name": "Parliament: sessions & business",
+ "subject": "Polity · Parliament",
+ "asked": 24,
+ "years": {
+  "2016": 1,
+  "2017": 3,
+  "2018": 3,
+  "2019": 1,
+  "2020": 3,
+  "2021": 1,
+  "2022": 1,
+  "2023": 1,
+  "2024": 6,
+  "2025": 2,
+  "2026": 2
+ },
+ "aarav": "So I memorise Parliament trivia?",
+ "priya": "No. Learn the rules: who, when, which House.",
+ "pattern_h": "Not trivia. <em>UPSC tests the exact rule.</em>",
+ "pattern_note": "19 of 24 are statement questions. 2024 alone set 6.",
+ "pattern": [
+  {
+   "label": "Bills, sessions, motions",
+   "n": 8,
+   "eg": "Money Bill, prorogation"
+  },
+  {
+   "label": "Speaker, members, posts",
+   "n": 6,
+   "eg": "Speaker's removal, LoP",
+   "keep_case": true
+  },
+  {
+   "label": "Committees",
+   "n": 3,
+   "eg": "Ethics, Subordinate Legislation"
+  },
+  {
+   "label": "Other",
+   "n": 7,
+   "eg": "Parliamentary system, President's poll"
+  }
+ ],
+ "traps": [
+  {
+   "h": "Can't preside ≠ can't speak",
+   "p": "Facing removal, the Speaker may still speak and vote (2024).",
+   "walk": {
+    "qid": "pre-2024-093",
+    "y": 2024,
+    "n": 93,
+    "key": "a",
+    "q": {
+     "stem": "With reference to the Speaker of the Lok Sabha, consider the following statements: While any resolution for the removal of the Speaker of the Lok Sabha is under consideration",
+     "items": [
+      "He/She shall not preside.",
+      "He/She shall not have the right to speak.",
+      "He/She shall not be entitled to vote on the resolution in the first instance."
+     ],
+     "prompt": "Which of the statements given above is/are correct?",
+     "options": {
+      "a": "1 only",
+      "b": "1 and 2 only",
+      "c": "2 and 3 only",
+      "d": "1, 2 and 3"
+     }
+    },
+    "pick": "d",
+    "aarav": "Facing removal? No presiding, speaking or voting.",
+    "tell": "shall not have the right to speak",
+    "priya": "Article 96: no presiding, but the Speaker may still speak and vote."
+   }
+  },
+  {
+   "h": "\"Well-defined\"? Not here",
+   "p": "Art 102 never defines \"office of profit\" (2019).",
+   "walk": {
+    "qid": "pre-2019-049",
+    "y": 2019,
+    "n": 49,
+    "key": "a",
+    "q": {
+     "stem": "Consider the following statements:",
+     "items": [
+      "The Parliament (Prevention of Disqualification) Act, 1959 exempts several posts from disqualification on the grounds of 'Office of Profit'.",
+      "The above-mentioned Act was amended five times.",
+      "The term 'Office of Profit' is well-defined in the Constitution of India."
+     ],
+     "prompt": "Which of the statements given above is/are correct?",
+     "options": {
+      "a": "1 and 2 only",
+      "b": "3 only",
+      "c": "2 and 3 only",
+      "d": "1, 2 and 3"
+     }
+    },
+    "pick": "d",
+    "aarav": "The Constitution must define office of profit.",
+    "tell": "well-defined in the Constitution",
+    "priya": "Article 102 uses \"office of profit\" but never defines it."
+   }
+  },
+  {
+   "h": "Prorogation lapses no Bill",
+   "p": "Only Lok Sabha dissolution can (2016).",
+   "walk": {
+    "qid": "pre-2016-001",
+    "y": 2016,
+    "n": 1,
+    "key": "b",
+    "q": {
+     "stem": "Which of the following statements is/are correct?",
+     "items": [
+      "A Bill pending in the Lok Sabha lapses on its prorogation.",
+      "A Bill pending in the Rajya Sabha, which has not been passed by the Lok Sabha, shall not lapse on dissolution of the Lok Sabha."
+     ],
+     "prompt": "Select the correct answer using the code given below.",
+     "options": {
+      "a": "1 only",
+      "b": "2 only",
+      "c": "Both 1 and 2",
+      "d": "Neither 1 nor 2"
+     }
+    },
+    "pick": "c",
+    "aarav": "Prorogation ends the session. Pending Bills die too.",
+    "tell": "lapses on its prorogation",
+    "priya": "Article 107(3): prorogation lapses no Bill. Only Lok Sabha dissolution can."
+   }
+  }
+ ],
+ "pyqs": [
+  {
+   "y": 2026,
+   "q": 59,
+   "gist": "SC/ST Welfare Committee: how many statements right?",
+   "a": "d",
+   "ans": "None of the four (provisional)"
+  },
+  {
+   "y": 2026,
+   "q": 58,
+   "gist": "Starred vs unstarred: how many right?",
+   "a": "c",
+   "ans": "Only one (provisional)"
+  },
+  {
+   "y": 2025,
+   "q": 88,
+   "gist": "President decides defection? No 'political party' in Constitution?",
+   "a": "d",
+   "ans": "Neither"
+  }
+ ],
+ "read": [
+  {
+   "h": "NCERT Class 11 Indian Constitution at Work",
+   "p": "Ch 5, Legislature; Ch 4, Executive"
+  },
+  {
+   "h": "NCERT Class 12 Politics in India since Independence",
+   "p": "Ch 2, Era of One-party Dominance"
+  }
+ ],
+ "skip": "who said what in which debate.",
+ "core_total": 60,
+ "core_q": 1091,
+ "core_cov": 51,
+ "xray_row": {
+  "name": "Parliament: houses, sessions & conduct of business",
+  "stars": 5,
+  "q": 24,
+  "weight": 2.1,
+  "pm": true,
+  "yrs": [
+   2016,
+   2017,
+   2018,
+   2019,
+   2020,
+   2021,
+   2022,
+   2023,
+   2024,
+   2025,
+   2026
+  ],
+  "where": [
+   {
+    "nc": true,
+    "t": "NCERT 11 Indian Constitution at Work, ch 5"
+   },
+   {
+    "ca": false,
+    "t": "M. Laxmikanth, Indian Polity, ch 'Parliament'"
+   },
+   {
+    "ca": false,
+    "t": "M. Laxmikanth, Indian Polity, ch 'Parliamentary Committees'"
+   },
+   {
+    "ca": true,
+    "t": "Current affairs: new Acts on Parliament (e.g. women's quota)"
+   }
+  ]
+ },
+ "price": {
+  "launch": 199,
+  "regular": 249,
+  "launch_ends": "2026-11-30"
+ },
+ "reel": {
+  "hook": "<em>Parliament rules</em>: 24 PYQs since 2016.",
+  "dm_word": "SPEAKER",
+  "anchor": "s--union-executive-parliament--parliament-houses-sessions-conduct-of-business",
+  "hashtags": [
+   "#UPSC",
+   "#UPSCPrelims",
+   "#IndianPolity",
+   "#Parliament",
+   "#MinimalistIAS"
+  ],
+  "yt_tags": [
+   "Parliament UPSC",
+   "Indian Polity PYQ",
+   "UPSC Prelims Polity",
+   "Speaker Lok Sabha",
+   "prorogation dissolution"
+  ]
+ }
+}

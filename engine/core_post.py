@@ -99,7 +99,7 @@ def build(spec, out):
     S.append(f'''<div class="s" id="n2">{chrome(2,T,"The pattern",tag,f"All {spec['asked']} questions, sorted")}
  <div class="blk"><h2 class="h">{spec['pattern_h']}</h2>{rows}</div>{f'<div class="note">{e(spec["pattern_note"])}</div>' if spec.get('pattern_note') else ''}</div>''')
     tr = ''.join(f'<div class="tr"><i>{i + 1}</i><div><h3>{e(t["h"])}</h3><p>{e(t["p"])}</p></div></div>' for i, t in enumerate(spec['traps']))
-    S.append(f'''<div class="s paper" id="n3">{chrome(3,T,"3 traps",tag,"Screenshot this",True)}
+    S.append(f'''<div class="s paper" id="n3">{chrome(3,T,"3 traps",tag,"From real UPSC questions",True)}
  <div class="blk"><h2 class="h">UPSC's <em>traps</em></h2>{tr}</div></div>''')
     pq = ''.join(f'<div class="pq"><div class="y">{p["y"]}<small>Q{p["q"]}</small></div><div><div class="g">{e(p["gist"])}</div><div class="r">Answer <b>({p["a"]})</b> {e(p["ans"])}</div></div></div>' for p in spec['pyqs'])
     S.append(f'''<div class="s" id="n4">{chrome(4,T,"Last 3 PYQs",tag,"Asked in UPSC Prelims")}
