@@ -1,0 +1,125 @@
+{
+ "no": 10,
+ "date": "29 Oct 2026",
+ "q": {
+  "id": "pre-2024-030",
+  "y": 2024,
+  "n": 30,
+  "a": "a",
+  "t": {
+   "stem": [
+    "Consider the following:"
+   ],
+   "items": [
+    [
+     "1",
+     "Cashew"
+    ],
+    [
+     "2",
+     "Papaya"
+    ],
+    [
+     "3",
+     "Red sanders"
+    ]
+   ],
+   "prompt": [
+    "How many of the above trees are actually native to India?"
+   ],
+   "options": {
+    "a": "Only one",
+    "b": "Only two",
+    "c": "All three",
+    "d": "None"
+   }
+  },
+  "ex": {
+   "summary": "Only red sanders is Indian by origin: it grows wild in a small tract of the southern Eastern Ghats. Cashew and papaya are both American plants brought to India in the sixteenth and seventeenth centuries, even though India is now a leading grower of both."
+  }
+ },
+ "hook_style": "trap",
+ "hook": "The <em>cashew trap</em> UPSC set in 2024",
+ "aarav": {
+  "pick": "b",
+  "line": "Cashew is all over Goa and Kerala. Two.",
+  "pose": "aarav_confident"
+ },
+ "priya": {
+  "pick": "a",
+  "line": "Wait. Cashew came from Brazil. Only red sanders.",
+  "pose": "priya_wait"
+ },
+ "answer_head": "<em>Only red sanders</em> is native: (a).",
+ "verdicts": [
+  {
+   "ok": false,
+   "h": "Cashew: not native",
+   "p": "From Brazil; the Portuguese brought it to Goa (16th c.)."
+  },
+  {
+   "ok": false,
+   "h": "Papaya: not native",
+   "p": "From tropical America; reached India after 1500."
+  },
+  {
+   "ok": true,
+   "h": "Red sanders: native",
+   "p": "Endemic to the southern Eastern Ghats, mainly Andhra Pradesh."
+  }
+ ],
+ "source": "UPSC key 2024; DCCD (cashew); FAO (papaya)",
+ "extra": [
+  {
+   "lab": "Also know",
+   "h": "What UPSC <em>asks next</em>",
+   "points": [
+    {
+     "h": "Red sanders:",
+     "p": "IUCN Endangered, CITES Appendix II; smuggled for its red heartwood."
+    },
+    {
+     "h": "Nov 2023:",
+     "p": "CITES Standing Committee took India off its Review of Significant Trade for red sanders."
+    },
+    {
+     "h": "Also from the Americas:",
+     "p": "chilli, potato, tomato and maize."
+    }
+   ],
+   "source": "IUCN Red List; CITES SC77 (Nov 2023); MoEFCC; NCERT"
+  }
+ ],
+ "remember": "Red sanders is <em>India's own</em>. Cashew, papaya: the Americas.",
+ "trap_who": "aarav",
+ "trap": "Aarav read 'grown widely in India' as 'native to India'. India is a top cashew grower; cashew is still Brazilian.",
+ "method": "Ask where it began, not where it grows.",
+ "topic": "Environment · plants & biodiversity",
+ "hashtags": [
+  "#UPSC",
+  "#UPSCPrelims",
+  "#UPSCPYQ",
+  "#RedSanders",
+  "#Biodiversity"
+ ],
+ "yt_tags": [
+  "UPSC",
+  "UPSC Prelims",
+  "UPSC PYQ",
+  "UPSC Prelims 2024",
+  "red sanders",
+  "cashew origin",
+  "native plants of India",
+  "Pterocarpus santalinus",
+  "UPSC environment",
+  "Minimalist IAS"
+ ],
+ "dm_word": "CASHEW",
+ "bonus": {
+  "id": "pre-2025-075",
+  "short": "Papaya, pineapple, guava: how many did the Portuguese bring to India (16th–17th centuries)?"
+ },
+ "reply_right": "Only red sanders is native; cashew and papaya came from the Americas.",
+ "reply_trap": "Grown widely isn't native: cashew came from Brazil, papaya from tropical America.",
+ "utm": "pyq-of-the-day"
+}
