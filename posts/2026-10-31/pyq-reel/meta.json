@@ -24,5 +24,10 @@
  "reply_trap": "More fuel isn't longer life: giants burn it so fast they die first.",
  "dm_word": "STARS",
  "bonus_id": "pre-2019-097",
- "hook_style": "question"
+ "hook_style": "question",
+ "video_url": "https://video.wixstatic.com/video/27272b_f39b92505db14be2ac8a8f6e97de3e51/1080p/mp4/file.mp4",
+ "cover_url": "https://static.wixstatic.com/media/27272b_153e7b2047fc44b9a136c08c70b189c9~mv2.jpg",
+ "story_url": "https://static.wixstatic.com/media/27272b_f055f5a49032417289a1044f046d4ec5~mv2.jpg",
+ "sheet_url": "https://static.wixstatic.com/media/27272b_7b5825d6f8b1451f9a67cf324d5318ce~mv2.jpg",
+ "duration_s": 51
 }
