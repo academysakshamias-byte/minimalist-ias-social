@@ -1,0 +1,120 @@
+{
+ "no": 11,
+ "date": "31 Oct 2026",
+ "q": {
+  "id": "pre-2024-032",
+  "y": 2024,
+  "n": 32,
+  "a": "d",
+  "t": {
+   "stem": [
+    "Consider the following statements:"
+   ],
+   "items": [
+    [
+     "Statement-I",
+     "Giant stars live much longer than dwarf stars."
+    ],
+    [
+     "Statement-II",
+     "Compared to dwarf stars, giant stars have a greater rate of nuclear reactions."
+    ]
+   ],
+   "prompt": [
+    "Which one of the following is correct in respect of the above statements?"
+   ],
+   "options": {
+    "a": "Both Statement-I and Statement-II are correct and Statement-II explains Statement-I",
+    "b": "Both Statement-I and Statement-II are correct, but Statement-II does not explain Statement-I",
+    "c": "Statement-I is correct, but Statement-II is incorrect",
+    "d": "Statement-I is incorrect, but Statement-II is correct"
+   }
+  },
+  "ex": {
+   "summary": "A star's mass decides how fast it burns. Massive stars need very high rates of nuclear fusion in their cores to hold themselves up against their own gravity, so they use up their hydrogen in a few million years, while small dwarf stars burn slowly and can shine for billions or even trillions of years. So the fusion-rate statement is true, and the longer-life statement is the reverse of the truth."
+  }
+ },
+ "hook_style": "question",
+ "hook": "Do <em>giant stars</em> outlive dwarf stars?",
+ "aarav": {
+  "pick": "b",
+  "line": "Bigger star, more fuel, longer life. Both true.",
+  "pose": "aarav_confident"
+ },
+ "priya": {
+  "pick": "d",
+  "line": "Wait. Faster burning means a shorter life.",
+  "pose": "priya_wait"
+ },
+ "answer_head": "<em>Giants die young</em>: (d).",
+ "verdicts": [
+  {
+   "ok": false,
+   "h": "Statement-I: wrong",
+   "p": "Massive stars last only a few million years; red dwarfs, up to trillions."
+  },
+  {
+   "ok": true,
+   "h": "Statement-II: right",
+   "p": "More mass, more gravity: they must fuse hydrogen far faster."
+  }
+ ],
+ "source": "UPSC key 2024; NASA Science: Star Basics",
+ "extra": [
+  {
+   "lab": "Also know",
+   "h": "What UPSC <em>asks next</em>",
+   "points": [
+    {
+     "h": "The Sun:",
+     "p": "about 10 billion years on the main sequence."
+    },
+    {
+     "h": "Stars above ~8 Suns:",
+     "p": "end in supernovae, leaving neutron stars or black holes."
+    },
+    {
+     "h": "Pulsars:",
+     "p": "spinning neutron stars (UPSC 2023)."
+    },
+    {
+     "h": "Black hole merger:",
+     "p": "LIGO's first direct detection of gravitational waves, 14 Sep 2015."
+    }
+   ],
+   "source": "NASA Science; NASA Imagine the Universe; Nobel Prize 2017"
+  }
+ ],
+ "remember": "Bigger star, <em>faster fusion</em>, shorter life.",
+ "trap_who": "aarav",
+ "trap": "Aarav thought more fuel means a longer life. Giants burn it so fast they die first.",
+ "method": "Judge each statement alone first; then ask if II explains I or disproves it.",
+ "topic": "Science · astronomy",
+ "hashtags": [
+  "#UPSC",
+  "#UPSCPrelims",
+  "#UPSCPYQ",
+  "#Astronomy",
+  "#SpaceScience"
+ ],
+ "yt_tags": [
+  "UPSC",
+  "UPSC Prelims",
+  "UPSC PYQ",
+  "UPSC Prelims 2024",
+  "giant stars",
+  "dwarf stars",
+  "life cycle of stars",
+  "nuclear fusion",
+  "UPSC science and technology",
+  "Minimalist IAS"
+ ],
+ "dm_word": "STARS",
+ "bonus": {
+  "id": "pre-2019-097",
+  "short": "Scientists observed giant black holes merging billions of light-years away. Why did it matter?"
+ },
+ "reply_right": "Bigger stars' gravity drives far faster fusion, so they die sooner.",
+ "reply_trap": "More fuel isn't longer life: giants burn it so fast they die first.",
+ "utm": "pyq-of-the-day"
+}
