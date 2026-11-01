@@ -1,0 +1,78 @@
+{
+ "week": 44,
+ "range": "26 Oct–1 Nov 2026",
+ "date": "2 Nov 2026",
+ "page": true,
+ "stories": [
+  {
+   "gs": "GS1 · Society",
+   "t": "Census 2027: headcount dates notified",
+   "k": "Ref date 1 Mar 2027"
+  },
+  {
+   "gs": "GS2 · Polity",
+   "t": "SC: Maharashtra local polls can proceed",
+   "k": "Art 243D · triple test"
+  },
+  {
+   "gs": "GS2 · Polity",
+   "t": "Legislative Councils back in focus",
+   "k": "Art 169 · Art 171",
+   "pyq": true
+  },
+  {
+   "gs": "GS3 · Environment",
+   "t": "Ramsar network reaches 103 sites",
+   "k": "Sukhna · Sauj Jheel",
+   "pyq": true
+  },
+  {
+   "gs": "GS3 · S&T",
+   "t": "ISRO launches NVS-03 for NavIC",
+   "k": "NavIC · GSLV-F18",
+   "pyq": true
+  },
+  {
+   "gs": "GS3 · Economy",
+   "t": "World Bank: extreme poverty at 2.6%",
+   "k": "$3/day · 2021 PPP",
+   "pyq": true
+  },
+  {
+   "gs": "GS1 · Geography",
+   "t": "Cyclone Arnab: landfall, then floods",
+   "k": "Post-monsoon cyclones",
+   "pyq": true
+  },
+  {
+   "gs": "GS2 · Governance",
+   "t": "Social security boards for gig workers",
+   "k": "Code on Social Security",
+   "pyq": true
+  },
+  {
+   "gs": "GS2 · Governance",
+   "t": "Cabinet clears PM Viksit Gram Swaraj Yojana",
+   "k": "Panchayats · CSS"
+  }
+ ],
+ "facts": [
+  "Census 2027's population count uses 00:00 hours on 1 March 2027 as its reference date for most of India.",
+  "A Legislative Council can have at most one-third of its Assembly's members, and no fewer than 40 (Art 171).",
+  "Parliament creates or abolishes a Legislative Council by ordinary law after the Assembly's special-majority resolution (Art 169).",
+  "India now has 103 Ramsar sites; Sukhna (Chandigarh) and Sauj Jheel (UP) are the newest.",
+  "The World Bank's extreme-poverty line is US$3.00 a day at 2021 PPP."
+ ],
+ "mcqs": [
+  {
+   "s": "Seats in panchayats can be reserved for backward classes only through a law made by Parliament.",
+   "a": "False",
+   "why": "Article 243D(6) lets the State Legislature provide it."
+  },
+  {
+   "s": "NavIC is a global satellite navigation system, like GPS.",
+   "a": "False",
+   "why": "It is regional: India and about 1,500 km around it."
+  }
+ ]
+}
