@@ -1,0 +1,116 @@
+{
+ "no": 12,
+ "date": "1 Nov 2026",
+ "q": {
+  "id": "pre-2025-065",
+  "y": 2025,
+  "n": 65,
+  "a": "a",
+  "t": {
+   "stem": [
+    "A country's fiscal deficit stands at ₹ 50,000 crores. It is receiving ₹ 10,000 crores through non-debt creating capital receipts. The country's interest liabilities are ₹ 1,500 crores."
+   ],
+   "items": [],
+   "prompt": [
+    "What is the gross primary deficit?"
+   ],
+   "options": {
+    "a": "₹ 48,500 crores",
+    "b": "₹ 51,500 crores",
+    "c": "₹ 58,500 crores",
+    "d": "None of the above"
+   }
+  },
+  "ex": {
+   "summary": "Gross primary deficit = gross fiscal deficit − net interest liabilities = ₹50,000 crore − ₹1,500 crore = ₹48,500 crore. The ₹10,000 crore of non-debt capital receipts is already counted while working out the fiscal deficit, so it is not adjusted again."
+  }
+ },
+ "hook_style": "split",
+ "hook": "Aarav says <em>₹38,500 primary deficit</em>. Priya says ₹48,500.",
+ "aarav": {
+  "pick": "d",
+  "line": "Subtract both: ₹38,500. Not listed, so (d).",
+  "pose": "aarav_thinking"
+ },
+ "priya": {
+  "pick": "a",
+  "line": "Only interest comes out. ₹48,500, option (a).",
+  "pose": "priya_armscrossed"
+ },
+ "answer_head": "<em>Only interest comes out</em>: (a).",
+ "verdicts": [
+  {
+   "ok": true,
+   "h": "(a) ₹48,500 crore",
+   "p": "Primary deficit = fiscal deficit − interest: 50,000 − 1,500."
+  },
+  {
+   "ok": false,
+   "h": "(d): ₹38,500 is wrong",
+   "p": "Non-debt receipts are already netted inside the fiscal deficit."
+  },
+  {
+   "ok": false,
+   "h": "(b) and (c)",
+   "p": "₹51,500 adds interest; ₹58,500 adds ₹10,000, then subtracts interest."
+  }
+ ],
+ "source": "UPSC key 2025; NCERT Class 12 Macroeconomics, Ch 5",
+ "extra": [
+  {
+   "lab": "Also know",
+   "h": "What UPSC <em>asks next</em>",
+   "points": [
+    {
+     "h": "Fiscal deficit:",
+     "p": "total expenditure − (revenue receipts + non-debt capital receipts)."
+    },
+    {
+     "h": "Revenue deficit:",
+     "p": "revenue expenditure − revenue receipts."
+    },
+    {
+     "h": "Zero primary deficit:",
+     "p": "borrowing only covers interest payments."
+    },
+    {
+     "h": "FRBM Act, 2003 (2004 Rules):",
+     "p": "fiscal deficit target of 3% of GDP."
+    }
+   ],
+   "source": "NCERT Class 12 Macroeconomics, Ch 5; FRBM Act, 2003 and Rules, 2004"
+  }
+ ],
+ "remember": "Primary deficit = <em>fiscal deficit − interest payments</em>.",
+ "trap_who": "aarav",
+ "trap": "Aarav used every number. The ₹10,000 crore was already counted in the fiscal deficit.",
+ "method": "Write the formula first; ignore the numbers it doesn't use.",
+ "topic": "Economy · fiscal deficit",
+ "hashtags": [
+  "#UPSC",
+  "#UPSCPrelims",
+  "#UPSCPYQ",
+  "#IndianEconomy",
+  "#Budget"
+ ],
+ "yt_tags": [
+  "UPSC",
+  "UPSC Prelims",
+  "UPSC PYQ",
+  "UPSC Prelims 2025",
+  "primary deficit",
+  "fiscal deficit",
+  "gross primary deficit",
+  "Indian economy",
+  "government budget",
+  "Minimalist IAS"
+ ],
+ "dm_word": "DEFICIT",
+ "bonus": {
+  "id": "pre-2025-061",
+  "short": "Revenue spend 80,000, receipts 60,000, borrowing 10,000, interest 6,000 (₹ cr): RD 20,000, FD 10,000, PD 4,000?"
+ },
+ "reply_right": "Primary deficit = fiscal deficit − interest payments: 50,000 − 1,500 = 48,500.",
+ "reply_trap": "The ₹10,000 crore non-debt receipts are already inside the fiscal deficit.",
+ "utm": "pyq-of-the-day"
+}
