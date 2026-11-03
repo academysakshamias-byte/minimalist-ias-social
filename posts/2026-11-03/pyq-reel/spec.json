@@ -1,0 +1,126 @@
+{
+ "no": 13,
+ "date": "3 Nov 2026",
+ "q": {
+  "id": "pre-2021-077",
+  "y": 2021,
+  "n": 77,
+  "a": "c",
+  "t": {
+   "stem": [
+    "We adopted parliamentary democracy based on the British model, but how does our model differ from that model?"
+   ],
+   "items": [
+    [
+     "1",
+     "As regards legislation, the British Parliament is supreme or sovereign but in India, the power of the Parliament to legislate is limited."
+    ],
+    [
+     "2",
+     "In India, matters related to the constitutionality of the Amendment of an Act of the Parliament are referred to the Constitution Bench by the Supreme Court."
+    ]
+   ],
+   "prompt": [
+    "Select the correct answer using the code given below."
+   ],
+   "options": {
+    "a": "1 only",
+    "b": "2 only",
+    "c": "Both 1 and 2",
+    "d": "Neither 1 nor 2"
+   }
+  },
+  "ex": {
+   "summary": "Both statements are correct as UPSC frames them. The British Parliament is sovereign, but India's Parliament works within a written Constitution and can be checked by the courts. Cases on the meaning of the Constitution go to a Constitution Bench of at least five Supreme Court judges (Article 145(3))."
+  }
+ },
+ "hook_style": "trap",
+ "hook": "The <em>Constitution Bench</em> trap in UPSC's British-model PYQ",
+ "aarav": {
+  "pick": "c",
+  "line": "Limited Parliament, five-judge bench. Both true: (c).",
+  "pose": "aarav_confident"
+ },
+ "priya": {
+  "pick": "a",
+  "line": "Statement 2's wording is off. Only 1: (a).",
+  "pose": "priya_thinking"
+ },
+ "answer_head": "<em>Both are true</em>: (c).",
+ "verdicts": [
+  {
+   "ok": true,
+   "h": "1: Parliament is limited",
+   "p": "UK: sovereign. India: bound by the Constitution and judicial review."
+  },
+  {
+   "ok": true,
+   "h": "2: Constitution Bench",
+   "p": "Art. 145(3): at least five judges on substantial constitutional questions."
+  },
+  {
+   "ok": false,
+   "h": "(a): dropping 2",
+   "p": "Loose wording, but UPSC's key marks it correct."
+  }
+ ],
+ "source": "UPSC key 2021; Constitution, Art. 145(3)",
+ "extra": [
+  {
+   "lab": "Also know",
+   "h": "What UPSC <em>asks next</em>",
+   "points": [
+    {
+     "h": "Kesavananda Bharati (1973):",
+     "p": "Parliament can amend any part, but cannot destroy the basic structure."
+    },
+    {
+     "h": "Article 13:",
+     "p": "a law that takes away or abridges Fundamental Rights is void to that extent."
+    },
+    {
+     "h": "Article 368:",
+     "p": "Parliament's power to amend the Constitution."
+    },
+    {
+     "h": "Article 143 references:",
+     "p": "also heard by at least five judges (Art. 145(3))."
+    }
+   ],
+   "source": "Constitution of India, Arts 13, 143, 145(3), 368; NCERT Class 11 Polity, Ch 9"
+  }
+ ],
+ "remember": "India: <em>the Constitution</em> is above Parliament.",
+ "trap_who": "priya",
+ "trap": "Priya dropped statement 2 for loose wording. UPSC's key still marks it correct.",
+ "method": "Test the core claim; loose wording rarely makes it false.",
+ "topic": "Polity · Parliament vs the British model",
+ "hashtags": [
+  "#UPSC",
+  "#UPSCPrelims",
+  "#UPSCPYQ",
+  "#IndianPolity",
+  "#Constitution"
+ ],
+ "yt_tags": [
+  "UPSC",
+  "UPSC Prelims",
+  "UPSC PYQ",
+  "UPSC Prelims 2021",
+  "Indian Polity",
+  "parliamentary sovereignty",
+  "Constitution Bench",
+  "Article 145(3)",
+  "British model",
+  "basic structure",
+  "Minimalist IAS"
+ ],
+ "dm_word": "BRITAIN",
+ "bonus": {
+  "id": "pre-2025-051",
+  "short": "Can an Ordinance amend any Central Act, abridge a Fundamental Right, or apply retrospectively?"
+ },
+ "reply_right": "India's Parliament is limited; Art. 145(3) needs 5+ judges for constitutional questions.",
+ "reply_trap": "Statement 2 is loosely worded, but its core (the Constitution Bench) is true.",
+ "utm": "pyq-of-the-day"
+}
